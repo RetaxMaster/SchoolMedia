@@ -1,0 +1,12 @@
+[23-Nov-2019 18:03:03 America/Chicago] PHP Warning:  include(../includes/footer.php): failed to open stream: No such file or directory in /home2/esdca/public_html/schoolMedia/page/pages/ca_imps_consumo.php on line 392
+[23-Nov-2019 18:03:03 America/Chicago] PHP Warning:  include(../includes/footer.php): failed to open stream: No such file or directory in /home2/esdca/public_html/schoolMedia/page/pages/ca_imps_consumo.php on line 392
+[23-Nov-2019 18:03:03 America/Chicago] PHP Warning:  include(): Failed opening '../includes/footer.php' for inclusion (include_path='.:/opt/php54/lib/php') in /home2/esdca/public_html/schoolMedia/page/pages/ca_imps_consumo.php on line 392
+[23-Nov-2019 18:03:28 America/Chicago] PHP Warning:  include(../includes/footer.php): failed to open stream: No such file or directory in /home2/esdca/public_html/schoolMedia/page/pages/ca_imps_consumo.php on line 392
+[23-Nov-2019 18:03:28 America/Chicago] PHP Warning:  include(../includes/footer.php): failed to open stream: No such file or directory in /home2/esdca/public_html/schoolMedia/page/pages/ca_imps_consumo.php on line 392
+[23-Nov-2019 18:03:28 America/Chicago] PHP Warning:  include(): Failed opening '../includes/footer.php' for inclusion (include_path='.:/opt/php54/lib/php') in /home2/esdca/public_html/schoolMedia/page/pages/ca_imps_consumo.php on line 392
+[23-Nov-2019 18:53:11 America/Chicago] PHP Fatal error:  Call-time pass-by-reference has been removed in /home2/esdca/public_html/schoolMedia/page/ajax_imps_consumo_rcvry.php on line 7
+[23-Nov-2019 18:54:03 America/Chicago] PHP Fatal error:  Call-time pass-by-reference has been removed in /home2/esdca/public_html/schoolMedia/page/ajax_imps_consumo_rcvry.php on line 7
+[23-Nov-2019 18:57:53 America/Chicago] PHP Parse error:  syntax error, unexpected 'JSonformatedData' (T_STRING) in /home2/esdca/public_html/schoolMedia/page/ajax_imps_consumo_rcvry.php on line 8
+[23-Nov-2019 18:58:40 America/Chicago] PHP Parse error:  syntax error, unexpected 'JSonformatedData' (T_STRING) in /home2/esdca/public_html/schoolMedia/page/ajax_imps_consumo_rcvry.php on line 8
+[23-Nov-2019 19:26:08 America/Chicago] PHP Notice:  Undefined index: Lang in /home2/esdca/public_html/schoolMedia/page/impts_consumo_conf.php on line 9
+[23-Nov-2019 19:26:08 America/Chicago] PHP Notice:  Undefined index: wph in /home2/esdca/public_html/schoolMedia/page/impts_consumo_conf.php on line 10

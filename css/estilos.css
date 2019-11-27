@@ -1,0 +1,542 @@
+/*
+--------------------------------- ESTILOS LOGIN ---------------------------
+*/
+
+@font-face{
+  font-family: "PathwayGothicOne";
+  src:url('./fonts/PathwayGothicOne-Regular.ttf') format("truetype");
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.padOff{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.banner{
+    margin: 0;
+    height: 95vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: left;    
+}
+
+.titleBanner{
+    color: white;
+    padding: 40px;
+    margin-left: 60px;
+}
+
+.contLogo{
+    text-align: center;
+    padding: 0px;
+}
+
+.contLogo img{
+    width: 100%;
+}
+
+form{
+    padding: 0px 50px;
+}
+
+#IdFormLogin .input-group, input{
+    box-shadow: 3px 3px 3px -1px #7c7c7c;
+}
+
+.title-login{
+    margin: 15px;
+    color: #1f3971;
+}
+
+.form-login{
+    width: 360px;
+    height: 390px;
+    background-color: white;
+    border: 3px solid;
+    border-color: #f9b817;
+    border-radius: 10px;
+    bottom: 4%;
+    left: -45%;
+    position: absolute;
+}
+
+.divBtnLogin{
+    text-align: center;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+.btn-login{
+    width: 110px;
+
+}
+
+.p-olvido-pass{
+    font-size: 11px;
+    text-align: center; 
+    font-weight: 700;   
+}
+
+
+/*
+--------------------------------- ESTILOS FOOTER ---------------------------
+*/
+
+footer{
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+footer p{
+    font-weight: 700;
+    font-size: 12px;
+}
+
+/*
+--------------------------------- ESTILOS HEADER - BARRA SUPERIOR ---------------------------
+*/
+
+.headerPrincipal{
+    background-color:#9f7c20;
+    position: relative;
+}
+.conteInfoHeader{
+    display: inline-flex;
+    float: right;
+}
+.contNotifica{
+    text-align: center;
+    position: relative;
+    padding: 0 7px;
+}
+.contNotifica .notifica{
+    position: absolute;
+    right: 0;
+    top: 3px;
+    color: #fff;
+    background-color: #d61414;
+    border: 1px solid #000;
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 11px;
+}
+.contNotifica i{
+    font-size: 32px;
+    padding: 13px 5px;
+    color: #fff;
+}
+.nomUser{
+    padding: 0 13px;
+}
+.nomUser h4{
+    color: #fff;
+    font-size: 16px;
+    padding: 17px 0;
+    text-align: center;
+}
+.contAvatar{
+    position: relative;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 55px;
+    height: 55px;
+    margin: 3px 13px;
+}
+.contAvatar img{
+    width: 100%;
+    object-fit: cover;
+}
+.contIconos{
+    text-align: center;
+}
+.contIconos i{
+    color: #fff;
+    font-size: 32px;
+    padding: 12px 10px;
+}
+
+/*
+--------------------------------- ESTILOS DASHBOARD PRINCIPAL ---------------------------
+*/
+
+
+.titulo-vertical {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    color: #fff;
+    position: absolute;
+    left: -18px;
+    top: 32px;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.card{
+    position: relative;
+    margin: 20px 70px 0px;
+}
+.bg-dark{
+    background-color: #4b4b4b;
+}
+.tablaDash{
+    margin: 20px 0 5px;
+}
+.tablaDash th{
+	position: relative;
+}
+.boggle1{
+	background-color: #57af3e;
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    top: 17px;
+    left: 25px;
+    margin: auto;
+    border-radius: 50%;
+}
+.boggle2{
+	background-color: #fdc000;
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    top: 17px;
+    left: 25px;
+    margin: auto;
+    border-radius: 50%;
+}
+.verTodos{
+    float: right;
+    font-size: 12px;
+}
+.card-title {
+    font-size: 11px;
+}
+/********************************** Modal 1 ******************/
+#ModalVerTodos1 .modal-header{
+    background-color: #0f2b43;
+    color: #fff;
+}
+#ModalVerTodos1 .modal-header h2{
+    font-size: 20px;
+}
+
+.closeModal{
+    color: #fff;
+}
+#ContTablaVerTodos select{
+    background-color: #007aff;
+    color: #FFF;
+    border-radius: 4px;
+}
+#ContTablaVerTodos select option{
+    background-color: #f0eeef;
+    color: #2d2b2b;
+}
+#ContTablaVerTodos .pagination .previous a,
+#ContTablaVerTodos .pagination .next a{
+    background-color: #6c7783;
+    color: #fff;
+}
+#ContTablaVerTodos .pagination .previous a i,
+#ContTablaVerTodos .pagination .next a i{
+    font-size: 19px;
+} 
+#tablaVerTodos{
+    text-align: center;
+}
+#tablaVerTodos td a{
+    color: #6c757f;
+}
+#tablaVerTodos td a:hover{
+    color: #007aff;
+}
+/********************************** Modal 2 ******************/
+#ModalVerTodos2 .modal-header{
+    background-color: #0f2b43;
+    color: #fff;
+}
+#ModalVerTodos2 .modal-header h2{
+    font-size: 20px;
+}
+
+/*
+--------------------------------- ESTILOS SUBMENÃš CONFIGURACIÃ“N GENERAL ---------------------------
+*/
+
+#idSecInterior{
+    padding: 30px 40px;
+}
+.cajaTitulo{
+    padding-top: 10px;
+    width: 100%;
+    background: #fcb618;
+    border: 1px solid #000;
+    border-radius: 3px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+#dropPaises{
+    background-color: #f0eeef;
+    border-radius: 4px;
+}
+#dropPaises button:hover{
+    background-color: #0775fe;
+    color: #fff;
+}
+.contTabla{
+    border: 1px solid #000;
+    padding: 50px 20px 20px;
+    background-color: #f8f8f8;
+    position: relative;
+    margin: 30px 0;
+}
+.tituloTabla{
+    position: absolute;
+    width: 450px;
+    top: -20px;
+    padding: 7px 5px 1px;
+    background-color: #fff;
+    text-align: center;
+    border: 1px solid #000;
+}
+.contIcono{
+    text-align: center;
+    
+}
+.contIcono i{
+    font-size: 40px;
+}
+.contBtnSuccess{
+    text-align: right;
+}
+.btnSuccess{
+    background-color: #007bff;
+    color: #fff;
+}
+.btnSuccess:hover{
+    background-color: #f8f8f8;
+    color: #000;
+}
+.btnSuccess i{
+    margin-right: 6px;
+}
+.contBtnCancel{
+    text-align: left;
+}
+.btnCancel{
+    background-color: #ff0000;
+    color: #fff;
+}
+.btnCancel:hover{
+    background-color: #f8f8f8;
+    color: #000;
+}
+.btnCancel i{
+    margin-right: 6px;
+}
+#secFormCreacion{
+    padding: 30px 40px;
+}
+.contFormularioCreacion{
+    border: 1px solid #000;
+    padding: 50px 20px 20px;
+    background-color: #f8f8f8;
+    position: relative;
+    margin: 30px 0;
+}
+#idFormCreacion select {
+    box-shadow: 3px 3px 3px -1px #7c7c7c;
+}
+#idFormCreacion select option{
+    background-color: #f0eeef;
+    height: 35px;
+}
+.contDropdown{
+    margin: 20px 0 0 0 ;
+}
+
+.inputBuscarProvi{
+    margin: 0 22px 7px 22px;
+    box-shadow: 0 0 0 0;
+    width: auto;
+}
+
+.dropdown-divider{
+    color: #000;
+}
+
+
+/*
+--------------------------------- ESTILOS SUBMENÃš RELACIÃ“N CON CLIENTES ---------------------------
+*/
+
+span.iconObligatorio{
+    color: red;
+}
+
+.contDropdownFormClientes{
+    margin: 0;
+}
+
+.modal-lg{
+    max-width: 1100px;
+}
+
+.starCalifCliente {
+    color: #f9b61d;
+}
+
+.iconHabilitado{
+    font-size: 40px;
+    color: #369306;
+}
+
+/* 
+******************** Estilos switch checkbox *************************+ 
+*/
+
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+/* ESTILOS TIPO 2 SWITCHES HABILITAR / DESHABILITAR */
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    background-color: #369303;
+    border-color: #369303;
+}
+
+
+/**************** ESTILOS DIV CUADRO DE HERRAMIENTAS MENU INVENTARIO PRODUCTOS Y SERVICIOS *****************/
+
+.cuadroHerramientas{
+    height: 130px;
+    background-color: #f0f0f0;
+    border: 1px solid #fff;
+}
+
+textarea.form-control {
+    height: 100px;
+    box-shadow: 3px 3px 3px -1px #7c7c7c;
+}
+
+/*********************** ESTILOS SUBMENU CENTROS DE COSTOS *********************/
+.grupo-btn-razSoc{
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 5px;
+}
+
+.btn-razSoc{
+    width: 31px;
+    height: 30px;
+    margin-right: 4px;
+    padding-left: 8px;
+    padding-top: 2px;
+}
+
+/*********************** ESTILOS SUBMENU PERFIL DE USUARIO *********************/
+.sectionFoto{
+    width: 130px;
+    height: 125px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-shadow: 3px 3px 3px -1px #7c7c7c;
+    text-align: center;
+    position: relative;
+}
+
+.sectionFoto i{
+    margin-top: 20%;
+    font-size: 40px;
+    color: #acb6bf;
+}   
+
+.contbtnFoto{
+    position: absolute;
+    bottom: 1px;
+    right: 17px;
+}
+
+.btnFoto{
+    font-size: 16px !important;
+    color: white !important;
+    position: absolute;
+    bottom: 7px;
+    left: 23px;
+}
+
+.bodyTarjeta{
+    background-color: #f0eeef;
+}
+
+.tarjetaImagenes{
+    width: 15rem;
+    margin: 20px 14px 0px;
+}
+
+
+
+

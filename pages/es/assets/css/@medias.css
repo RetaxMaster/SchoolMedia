@@ -1,0 +1,101 @@
+/*
+** PROYECTO : SCHOOL MEDIA;
+** VERSION : 1.0;
+** ESTILOS PARA DISPOSITIVOS MÓVILES
+ */
+
+/**********************     DEVICE 1200PX    ********************/
+@media(max-width: 1200px){
+	.contIconos i {
+	    font-size: 16px;
+	    padding: 15px 7px;
+	}
+	.nomUser h4 {
+	    font-size: 12px;
+	    padding: 13px 0;
+	}
+	.contNotifica .notifica{
+		right: -2px;
+	}
+	.contAvatar{
+		width: 46px;
+    	height: 46px;
+	}
+	.contNotifica i{
+		font-size: 21px;
+	}
+}
+
+
+
+/**********************     DEVICE 996PX    ********************/
+@media(max-width: 996px){
+	.form-login{
+		position: relative;
+		left: 0;
+		width: 100%;
+	}
+	.banner{
+		background-position: -134px center;
+	}
+	.titleBanner{
+		margin-left: 0;
+	}
+	.contLogo{
+		margin-bottom: 50px;
+	}
+	.padOff{
+		padding-right: 15px !important;
+    	padding-left: 15px !important;
+	}
+}
+
+
+
+/**********************     DEVICE 768PX    ********************/
+@media(max-width: 768px){
+	.contLogo img{
+		width: 325px;
+	}
+	.form-login {
+	    width: 66%;
+	    margin: auto;
+	}
+	.xsNone{
+		display: none;
+	}
+	#idSecInterior, #secFormCreacion {
+    padding: 30px 10px;
+	}
+	.contTabla, .contFormularioCreacion{
+		padding: 10px 20px 20px;
+		overflow-x: scroll;
+	}
+	.tituloTabla{
+		position: relative;
+		width: 100%;
+		margin-bottom: 30px;
+		top: 0;
+	}
+}
+
+
+
+
+/**********************     DEVICE 480PX    ********************/
+@media(max-width: 480px){
+	.form-login {
+	    width: 76%;
+	    margin: auto;
+	}
+}
+
+
+
+/**********************     DEVICE 380PX    ********************/
+@media(max-width: 380px){
+	.contLogo img, .form-login{
+		width: 100%;
+	}
+	 
+}
