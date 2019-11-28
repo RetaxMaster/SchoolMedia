@@ -68,7 +68,7 @@ echo '<!-- Custom JavaScripts Functions Needs
         <div class="row">
           <div class="col-lg-12">
             <div class="cajaTitulo">
-              <h6 class="text-center">INFORMACIÓN DISPONIBLE POR CLIENTE</h6>
+              <h6 class="text-center" id="text1">{$text1}</h6>
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@ echo '<!-- Custom JavaScripts Functions Needs
           <label for="" class="col-sm-3 col-form-label">Pais</label>
           <div class="col-sm-9">
             <select id="selectCtry" name="locality" class="form-control">
-              <option value="-1">{$selectCtry}</option>
+              <option value="-1" id="selectCtry">{$selectCtry}</option>
             </select>
           </div>
         </div>
@@ -115,23 +115,23 @@ echo '<!-- Custom JavaScripts Functions Needs
             <!-- Tabla -->
             <div class="contTabla">
               <div class="tituloTabla">
-                <h6>Listado de Clientes</h6>
+                <h6 id="text2">{$text2}</h6>
               </div>
               <div class="contenido-tabla">
                 <div id="ContTablaVerTodos">
                   <table id="tablaVerTodos" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                       <tr>
-                        <th>id</th>
-                        <th>Razón Social</th>
-                        <th>Pais</th>
-                        <th>Clasificación</th>
-                        <th>Acciones</th>
+                        <th id="text3">{$text3}</th>
+                        <th id="text4">{$text4}</th>
+                        <th id="text5">{$text5}</th>
+                        <th id="text6">{$text6}</th>
+                        <th id="text7">{$text7}</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td></span></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -139,54 +139,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <a href="#" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
                           <a href="" data-toggle="tooltip" data-placement="top" title="Accion cliente"><i class="fa fa-handshake"></i></a>
                           <!-- <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro"><i class="fas fa-toggle-off"></i></a> -->
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro">
-                            <div class="custom-control custom-switch contcheckboxActivar">
-                              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                              <label class="custom-control-label" for="customSwitch1"></label>
-                            </div>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Accion cliente"><i class="fa fa-handshake"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro">
-                            <div class="custom-control custom-switch contcheckboxActivar">
-                              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                              <label class="custom-control-label" for="customSwitch1"></label>
-                            </div>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Accion cliente"><i class="fa fa-handshake"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro">
-                            <div class="custom-control custom-switch contcheckboxActivar">
-                              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                              <label class="custom-control-label" for="customSwitch1"></label>
-                            </div>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Accion cliente"><i class="fa fa-handshake"></i></a>
                           <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro">
                             <div class="custom-control custom-switch contcheckboxActivar">
                               <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
@@ -454,7 +406,9 @@ echo '<!-- Custom JavaScripts Functions Needs
     </div>
   </div>
 
-  <? include("../includes/footer.php"); ?>
+  <?
+  include_once(INCLUDES_DIR . "/footer.php");
+  ?>
 
   <!-- ESTILO MENU SELECCIONADO -->
   <script>

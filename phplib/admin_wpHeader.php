@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Este archivo mantiene todas las funciones necesarias para 
 // administrar las cabeceras de las paginas web del sistema

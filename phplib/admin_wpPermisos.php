@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Este archivo mantiene todas las funciones necesarias para 
 // administrar los permisos de las páginas web del sistema
