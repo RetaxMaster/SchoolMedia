@@ -43,7 +43,7 @@ function caps_recoveryAllList(&$nDocs, &$Docs, $join = false)
 function caps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_acadcaps_byAnyField($field, $value, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_acadcaps_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }
@@ -52,7 +52,7 @@ function caps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = fal
 function caps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_acadcaps_byAnyField($field, $value, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_get_acadcaps_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }

@@ -54,7 +54,7 @@ function clients_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
 function clients_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_cagencli_byAnyField($field, $value, $enabled, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_cagencli_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 18); // Pertenece a dbmngmtAdmin.php
 }
@@ -63,7 +63,7 @@ function clients_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled
 function clients_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_cagencli_byAnyField($field, $value, $enabled, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_get_cagencli_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 18); // Pertenece a dbmngmtAdmin.php
 }

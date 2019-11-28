@@ -44,7 +44,7 @@ function prdcts_recoveryAllList(&$nDocs, &$Docs, $join = false)
 function prdcts_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_caprdcts_byAnyField($field, $value, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_caprdcts_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }
@@ -53,7 +53,7 @@ function prdcts_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = f
 function prdcts_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_caprdcts_byAnyField($field, $value, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_get_caprdcts_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }

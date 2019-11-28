@@ -49,7 +49,7 @@ function ctrts_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
 function ctrts_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_cactrts_byAnyField($field, $value, $enabled, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_cactrts_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }
@@ -58,7 +58,7 @@ function ctrts_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, 
 function ctrts_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_cactrts_byAnyField($field, $value, $enabled, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_get_cactrts_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }

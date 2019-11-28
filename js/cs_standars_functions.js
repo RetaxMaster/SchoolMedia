@@ -137,7 +137,7 @@ function deserializedJSON (jsonData) {
 	var jsonArry = JSON.parse(jsonData);
 	// se verifica que el nuevo objeto deserializado (array de objetos) sea nulo
 	if (Object.size(jsonArry) == 0) {
-		consolo.log("el objeto está vacio");
+		consolo.log("el objeto estï¿½ vacio");
 		return;
     }
     // Se extrae objeto por objeto y se va construyendo el nuevo arreglo de objetos recibido
@@ -236,6 +236,26 @@ function setTableLabels(tableName,LangLabels,autoPopulate,ajaxRequest) {
             });
         };
     }
+
+function updateTableLabels(tableName, LangLabels, ajaxRequest, data) {
+    $(tableName).DataTable().destroy();
+    $(tableName).dataTable({
+        "processing": true,
+        "ajax": {
+            "url": ajaxRequest,
+            "type": "POST",
+            "data": data
+        }, // Sedeine la funcion Ajax que servira de fuente de datos de la tabla
+        "order": [[ 0, "asc" ]], // Se predefinie ordenar la tabla en base a la columna 0, id 
+        "language": { // se cargan todos los labels en funcion al idioma seleccionado
+            "url": LangLabels,
+            "oPaginate": { //  se hace override de los botones de adelante y atras
+                "sPrevious": "<i class='fas fa-arrow-alt-circle-left'></i>",
+                "sNext":     "<i class='fas fa-arrow-alt-circle-right'></i>",
+            }
+        }
+    });
+}
 
 //////////////////////////// S E L E C T /////////////////////////////////  
 function startSelectLst (idComponent, defaultIndex, defaultText, url, receiverFunction){

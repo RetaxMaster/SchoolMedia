@@ -43,7 +43,7 @@ function formfins_recoveryAllList(&$nDocs, &$Docs, $join = false)
 function formfins_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_opformfins_byAnyField($field, $value, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_opformfins_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }
@@ -52,7 +52,7 @@ function formfins_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join =
 function formfins_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_opformfins_byAnyField($field, $value, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_get_opformfins_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }

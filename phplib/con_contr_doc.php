@@ -42,7 +42,7 @@ function concontrdoc_recoveryAllList(&$nDocs, &$Docs, $join = false)
 function concontrdoc_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_caconcontrdoc_byAnyField($field, $value, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_caconcontrdoc_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }
@@ -51,7 +51,7 @@ function concontrdoc_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $joi
 function concontrdoc_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_caconcontrdoc_byAnyField($field, $value, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_get_caconcontrdoc_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }

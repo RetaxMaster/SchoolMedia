@@ -23,7 +23,10 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "text4",
                 "text5",
                 "text6",
-                "text7"
+                "text7",
+                "text8",
+                "text9",
+                "text10"
             ], 
             "attrsx" :
             [
@@ -33,7 +36,10 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "{$text4}",
                 "{$text5}",
                 "{$text6}",
-                "{$text7}"
+                "{$text7}",
+                "{$text8}",
+                "{$text9}",
+                "{$text10}"
             ], 
             "txts" : ' . $wpContentStr_Labels . '
         };
@@ -73,39 +79,13 @@ echo '<!-- Custom JavaScripts Functions Needs
           </div>
         </div>
 
+
+
         <!-- Logo Clientes -->
         <div class="row">
           <div class="col-lg-12">
             <div class="contIcono">
               <i class="fa fa-handshake"></i>
-            </div>
-          </div>
-        </div>
-
-        <!-- Dropdown Seleccionar Paises -->
-        <div class="form-group row">
-          <label for="" class="col-sm-3 col-form-label">Pais</label>
-          <div class="col-sm-9">
-            <select id="selectCtry" name="locality" class="form-control">
-              <option value="-1" id="selectCtry">{$selectCtry}</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Dropdown Seleccionar Tipo Cliente -->
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="contDropdown">
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary">Tipo de cliente</button>
-                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div id="dropTipoClientes" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <input type="search" class="form-control form-control-sm inputBuscarProvi" placeholder="Escriba para buscar..." aria-controls="">
-                  <button class="dropdown-item" type="button">...</button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -118,15 +98,44 @@ echo '<!-- Custom JavaScripts Functions Needs
                 <h6 id="text2">{$text2}</h6>
               </div>
               <div class="contenido-tabla">
+                <!-- Dropdown Seleccionar Paises -->
+                <div class="form-group">
+                  <label for="selectCtry" class="col-sm-3 col-form-label" id="text3">{$text3}</label><br>
+                  <select id="selectCtry" name="locality" class="form-control col-sm-3">
+                    <option value="-1" id="selectCtry">{$selectCtry}</option>
+                  </select>
+                </div>
+        
+                <!-- Dropdown Seleccionar Tipo Cliente -->
+                <div class="form-group">
+                  <label for="tipoCliente" class="col-sm-3 col-form-label" id="text4">{$text4}</label><br>
+                  <select id="tipoCliente" name="locality" class="form-control col-sm-3">
+                    <option value="-1">Seleccione</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Tabla -->
+            <div class="contTabla">
+              <div class="tituloTabla">
+                <h6 id="text5">{$text5}</h6>
+              </div>
+              <div class="contenido-tabla">
                 <div id="ContTablaVerTodos">
                   <table id="tablaVerTodos" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                       <tr>
-                        <th id="text3">{$text3}</th>
-                        <th id="text4">{$text4}</th>
-                        <th id="text5">{$text5}</th>
                         <th id="text6">{$text6}</th>
                         <th id="text7">{$text7}</th>
+                        <th id="text8">{$text8}</th>
+                        <th id="text9">{$text9}</th>
+                        <th id="text10">{$text10}</th>
                       </tr>
                     </thead>
                     <tbody>

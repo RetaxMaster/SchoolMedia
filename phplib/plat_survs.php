@@ -38,7 +38,7 @@ function platsurvs_recoveryAllList(&$nDocs, &$Docs)
 //Recupera todos los registros filtrados por algún campo
 function platsurvs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value)
 { // true or false
-    $SQLStrQuery = "CALL sp_p_lst_usrplatsurvs_byAnyField($field, $value)";
+    $SQLStrQuery = "CALL sp_p_lst_usrplatsurvs_byAnyField('$field', '$value')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }
@@ -46,7 +46,7 @@ function platsurvs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value)
 //Recupera un registro filtrados por algún campo
 function platsurvs_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value)
 { // true or false
-    $SQLStrQuery = "CALL sp_p_get_usrplatsurvs_byAnyField($field, $value)";
+    $SQLStrQuery = "CALL sp_p_get_usrplatsurvs_byAnyField('$field', '$value')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
 }

@@ -42,7 +42,7 @@ function caimps_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
 function caimps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_caimps_byAnyField($field, $value, $enabled, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_caimps_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
 }
@@ -51,7 +51,7 @@ function caimps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled,
 function caimps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_cimps_byAnyField($field, $value, $enabled, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_get_cimps_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
 }
