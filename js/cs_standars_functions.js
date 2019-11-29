@@ -337,6 +337,24 @@ function selectPopulate(idComponent, mode, id, value, field = "") {
     });
 }
 
+function validateInputs(inputs) {
+    var flag = true;
+    $(inputs).each(function () {
+        console.log("This: ", this);
+        
+        console.log("This.val: ", $(this).val());
+        
+        if ($(this).val() == "" || $(this).val() == null) {
+            flag = false;
+            $(this).addClass("input-error");
+        } else {
+            $(this).removeClass("input-error");
+        }
+    });
+
+    return flag;
+}
+
       // Set Country List Select component
 /* Populate dropdown with list of provinces
 $.getJSON(url, function (data) {

@@ -209,13 +209,13 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                           <label for="" class="col-sm-2 col-form-label">R.U.C.<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rucCliente" name="rucCliente" placeholder="R.U.C">
+                            <input type="text" class="form-control required" id="rucCliente" name="rucCliente" placeholder="R.U.C">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="" class="col-sm-2 col-form-label">Razón Social<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
-                            <input type="text" class="form-control" id="razSocCliente" name="razSocCliente" placeholder="Razón Social">
+                            <input type="text" class="form-control required" id="razSocCliente" name="razSocCliente" placeholder="Razón Social">
                           </div>
                           <label for="" class="col-sm-2 col-form-label">Dirección</label>
                           <div class="col-sm-4">
@@ -227,7 +227,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar Pais -->
                             <div class="form-group">
-                              <select id="country" name="locality" class="form-control">
+                              <select id="country" name="pais" class="form-control required">
                                 <option value="-1">{$country}</option>
                               </select>
                             </div>
@@ -236,7 +236,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar Provincia -->
                             <div class="form-group">
-                              <select id="Provincia" name="locality" class="form-control">
+                              <select id="Provincia" name="provincia" class="form-control required">
                                 <option value="-1">{$Provincia}</option>
                               </select>
                             </div>
@@ -247,7 +247,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar -->
                             <div class="form-group">
-                              <select id="CodPais1" name="locality" class="form-control">
+                              <select id="CodPais1" name="CodPaisTel" class="form-control">
                                 <option value="-1">Selecciona</option>
                               </select>
                             </div>
@@ -262,7 +262,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                               <div class="input-group-prepend">
                                 <div class="input-group-text">Ext</div>
                               </div>
-                              <input type="number" class="form-control" id="extCliente" placeholder="">
+                              <input type="number" name="extCliente" class="form-control" id="extCliente" placeholder="">
                             </div>
                           </div>
                         </div>
@@ -271,7 +271,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar -->
                             <div class="form-group">
-                              <select id="CodPais2" name="locality" class="form-control">
+                              <select id="CodPais2" name="CodPaisCel" class="form-control">
                                 <option value="-1">Selecciona</option>
                               </select>
                             </div>
@@ -289,7 +289,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                               <div class="input-group-prepend">
                                 <div class="input-group-text">HTTP</div>
                               </div>
-                              <input type="text" class="form-control" id="httpCliente" placeholder="">
+                              <input type="text" class="form-control" id="httpCliente" name="httpCliente" placeholder="">
                             </div>
                           </div>
                           <label for="" class="col-sm-2 col-form-label"></label>
@@ -299,7 +299,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                               <div class="input-group-prepend">
                                 <div class="input-group-text">@</div>
                               </div>
-                              <input type="text" class="form-control" id="emailCliente" placeholder="eMail">
+                              <input type="text" class="form-control" id="emailCliente" placeholder="eMail" name="email">
                             </div>
                           </div>
                         </div>
@@ -308,18 +308,18 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar -->
                             <div class="form-group">
-                              <select id="clasificacionCliente" name="locality" class="form-control">
+                              <select id="clasificacionCliente" name="Clasif" class="form-control required">
                                 <option value="-1">Selecciona</option>
                               </select>
                             </div>
                           </div>
                           <label for="" class="col-sm-2 col-form-label">Calificación del cliente<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
-                            <i class="fas fa-star fa-2x starCalifCliente"></i>
-                            <i class="fas fa-star fa-2x starCalifCliente"></i>
-                            <i class="fas fa-star fa-2x starCalifCliente"></i>
-                            <i class="fas fa-star fa-2x starCalifCliente"></i>
-                            <i class="fas fa-star fa-2x starCalifCliente"></i>
+                            <div class="form-group">
+                              <select id="calificacionCliente" name="Calif" class="form-control required">
+                                <option value="-1">Selecciona</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -333,7 +333,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar Pais -->
                             <div class="form-group">
-                              <select id="tipoCliente2" name="locality" class="form-control">
+                              <select id="tipoCliente2" name="TipoCliente" class="form-control required">
                                 <option value="-1">Selecciona</option>
                               </select>
                             </div>
@@ -341,7 +341,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <label for="" class="col-sm-3 col-form-label"></label>
                           <div class="col-sm-3">
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" id="customCheck1">
+                              <input type="checkbox" class="custom-control-input" id="customCheck1" name="clienteHabilitado" value="1">
                               <label class="custom-control-label" for="customCheck1">Cliente habilitado <span class="iconObligatorio">*</span> (Si/No)</label>
                             </div>
                           </div>

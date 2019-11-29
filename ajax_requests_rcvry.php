@@ -32,6 +32,34 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/tipos_clients.php");
             tc_recoveryAllList($n, $Arry);
             break;
+
+        case 'getCalifCli':
+            include_once(LIBRARY_DIR . "/calific.php");
+            cal_recoveryAllList($n, $Arry);
+        break;
+
+        case 'uploadInfo':
+            include_once(LIBRARY_DIR . "/clients.php");
+            $rs = $_POST["rucCliente"] or "";
+            $ruc = $_POST["razSocCliente"] or "";
+            $addrs = $_POST["dirCliente"] or "";
+            $id_pais = $_POST["pais"] or "";
+            $id_prov = $_POST["provincia"] or "";
+            $email = $_POST["email"] or "";
+            $id_ctrycodefijo = $_POST["CodPaisTel"] or "";
+            $tel = $_POST["telCliente"] or "";
+            $ext = $_POST["extCliente"] or "";
+            $id_ctrycodecel = $_POST["CodPaisCel"] or "";
+            $cel = $_POST["telCliente"] or "";
+            $website = $_POST["httpCliente"] or "";
+            $id_tipo = $_POST["TipoCliente"] or "";
+            $id_clasific = $_POST["Clasif"] or "";
+            $id_calif = $_POST["Calif"] or "";
+            $descrip = $_POST["observCliente"] or "";
+            $enabled = isset($_POST["clienteHabilitado"]) ? 1 : 0;
+            clients_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $website, $id_tipo, $id_clasific, $id_calif, $descrip, $enabled);
+            die();
+            break;
         
         default:
             die("No existe ese modo de consulta.");

@@ -24,7 +24,7 @@
 // Crea una nueva ubicación
 function clients_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $website, $id_tipo, $id_clasific, $id_calif, $descrip, $enabled)
 {
-    $SQLStrQuery = "CALL sp_p_set_cagencli_Create($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $website, $id_tipo, $id_clasific, $id_calif, $descrip, $enabled)";
+    $SQLStrQuery = "CALL sp_p_set_cagencli_Create('$rs', '$ruc', '$addrs', '$id_pais', '$id_prov', '$email', '$id_ctrycodefijo', '$tel', '$ext', '$id_ctrycodecel', '$cel', '$website', '$id_tipo', '$id_clasific', '$id_calif', '$descrip', '$enabled')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 

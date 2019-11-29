@@ -94,9 +94,63 @@ function onPageStart() {
     //Rellena el tipo de cliente
     selectPopulate("#tipoCliente2", "getTipoCli", 0, 1);
 
+    //Rellena la calificación del cliente
+    selectPopulate("#calificacionCliente", "getCalifCli", 0, 1);
+
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
         $("#idFormDetalles").get(0).reset();
+    });
+
+    //Envía el formulario
+    $("#idFormDetalles").on("submit", function(e) {
+        e.preventDefault();
+
+        var inputs = $("#idFormDetalles .required");
+
+        if (validateInputs(inputs)) {
+            
+            var formData = new FormData(this);
+            formData.append("mode", "uploadInfo");
+
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+            
+            //Inserto los datos mediante Ajax
+            $.ajax({
+                url: './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '',
+                type: "post",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    console.log("Enviando...");
+                },
+                success: function (res) {
+                    console.log(res);
+                    
+                    //Limpio el formulario
+                    $("#idFormDetalles").get(0).reset();
+                    //Actualizo la DataTable
+                    $("#tablaVerTodos").DataTable().destroy();
+                    setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
+                        return formatDataTable(res, tableIndexs);
+                    });
+
+                    //Informo de éxito
+                    alert("Agregado!!");
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+        else {
+            alert("¡Rellena todos los campos requeridos!");
+        }
+
     });
 
 }
