@@ -205,14 +205,22 @@ function ENCRYPT_DECRYPT(Str_Message) {
 //////////////////////////////////////////////////////////////////////////
 
 //////////////////////////// T A B L A S /////////////////////////////////  
-function setTableLabels(tableName,LangLabels,autoPopulate,ajaxRequest) {
+function setTableLabels(tableName,LangLabels,autoPopulate,ajaxRequest, callback = "") {
     //Función para la tabla'#tablaVerTodos'
         if (autoPopulate) {
        // $('#tablaVerTodos').DataTable();
             $(tableName).dataTable({
                 //ordering: false, me elimina el ordenamiento y la funcion de ordenar al darle clicl a los encabezados
                 "processing": true,
-                "ajax": ajaxRequest, // Sedeine la funcion Ajax que servira de fuente de datos de la tabla
+                "ajax": {
+                    "url": ajaxRequest,
+                    "dataFilter": function (res) {
+                        //Filtro la data que responde el servidor si se pasa un callback, dicho callback debe retornar la estructura de la nueva data
+                        res = JSON.parse(res);
+                        if (typeof callback == "function") res.data = callback(res);
+                        return JSON.stringify(res);
+                    }
+                }, // Sedeine la funcion Ajax que servira de fuente de datos de la tabla
                 "order": [[ 0, "asc" ]], // Se predefinie ordenar la tabla en base a la columna 0, id 
                 "language": { // se cargan todos los labels en funcion al idioma seleccionado
                     "url": LangLabels,
@@ -237,14 +245,20 @@ function setTableLabels(tableName,LangLabels,autoPopulate,ajaxRequest) {
         };
     }
 
-function updateTableLabels(tableName, LangLabels, ajaxRequest, data) {
+function updateTableLabels(tableName, LangLabels, ajaxRequest, data, callback = "") {
     $(tableName).DataTable().destroy();
     $(tableName).dataTable({
         "processing": true,
         "ajax": {
             "url": ajaxRequest,
             "type": "POST",
-            "data": data
+            "data": data,
+            "dataFilter": function(res) {
+                //Filtro la data que responde el servidor si se pasa un callback, dicho callback debe retornar la estructura de la nueva data
+                res = JSON.parse(res);
+                if (typeof callback == "function") res.data = callback(res);
+                return JSON.stringify(res);
+            }
         }, // Sedeine la funcion Ajax que servira de fuente de datos de la tabla
         "order": [[ 0, "asc" ]], // Se predefinie ordenar la tabla en base a la columna 0, id 
         "language": { // se cargan todos los labels en funcion al idioma seleccionado
@@ -255,6 +269,28 @@ function updateTableLabels(tableName, LangLabels, ajaxRequest, data) {
             }
         }
     });
+}
+
+function formatDataTable(res, tableIndexs) {
+
+    var data = res.data;
+    var newData = [];
+
+    //Recorro cada fila que trajo res.data
+    for (const key in data) {
+        var row = [];
+
+        //Recorro tableIndexs para guardar dentro de row los valores de res.data que me interesan
+        for (let i = 0; i < tableIndexs.length; i++) {
+            var dataKeyPosition = tableIndexs[i];
+            row[i] = data[key][dataKeyPosition]
+        }
+
+        //Dentro del arreglo newData voy formando el res.data que será retornado
+        newData[key] = row;
+    }
+
+    return newData;
 }
 
 //////////////////////////// S E L E C T /////////////////////////////////  

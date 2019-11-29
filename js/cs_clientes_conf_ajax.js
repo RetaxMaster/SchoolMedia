@@ -18,7 +18,14 @@ function onPageStart() {
             LangLabelsURL = LangLabels[3];
             break;
     }
-    setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + ''); // Se fijan los labels estandars de las tablas y sus busquedas
+
+    //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
+    var tableIndexs = [0, 1, 11, 16, 10];
+
+    setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
+        return formatDataTable(res, tableIndexs);
+    }); // Se fijan los labels estandars de las tablas y sus busquedas
+
     selectCtryPopulate('#selectCtry', 0, 'Seleccione Pais');
 
     var url = './ajax_tipos_clients_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
@@ -46,7 +53,9 @@ function onPageStart() {
             pais: pais
         }
 
-        updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") +  '', data);
+        updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function(res) {
+            return formatDataTable(res, tableIndexs);
+        });
         
     });
 
@@ -59,11 +68,10 @@ function onPageStart() {
             tipoCliente: tipoCliente
         }
 
-        updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data);
-
+        updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
+            return formatDataTable(res, tableIndexs);
+        });
 
     });
 
 }
-
-
