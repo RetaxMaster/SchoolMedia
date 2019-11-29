@@ -105,7 +105,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                     <option value="-1" id="selectCtry">{$selectCtry}</option>
                   </select>
                 </div>
-        
+
                 <!-- Dropdown Seleccionar Tipo Cliente -->
                 <div class="form-group">
                   <label for="tipoCliente" class="col-sm-3 col-form-label" id="text4">{$text4}</label><br>
@@ -174,7 +174,7 @@ echo '<!-- Custom JavaScripts Functions Needs
         <div class="row">
           <div class="col-lg-12">
             <div class="contBtnSuccess">
-              <button id="idBtnNuevo" class="btn btnSuccess"><i class="far fa-plus-square"></i>Nuevo</button>
+              <button id="idBtnNuevo" class="btn btnSuccess" data-toggle="modal" data-target="#ModalVerTodos"><i class="far fa-plus-square"></i>Nuevo</button>
             </div>
           </div>
         </div>
@@ -226,33 +226,19 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <label for="" class="col-sm-2 col-form-label">Pais<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar Pais -->
-                            <div class="contDropdown contDropdownFormClientes">
-                              <div class="btn-group">
-                                <button type="button" class="form-control btn btn-primary">Seleccione un elemento</button>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div id="dropPais" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <input type="search" class="form-control form-control-sm inputBuscarProvi" placeholder="Escriba para buscar..." aria-controls="">
-                                  <button class="dropdown-item" type="button">...</button>
-                                </div>
-                              </div>
+                            <div class="form-group">
+                              <select id="country" name="locality" class="form-control">
+                                <option value="-1">{$country}</option>
+                              </select>
                             </div>
                           </div>
                           <label for="" class="col-sm-2 col-form-label">Provincia<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar Provincia -->
-                            <div class="contDropdown contDropdownFormClientes">
-                              <div class="btn-group">
-                                <button type="button" class="form-control btn btn-primary">Seleccione un elemento</button>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div id="dropProvincia" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <input type="search" class="form-control form-control-sm inputBuscarProvi" placeholder="Escriba para buscar..." aria-controls="">
-                                  <button class="dropdown-item" type="button">...</button>
-                                </div>
-                              </div>
+                            <div class="form-group">
+                              <select id="Provincia" name="locality" class="form-control">
+                                <option value="-1">{$Provincia}</option>
+                              </select>
                             </div>
                           </div>
                         </div>
@@ -260,17 +246,10 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <label for="" class="col-sm-2 col-form-label">Código internacional</label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar -->
-                            <div class="contDropdown contDropdownFormClientes">
-                              <div class="btn-group">
-                                <button type="button" class="form-control btn btn-primary">(+507) Panamá</button>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div id="dropCodInter" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <input type="search" class="form-control form-control-sm inputBuscarProvi" placeholder="Escriba para buscar..." aria-controls="">
-                                  <button class="dropdown-item" type="button">...</button>
-                                </div>
-                              </div>
+                            <div class="form-group">
+                              <select id="CodPais1" name="locality" class="form-control">
+                                <option value="-1">Selecciona</option>
+                              </select>
                             </div>
                           </div>
                           <label for="" class="col-sm-2 col-form-label">Teléfono</label>
@@ -291,17 +270,10 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <label for="" class="col-sm-2 col-form-label">Código internacional</label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar -->
-                            <div class="contDropdown contDropdownFormClientes">
-                              <div class="btn-group">
-                                <button type="button" class="form-control btn btn-primary">(+507) Panamá</button>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div id="dropCodInter" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <input type="search" class="form-control form-control-sm inputBuscarProvi" placeholder="Escriba para buscar..." aria-controls="">
-                                  <button class="dropdown-item" type="button">...</button>
-                                </div>
-                              </div>
+                            <div class="form-group">
+                              <select id="CodPais2" name="locality" class="form-control">
+                                <option value="-1">Selecciona</option>
+                              </select>
                             </div>
                           </div>
                           <label for="" class="col-sm-2 col-form-label">Celular</label>
@@ -335,17 +307,10 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <label for="" class="col-sm-2 col-form-label">Clasificación de cliente<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar -->
-                            <div class="contDropdown contDropdownFormClientes">
-                              <div class="btn-group">
-                                <button type="button" class="form-control btn btn-primary">Seleccione un elemento</button>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div id="dropClasCliente" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <input type="search" class="form-control form-control-sm inputBuscarProvi" placeholder="Escriba para buscar..." aria-controls="">
-                                  <button class="dropdown-item" type="button">...</button>
-                                </div>
-                              </div>
+                            <div class="form-group">
+                              <select id="clasificacionCliente" name="locality" class="form-control">
+                                <option value="-1">Selecciona</option>
+                              </select>
                             </div>
                           </div>
                           <label for="" class="col-sm-2 col-form-label">Calificación del cliente<span class="iconObligatorio">*<span></label>
@@ -367,31 +332,24 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <label for="" class="col-sm-2 col-form-label">Tipo de cliente<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar Pais -->
-                            <div class="contDropdown contDropdownFormClientes">
-                              <div class="btn-group">
-                                <button type="button" class="form-control btn btn-primary">Seleccione un elemento</button>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div id="dropTipoCliente" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <input type="search" class="form-control form-control-sm inputBuscarProvi" placeholder="Escriba para buscar..." aria-controls="">
-                                  <button class="dropdown-item" type="button">...</button>
-                                </div>
-                              </div>
+                            <div class="form-group">
+                              <select id="tipoCliente2" name="locality" class="form-control">
+                                <option value="-1">Selecciona</option>
+                              </select>
                             </div>
                           </div>
-                          <label for="" class="col-sm-3 col-form-label">Cliente habilitado <span class="iconObligatorio">*</span> (Si/No)</label>
+                          <label for="" class="col-sm-3 col-form-label"></label>
                           <div class="col-sm-3">
-                            <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                              <label class="custom-control-label" for="customSwitch1"></label>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="customCheck1">
+                              <label class="custom-control-label" for="customCheck1">Cliente habilitado <span class="iconObligatorio">*</span> (Si/No)</label>
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="contBtnCancel">
-                              <button type="button" id="idBtnCancelar" class="btn btnCancel">Cerrar</button>
+                              <button type="button" id="idBtnLimpiar" class="btn btnCancel">Limpiar</button>
                             </div>
                           </div>
                           <div class="col-lg-6 col-md-6 col-sm-6">

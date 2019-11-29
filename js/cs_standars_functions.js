@@ -309,6 +309,34 @@ function fillSelectLst(dataArry,componentLst,indice0,indice1,indice2) {
     }
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+/////////////// OTRAS FUNCIONES //// ///////////////
+//////////////////////////////////////////////////////////////////////////
+
+//Rellena un select, el id se refiere al indice del Id de la respuesta y el value se refiere al indice del valor de la respuesta, por ejemplo: ["1", "V.I.P"], id sería 0 y value sería 1
+function selectPopulate(idComponent, mode, id, value, field = "") {
+    const url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=1&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+    var data = {
+        mode: mode,
+        field: field
+    }
+
+    $.post(url, data, function (res) {
+        res = JSON.parse(res);
+        console.log(res);
+        console.log(idComponent);
+        
+        
+        var data = res.data;
+        $(idComponent).children().remove();
+        for (let i = 0; i < data.length; i++) {
+            $(idComponent).append("<option value='" + data[i][id] + "'>" + data[i][value] + "</option>");
+        }
+    });
+}
+
       // Set Country List Select component
 /* Populate dropdown with list of provinces
 $.getJSON(url, function (data) {

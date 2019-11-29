@@ -17,6 +17,21 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/clients.php");
             clients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_tipo", $_POST["tipoCliente"], $enabled, true);
             break;
+
+        case 'getCtryCode':
+            include_once(LIBRARY_DIR . "/cods_ints_tlfs.php");
+            citlf_recoveryBy_paisID($n, $Arry, $_POST["ctryId"], 1);
+            break;
+
+        case 'getClasifCli':
+            include_once(LIBRARY_DIR . "/clasif_cuentas.php");
+            cc_recoveryAllList($n, $Arry);
+            break;
+
+        case 'getTipoCli':
+            include_once(LIBRARY_DIR . "/tipos_clients.php");
+            tc_recoveryAllList($n, $Arry);
+            break;
         
         default:
             die("No existe ese modo de consulta.");

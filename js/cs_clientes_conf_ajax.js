@@ -26,7 +26,17 @@ function onPageStart() {
         return formatDataTable(res, tableIndexs);
     }); // Se fijan los labels estandars de las tablas y sus busquedas
 
+    //Se rellenan los slecets de paises y provincias
     selectCtryPopulate('#selectCtry', 0, 'Seleccione Pais');
+    selectCtryPopulate('#country', 0, 'Seleccione Pais');
+    selectProvPopulate('#Provincia', 0, 'Seleccione Provincia', 168);
+
+    //Se detecta el evento de cambio de país para rellenar el select de provincia
+    $("#country").on("change", function() {
+        selectProvPopulate('#Provincia', 0, 'Seleccione Provincia', this.value);
+        selectCodCtryPopulate("#CodPais1", this.value);
+        selectCodCtryPopulate("#CodPais2", this.value);
+    });
 
     var url = './ajax_tipos_clients_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
     
@@ -72,6 +82,21 @@ function onPageStart() {
             return formatDataTable(res, tableIndexs);
         });
 
+    });
+
+    //Rellena la lista de códigos de países
+    selectCodCtryPopulate("#CodPais1", 168);
+    selectCodCtryPopulate("#CodPais2", 168);
+
+    //Rellena la clasificación del cliente
+    selectPopulate("#clasificacionCliente", "getClasifCli", 0, 1);
+
+    //Rellena el tipo de cliente
+    selectPopulate("#tipoCliente2", "getTipoCli", 0, 1);
+
+    //Limpia el formulario
+    $(document).on("click", "#idBtnLimpiar", function (e) {
+        $("#idFormDetalles").get(0).reset();
     });
 
 }
