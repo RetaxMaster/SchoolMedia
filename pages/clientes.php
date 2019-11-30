@@ -278,7 +278,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                           <label for="" class="col-sm-2 col-form-label">Celular</label>
                           <div class="col-sm-4">
-                            <input type="number" class="form-control" id="celCliente" name="telCliente" placeholder="Celular">
+                            <input type="number" class="form-control" id="celCliente" name="celCliente" placeholder="Celular">
                           </div>
                         </div>
                         <div class="form-group row">

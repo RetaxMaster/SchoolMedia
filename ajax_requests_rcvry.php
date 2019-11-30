@@ -40,8 +40,8 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadInfo':
             include_once(LIBRARY_DIR . "/clients.php");
-            $rs = $_POST["rucCliente"] or "";
-            $ruc = $_POST["razSocCliente"] or "";
+            $rs = $_POST["razSocCliente"] or "";
+            $ruc = $_POST["rucCliente"] or "";
             $addrs = $_POST["dirCliente"] or "";
             $id_pais = $_POST["pais"] or "";
             $id_prov = $_POST["provincia"] or "";
@@ -50,7 +50,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $tel = $_POST["telCliente"] or "";
             $ext = $_POST["extCliente"] or "";
             $id_ctrycodecel = $_POST["CodPaisCel"] or "";
-            $cel = $_POST["telCliente"] or "";
+            $cel = $_POST["celCliente"] or "";
             $website = $_POST["httpCliente"] or "";
             $id_tipo = $_POST["TipoCliente"] or "";
             $id_clasific = $_POST["Clasif"] or "";
@@ -69,6 +69,49 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
         case 'filterClientsContByType':
             include_once(LIBRARY_DIR . "/cclients.php");
             cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_tipo", $_POST["tipoCliente"], $enabled, true);
+            break;
+
+        case 'getClients':
+            include_once(LIBRARY_DIR . "/clients.php");
+            clients_recoveryAllList($n, $Arry, $enabled, true);
+            break;
+
+        case 'gettpub':
+            include_once(LIBRARY_DIR . "/format_pub.php");
+            fp_recoveryAllList($n, $Arry);
+            break;
+
+        case 'getcargo':
+            include_once(LIBRARY_DIR . "/crgo_laboral.php");
+            crgo_recoveryAllList($n, $Arry);
+            break;
+
+        case 'getdepto':
+            include_once(LIBRARY_DIR . "/dpto_empres.php");
+            dpto_recoveryAllList($n, $Arry);
+            break;
+
+        case 'uploadClientContInfo':
+            include_once(LIBRARY_DIR . "/cclients.php");
+            $id_pais = $_POST["pais"] or "";
+            $id_prov = $_POST["provincia"] or "";
+            $id_client = $_POST["cliente"] or "";
+            $id_tpub = $_POST["tpub"] or "";
+            $nom = $_POST["nombre"] or "";
+            $ape = $_POST["apellido"] or "";
+            $email = $_POST["email"] or "";
+            $id_ctrycodefijo = $_POST["CodPaisTel"] or "";
+            $tel = $_POST["telCliente"] or "";
+            $ext = $_POST["extCliente"] or "";
+            $id_ctrycodecel = $_POST["CodPaisCel"] or "";
+            $cel = $_POST["telCliente"] or "";
+            $id_cargo = $_POST["cargo"] or "";
+            $id_dptoemp = $_POST["depto"] or "";
+            $descrip = $_POST["observCliente"]or "";
+            $principal = isset($_POST["principal"]) ? 1 : 0;
+            $enabled = isset($_POST["clienteHabilitado"]) ? 1 : 0;
+            cclients_createRecord($id_pais, $id_prov, $id_client, $id_tpub, $nom, $ape, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $id_cargo, $id_dptoemp, $principal, $descrip, $enabled);
+            die();
             break;
         
         default:

@@ -20,11 +20,11 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [1, 2, 3, 12];
+    var tableIndexs = [0, 14, 1, 2, 3, 12, 9];
     //Juntar contiene un arreglo de Objetos JSON que especifica todos los campos de una tabla que se van a concatenar, por ejemplo, ctrycode+ext+tel, en el arreflo de TableIndex solo se pone el index del campo que iniciará a concatenar (El ctrycode) y en el arreglo juntar se pone un objecto Json que contiene los campos que se van a juntar y firstIndex que indica el indice que ocupa el primer campo dentro del arreglo tableIndex
     var juntar = [{
         "fields": [12, 4, 5],
-        "firstIndex": 3
+        "firstIndex": 5
     }];
 
     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_cont_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
@@ -102,6 +102,18 @@ function onPageStart() {
     //Rellena la calificación del cliente
     selectPopulate("#calificacionCliente", "getCalifCli", 0, 1);
 
+    //Rellena la cliente
+    selectPopulate("#Cliente", "getClients", 0, 1);
+
+    //Rellena el formato publicitario
+    selectPopulate("#tpub", "gettpub", 0, 1);
+
+    //Rellena el cargo
+    selectPopulate("#cargo", "getcargo", 0, 2);
+
+    //Rellena el departamento
+    selectPopulate("#depto", "getdepto", 0, 1);
+
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
         $("#idFormDetalles").get(0).reset();
@@ -116,7 +128,7 @@ function onPageStart() {
         if (validateInputs(inputs)) {
             
             var formData = new FormData(this);
-            formData.append("mode", "uploadInfo");
+            formData.append("mode", "uploadClientContInfo");
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
@@ -140,8 +152,8 @@ function onPageStart() {
                     $("#idFormDetalles").get(0).reset();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
-                    setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-                        return formatDataTable(res, tableIndexs);
+                    setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_cont_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
+                        return formatDataTable(res, tableIndexs, juntar);
                     });
 
                     //Informo de éxito
