@@ -10,7 +10,7 @@
 // Crea una nueva ubicación
 function pubs_createRecord($id_client, $descrip, $urlimg)
 {
-    $SQLStrQuery = "CALL sp_p_set_capubs_Create($id_client, $descrip, $urlimg)";
+    $SQLStrQuery = "CALL sp_p_set_capubs_Create('$id_client', '$descrip', '$urlimg')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 
@@ -33,7 +33,7 @@ function pubs_recoveryAllList(&$nDocs, &$Docs, $join = false)
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_capubs_all($tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 4); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera todos los registros filtrados por algún campo
@@ -42,7 +42,7 @@ function pubs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = fal
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_capubs_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 4); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera un registro filtrados por algún campo
@@ -51,5 +51,5 @@ function pubs_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = fal
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_capubs_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 4); // Pertenece a dbmngmtAdmin.php
 }

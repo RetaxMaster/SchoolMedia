@@ -298,7 +298,7 @@ Funcionamiento de la función formatDataTable:
 7.- Al final de todo se retorna newData que contiene todas las filas ya filtradas
 
 */
-function formatDataTable(res, tableIndexs, juntar = []) {
+function formatDataTable(res, tableIndexs, juntar = [], pushToTheEnd = []) {
 
     //Declaro la funcion local que se encargara de revisar si en dada iteración hay que concatenar
     function shouldConcat(index) {
@@ -347,6 +347,10 @@ function formatDataTable(res, tableIndexs, juntar = []) {
 
             row[i] = value;
         }
+
+        //Recorro todo lo que se mete al final
+        for (let i = 0; i < pushToTheEnd.length; i++)
+            row.push(pushToTheEnd[i].replace(/{id}/igm, data[key][0]))
 
         //Dentro del arreglo newData voy formando el res.data que será retornado
         newData[key] = row;

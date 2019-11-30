@@ -139,6 +139,15 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadRepImgInfo':
+            include_once(LIBRARY_DIR . "/pubs.php");
+            $id_client = $_POST["cliente"] or "";
+            $descrip = $_POST["observCliente"] or "";
+            $urlimg = $_POST["imgURL"] or "";
+            pubs_createRecord($id_client, $descrip, $urlimg);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

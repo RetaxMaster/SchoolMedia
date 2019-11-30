@@ -56,7 +56,7 @@
                   <a href="./ocup_espacios_conf.php?Lang=<?php echo $Lang; ?>&wph=21">Ocupación de espacios</a>
                 </li>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/repositorio_imagenes.php?Lang=<?php echo $Lang; ?>&wph=22">Repositorio de imágenes de Clientes tbl_0049 repositorio_imagenes_contableAnmin.jpg Clonar desde la pagina ./pag_admin_usuarios/repositorio_imagenes.php</a>
+                  <a href="./rep_img_conf.php?Lang=<?php echo $Lang; ?>&wph=22">Repositorio de imágenes</a>
                 </li>
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=23">Listado de valores de cada escuela tbl_0043 clonar de la estructura de paises</a>
