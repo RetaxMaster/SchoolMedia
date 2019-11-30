@@ -113,7 +113,32 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             cclients_createRecord($id_pais, $id_prov, $id_client, $id_tpub, $nom, $ape, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $id_cargo, $id_dptoemp, $principal, $descrip, $enabled);
             die();
             break;
-        
+
+        case 'filterLocAtsByProv':
+            include_once(LIBRARY_DIR . "/loc_ats.php");
+            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_prov", $_POST["pais"], $enabled, true);
+            break;
+
+        case 'filterLocAtsByTpub':
+            include_once(LIBRARY_DIR . "/loc_ats.php");
+            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_tpub", $_POST["tipoCliente"], $enabled, true);
+            break;
+
+        case 'uploadOcupEspaciosInfo':
+            include_once(LIBRARY_DIR . "/loc_ats.php");
+            $id_pais = $_POST["pais"] or "";
+            $id_prov = $_POST["provincia2"] or "";
+            $id_client = $_POST["tcliente"] or "";
+            $id_tpub = $_POST["tpub2"] or "";
+            $cod = $_POST["cod"] or "";
+            $cara = $_POST["cara"] or "";
+            $wide = $_POST["weight"] or "";
+            $high = $_POST["heigth"] or "";
+            $enabled = isset($_POST["enabledPunb"]) ? 1 : 0;
+            locs_createRecord($id_pais, $id_prov, $id_client, $id_tpub, $cod, $cara, $wide, $high, $enabled);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

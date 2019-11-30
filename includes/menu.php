@@ -37,7 +37,7 @@
                   <a href="./clientes_cont_conf.php?Lang=<?php echo $Lang; ?>&wph=18">Clientes Contactos</a>
                 </li>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_relacion_clientes/seguimiento_negocio.php?Lang=<?php echo $Lang; ?>&wph=19">Seguimiento de negociación</a>
+                  <a href="./seg_clientes_conf.php?Lang=<?php echo $Lang; ?>&wph=19">Seguimiento de negociación</a>
                 </li>
               </ul>
             </div>
@@ -53,7 +53,7 @@
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_operaciones/calendario_capacitaciones.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de capacitaciones tbl_0075 ./pag_operaciones/calendario_capacitaciones.php</a>
                 </li>
                 <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=21">Ocupación de espacios publictarios tbl_0044 ubicaciones_disponibles.jpg Crear la pagina modal en base a los campos de la tabla</a>
+                  <a href="./ocup_espacios_conf.php?Lang=<?php echo $Lang; ?>&wph=21">Ocupación de espacios</a>
                 </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/repositorio_imagenes.php?Lang=<?php echo $Lang; ?>&wph=22">Repositorio de imágenes de Clientes tbl_0049 repositorio_imagenes_contableAnmin.jpg Clonar desde la pagina ./pag_admin_usuarios/repositorio_imagenes.php</a>
