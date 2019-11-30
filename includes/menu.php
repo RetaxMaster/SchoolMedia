@@ -34,7 +34,7 @@
                   <a href="./clientes_conf.php?Lang=<?php echo $Lang; ?>&wph=17">Clientes Cuentas</a>
                 </li>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_relacion_clientes/contactos_clientes.php?Lang=<?php echo $Lang; ?>&wph=18">Clientes Contactos</a>
+                  <a href="./clientes_cont_conf.php?Lang=<?php echo $Lang; ?>&wph=18">Clientes Contactos</a>
                 </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_relacion_clientes/seguimiento_negocio.php?Lang=<?php echo $Lang; ?>&wph=19">Seguimiento de negociación</a>
@@ -61,8 +61,8 @@
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=23">Listado de valores de cada escuela tbl_0043 clonar de la estructura de paises</a>
                 </li>
-               </ul>
-          </div>
+              </ul>
+            </div>
           </li>
           <li class="sidebar-dropdown">
             <a href="#">
@@ -93,7 +93,7 @@
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=30">Envío de la encuesta de calidad tbl_0076</a>
                 </li>
               </ul>
-           </div>
+            </div>
           </li>
           <li class="sidebar-dropdown">
             <a href="#">
@@ -102,7 +102,7 @@
             </a>
             <div class="sidebar-submenu">
               <ul>
-              <li>
+                <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=31">Cotización de la tabla tbl_0051 a la tabla tbl_0054</a>
                 </li>
                 <li>
@@ -132,7 +132,7 @@
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/repositorio_imagenes.php?Lang=<?php echo $Lang; ?>&wph=40">Documentos de contratos de Clientes tbl_0048 repositorio_imagenes_contableAnmin.jpg Clonar desde la pagina ./pag_admin_usuarios/repositorio_imagenes.php</a>
                 </li>
-               </ul>
+              </ul>
             </div>
           </li>
           <li class="sidebar-dropdown">
@@ -160,10 +160,10 @@
                 </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/centros_operaciones.php?Lang=<?php echo $Lang; ?>&wph=42">Centros de operaciones tbl_0025 centros_operaciones.php centro_operaciones2_modal.jpg</a>
-                </li>   
+                </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/repositorio_imagenes.php?Lang=<?php echo $Lang; ?>&wph=43">Repositorio de imagenes tbl_0026 repositorio_imagenes.php repositorio_imagenes_usuarios.jpg</a>
-                </li>               
+                </li>
               </ul>
             </div>
           </li>

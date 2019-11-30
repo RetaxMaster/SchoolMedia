@@ -60,6 +60,16 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             clients_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $website, $id_tipo, $id_clasific, $id_calif, $descrip, $enabled);
             die();
             break;
+
+        case 'filterClientsContByCtry':
+            include_once(LIBRARY_DIR . "/cclients.php");
+            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_pais", $_POST["pais"], $enabled, true);
+            break;
+
+        case 'filterClientsContByType':
+            include_once(LIBRARY_DIR . "/cclients.php");
+            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_tipo", $_POST["tipoCliente"], $enabled, true);
+            break;
         
         default:
             die("No existe ese modo de consulta.");

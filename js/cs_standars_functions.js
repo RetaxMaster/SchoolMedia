@@ -271,7 +271,53 @@ function updateTableLabels(tableName, LangLabels, ajaxRequest, data, callback = 
     });
 }
 
-function formatDataTable(res, tableIndexs) {
+/*
+
+Explicación general de la función:
+
+Esta función se encarga de formatear la data que responde el servidor para mostrarla en los datatables, el servidor responde con todos los campos que hay en la base de datos, pero solamente queremos mostrar unos cuantos,así que lo formateamos.
+
+Esta función recibe la respuesta Ajax, recibe tableIndex y recibe juntar:
+
+res: Es la respuesta ajax del servidor
+tableIndex: Es un arreglo con los índices de la respuesta Ajax que queremos mostrar
+juntar: Es un arreglo de objectos JSON los cuales contienen información sobre en qué parte del arreglo tableIndex debe unirse a otros campos de la misma consulta (Concatenar varios campos)
+
+La función shouldConcat:
+
+    Esta función se encarga de revisar si en dada iteración del arreglo tableIndex se debe concatenar con otros campos, lo unico que hace esta función es recorrer el arreglo "juntar" revisando los firstIndex para saber si están en una iteración en donde se debe concatenar, retorna un objeto JSON que dice si se debe concatenar en esa iteración y el indice del objeto JSON dentro de "juntar" que contiene la información de concatenación
+
+Funcionamiento de la función formatDataTable:
+
+1.- Recorre cada fila de la respuesta Ajax
+2.- Por cada fila, recorre tableIndex para únicamente obtener los índices de los campos que se desean mostrar
+3.- Pregunta si en dado índice de tableIndex se debe concatenar usando la función shouldConcat
+4.- En caso de que si se deba concatenar, se recupera el objeto JSON ue contiene la información de concatenación (Este objeto JSON esta dentro del arreglo "juntar" y el indice este objeto JSON lo devuelve la función shouldConcat), se recorre cada indice que se debe concatenar y se va concatenando
+5.- Al final se retorna una sola columna (row[i]) con los valores ya concatenados
+6.- AL final de cada iteración de la respuesta Ajax, se guarda la fila en un nuevo arreglo (newData)
+7.- Al final de todo se retorna newData que contiene todas las filas ya filtradas
+
+*/
+function formatDataTable(res, tableIndexs, juntar = []) {
+
+    //Declaro la funcion local que se encargara de revisar si en dada iteración hay que concatenar
+    function shouldConcat(index) {
+        var flag = false;
+        var indexOfThisJSON = 0;
+
+        for (let i = 0; i < juntar.length; i++) {
+            //Si encuentra una coincidencia cambia el valor de las variables a retornar
+            if(juntar[i].firstIndex == index)  {
+                flag = true;
+                indexOfThisJSON = i;
+            }
+        }
+
+        return {
+            should: flag,
+            index: indexOfThisJSON
+        }
+    }
 
     var data = res.data;
     var newData = [];
@@ -283,7 +329,23 @@ function formatDataTable(res, tableIndexs) {
         //Recorro tableIndexs para guardar dentro de row los valores de res.data que me interesan
         for (let i = 0; i < tableIndexs.length; i++) {
             var dataKeyPosition = tableIndexs[i];
-            row[i] = data[key][dataKeyPosition]
+            var value = data[key][dataKeyPosition];
+
+            //Reviso si debe concatenar
+            var concat = shouldConcat(i);
+            if(concat.should){
+                //Triago el JSON que contiene la información de concatenación y reinicio value
+                var fieldsToConcat = juntar[concat.index].fields;
+                value = "";
+
+                //Recorro cada columna que hay que concatenar y la concateno
+                for (let j = 0; j < fieldsToConcat.length; j++) {
+                    dataKeyPosition = fieldsToConcat[j];
+                    value += data[key][dataKeyPosition] + " ";
+                }
+            }
+
+            row[i] = value;
         }
 
         //Dentro del arreglo newData voy formando el res.data que será retornado
