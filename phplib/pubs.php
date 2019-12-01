@@ -19,7 +19,7 @@ function pubs_updateRecord($fields, $id_pub)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_capubs_Update($key, $value, $id_pub)";
+            $SQLStrQuery = "CALL sp_p_set_capubs_Update('$key', '$value', $id_pub)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

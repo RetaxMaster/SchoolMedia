@@ -228,6 +228,31 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'updateInfo':
+            include_once(LIBRARY_DIR . "/clients.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            clients_updateRecord([
+                "rs" => $_POST["razSocCliente"] or "",
+                "ruc" => $_POST["rucCliente"] or "",
+                "addrs" => $_POST["dirCliente"] or "",
+                "id_pais" => $_POST["pais"] or "",
+                "id_prov" => $_POST["provincia"] or "",
+                "email" => $_POST["email"] or "",
+                "id_ctrycodefijo" => $_POST["CodPaisTel"] or "",
+                "tel" => $_POST["telCliente"] or "",
+                "ext" => $_POST["extCliente"] or "",
+                "id_ctrycodecel" => $_POST["CodPaisCel"] or "",
+                "cel" => $_POST["celCliente"] or "",
+                "website" => $_POST["httpCliente"] or "",
+                "id_tipo" => $_POST["TipoCliente"] or "",
+                "id_clasific" => $_POST["Clasif"] or "",
+                "id_calif" => $_POST["Calif"] or "",
+                "descrip" => $_POST["observCliente"] or "",
+                "enabled" => isset($_POST["clienteHabilitado"]) ? 1 : 0
+            ], $idToUpdate);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

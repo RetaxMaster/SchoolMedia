@@ -22,7 +22,7 @@ function formfins_updateRecord($fields, $id_formfin)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_opformfins_Update($key, $value, $id_formfin)";
+            $SQLStrQuery = "CALL sp_p_set_opformfins_Update('$key', '$value', $id_formfin)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

@@ -26,7 +26,7 @@ function fctrdtls_updateRecord($fields, $id_factdetail)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_cafctrdtls_Update($key, $value, $id_factdetail)";
+            $SQLStrQuery = "CALL sp_p_set_cafctrdtls_Update('$key', '$value', $id_factdetail)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

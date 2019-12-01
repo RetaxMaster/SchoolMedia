@@ -29,7 +29,7 @@ function cvns_updateRecord($fields, $id_cttoadnda)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_cacvns_Update($key, $value, $id_cttoadnda)";
+            $SQLStrQuery = "CALL sp_p_set_cacvns_Update('$key', '$value', $id_cttoadnda)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

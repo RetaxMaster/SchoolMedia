@@ -24,7 +24,7 @@ function recibo_updateRecord($fields, $id_cajarecibo)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_carecibo_Update($key, $value, $id_cajarecibo)";
+            $SQLStrQuery = "CALL sp_p_set_carecibo_Update('$key', '$value', $id_cajarecibo)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

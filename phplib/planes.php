@@ -25,7 +25,7 @@ function plans_updateRecord($fields, $id_locat)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_acadplans_Update($key, $value, $id_locat)";
+            $SQLStrQuery = "CALL sp_p_set_acadplans_Update('$key', '$value', $id_locat)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

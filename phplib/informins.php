@@ -20,7 +20,7 @@ function informins_updateRecord($fields, $id_informin)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_opinformins_Update($key, $value, $id_informin)";
+            $SQLStrQuery = "CALL sp_p_set_opinformins_Update('$key', '$value', $id_informin)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

@@ -21,7 +21,7 @@ function cappapa_updateRecord($fields, $id_cappapais)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_acadcappapa_Update($key, $value, $id_cappapais)";
+            $SQLStrQuery = "CALL sp_p_set_acadcappapa_Update('$key', '$value', $id_cappapais)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

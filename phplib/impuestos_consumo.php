@@ -21,7 +21,7 @@ function caimps_updateRecord($fields, $id_imp)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_cimps_Update($key, $value, $id_client)";
+            $SQLStrQuery = "CALL sp_p_set_cimps_Update('$key', '$value', $id_client)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

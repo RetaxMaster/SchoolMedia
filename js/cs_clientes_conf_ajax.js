@@ -20,10 +20,12 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [0, 1, 11, 16, 10];
+    var tableIndexs = [0, 1, 11, 16];
+
+    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-        return formatDataTable(res, tableIndexs);
+        return formatDataTable(res, tableIndexs, [], pushToTheEnd);
     }); // Se fijan los labels estandars de las tablas y sus busquedas
 
     //Se rellenan los slecets de paises y provincias
@@ -64,7 +66,7 @@ function onPageStart() {
         }
 
         updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function(res) {
-            return formatDataTable(res, tableIndexs);
+            return formatDataTable(res, tableIndexs, [], pushToTheEnd);
         });
         
     });
@@ -79,7 +81,7 @@ function onPageStart() {
         }
 
         updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
-            return formatDataTable(res, tableIndexs);
+            return formatDataTable(res, tableIndexs, [], pushToTheEnd);
         });
 
     });
@@ -97,6 +99,19 @@ function onPageStart() {
     //Rellena la calificación del cliente
     selectPopulate("#calificacionCliente", "getCalifCli", 0, 1);
 
+    //Abre el formulario para actualizar la data
+    var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
+    var idToUpdate;
+
+    $(document).on("click", ".updateData", function(){
+        isUpdating = true;
+        idToUpdate = this.id.split("-")[1];
+    });
+
+    $(document).on("click", "#idBtnNuevo", function () {
+        isUpdating = false;
+    });
+
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
         $("#idFormDetalles").get(0).reset();
@@ -108,10 +123,19 @@ function onPageStart() {
 
         var inputs = $("#idFormDetalles .required");
 
-        if (validateInputs(inputs)) {
+        alert(isUpdating)
+
+        if (validateInputs(inputs) || isUpdating) {
             
             var formData = new FormData(this);
-            formData.append("mode", "uploadInfo");
+
+            if (isUpdating) {
+                formData.append("mode", "updateInfo");
+                formData.append("idToUpdate", idToUpdate);
+            }
+            else {
+                formData.append("mode", "uploadInfo");
+            }
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
@@ -136,7 +160,7 @@ function onPageStart() {
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-                        return formatDataTable(res, tableIndexs);
+                        return formatDataTable(res, tableIndexs, [], pushToTheEnd);
                     });
 
                     //Informo de éxito
