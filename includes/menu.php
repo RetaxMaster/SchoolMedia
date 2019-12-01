@@ -81,7 +81,7 @@
                   <a href="./disp_plans_conf.php?Lang=<?php echo $Lang; ?>&wph=26">Disponibilidad plan académico</a>
                 </li>
                 <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=27">Disponibilidad de capacitador por país tbl_0073</a>
+                  <a href="./disp_cap_conf.php?Lang=<?php echo $Lang; ?>&wph=27">Disponibilidad de capacitador por país</a>
                 </li>
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=28">Matriz de capacitador y curso tbl_0074</a>

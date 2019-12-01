@@ -11,7 +11,7 @@
 // Crea una nueva ubicación
 function dispcap_createRecord($id_cap, $id_pais, $id_prov, $enabled)
 {
-    $SQLStrQuery = "CALL sp_p_set_acaddispcap_Create($id_cap, $id_pais, $id_prov, $enabled)";
+    $SQLStrQuery = "CALL sp_p_set_acaddispcap_Create('$id_cap', '$id_pais', '$id_prov', '$enabled')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 
@@ -34,7 +34,7 @@ function dispcap_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_acaddispcap_all($enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera todos los registros filtrados por algún campo
@@ -43,7 +43,7 @@ function dispcap_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_acaddispcap_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera un registro filtrados por algún campo
@@ -52,5 +52,5 @@ function dispcap_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_acaddispcap_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
 }

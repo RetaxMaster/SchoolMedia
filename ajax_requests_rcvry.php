@@ -96,6 +96,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             plans_recoveryAllList($n, $Arry, $enabled);
             break;
 
+        case 'getCaps':
+            include_once(LIBRARY_DIR . "/capacitadores.php");
+            caps_recoveryAllList($n, $Arry, true);
+            break;
+
         case 'uploadClientContInfo':
             include_once(LIBRARY_DIR . "/cclients.php");
             $id_pais = $_POST["pais"] or "";
@@ -194,6 +199,16 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $id_prov = $_POST["provincia"] or "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
             disp_createRecord($id_plan, $id_pais, $id_prov, $enabled);
+            die();
+            break;
+
+        case 'uploadDispCapInfo':
+            include_once(LIBRARY_DIR . "/disp_cap.php");
+            $id_cap = $_POST["id_cap"] or "";
+            $id_pais = $_POST["pais"] or "";
+            $id_prov = $_POST["provincia"] or "";
+            $enabled = isset($_POST["enabled"]) ? 1 : 0;
+            dispcap_createRecord($id_cap, $id_pais, $id_prov, $enabled);
             die();
             break;
 
