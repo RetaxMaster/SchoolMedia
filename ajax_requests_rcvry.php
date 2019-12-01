@@ -91,6 +91,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             dpto_recoveryAllList($n, $Arry);
             break;
 
+        case 'getPlans':
+            include_once(LIBRARY_DIR . "/planes.php");
+            plans_recoveryAllList($n, $Arry, $enabled);
+            break;
+
         case 'uploadClientContInfo':
             include_once(LIBRARY_DIR . "/cclients.php");
             $id_pais = $_POST["pais"] or "";
@@ -177,8 +182,18 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $objetivos = $_POST["objetivos"] or "";
             $título = $_POST["titulo"] or "";
             $fcreac = date("Y-m-d");
-            $lstenabled = $_POST["enabled"] or "";
+            $lstenabled = isset($_POST["enabled"]) ? 1 : 0;
             plans_createRecord($tiempodura, $id_modalidad, $temario, $prerrequisitos, $perfil, $objetivos, $título, $fcreac, $lstenabled);
+            die();
+            break;
+
+        case 'uploadDispPlansInfo':
+            include_once(LIBRARY_DIR . "/disponibilidad.php");
+            $id_plan = $_POST["idplan"] or "";
+            $id_pais = $_POST["pais"] or "";
+            $id_prov = $_POST["provincia"] or "";
+            $enabled = isset($_POST["enabled"]) ? 1 : 0;
+            disp_createRecord($id_plan, $id_pais, $id_prov, $enabled);
             die();
             break;
 

@@ -78,7 +78,7 @@
                   <a href="./plans_acad_conf.php?Lang=<?php echo $Lang; ?>&wph=25">Planes académicos</a>
                 </li>
                 <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=26">Disponibilidad plan académico tbl_0072</a>
+                  <a href="./disp_plans_conf.php?Lang=<?php echo $Lang; ?>&wph=26">Disponibilidad plan académico</a>
                 </li>
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=27">Disponibilidad de capacitador por país tbl_0073</a>
