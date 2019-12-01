@@ -148,6 +148,13 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadListValsInfo':
+            include_once(LIBRARY_DIR . "/list_vals.php");
+            $descrip = $_POST["observCliente"] or "";
+            lv_createRecord($descrip);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

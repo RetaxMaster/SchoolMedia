@@ -7,7 +7,7 @@
 
 // Crea un nuevo valor
 function lv_createRecord($descrip) {
-	$SQLStrQuery="CALL sp_p_set_caLstVals_Create($descrip)";
+	$SQLStrQuery="CALL sp_p_set_caLstVals_Create('$descrip')";
 	SQLQuery($ResponsePointer,$n,$SQLStrQuery,false); // Realiza la consulta
 }
 
