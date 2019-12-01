@@ -29,7 +29,7 @@ function onPageStart() {
     }); // Se fijan los labels estandars de las tablas y sus busquedas
 
     //Rellena usuarios
-    selectPopulate("#iduser", "getUsers", 0, 1); //TODO: Pendiente
+    selectPopulate("#iduser", "getUsers", 1, 2); //TODO: Pendiente
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {

@@ -84,7 +84,7 @@
                   <a href="./disp_cap_conf.php?Lang=<?php echo $Lang; ?>&wph=27">Disponibilidad de capacitador por país</a>
                 </li>
                 <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=28">Matriz de capacitador y curso tbl_0074</a>
+                  <a href="./mat_cap_conf.php?Lang=<?php echo $Lang; ?>&wph=28">Matriz de capacitador y curso</a>
                 </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_operaciones/calendario_capacitaciones.php?Lang=<?php echo $Lang; ?>&wph=29">Calendario de capacitaciones tbl_0075 ./pag_operaciones/calendario_capacitaciones.php</a>

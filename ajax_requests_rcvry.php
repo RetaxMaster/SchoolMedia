@@ -101,6 +101,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             caps_recoveryAllList($n, $Arry, true);
             break;
 
+        case 'getUsers':
+            include_once(LIBRARY_DIR . "/adminUser.php");
+            RecoveryAllUsers($Arry, $n);
+            break;
+
         case 'uploadClientContInfo':
             include_once(LIBRARY_DIR . "/cclients.php");
             $id_pais = $_POST["pais"] or "";
