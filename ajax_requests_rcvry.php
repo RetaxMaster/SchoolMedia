@@ -212,6 +212,17 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadMatCapInfo':
+            include_once(LIBRARY_DIR . "/cappapa.php");
+            $id_cap = $_POST["id_cap"] or "";
+            $idplan = $_POST["idplan"] or "";
+            $id_pais = $_POST["pais"] or "";
+            $id_prov = $_POST["provincia"] or "";
+            $enabled = isset($_POST["enabled"]) ? 1 : 0;
+            cappapa_createRecord($idplan, $id_cap, $id_pais, $id_prov, $enabled);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;
