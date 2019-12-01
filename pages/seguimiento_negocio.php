@@ -131,29 +131,21 @@ Alias: tbl_0012
                     <div class="tituloTabla">
                     <h6 id="text2" >{$text2}</h6>
                     </div>               
-                        <!-- Dropdown Seleccionar Paises -->
-                        <div class="row">
-                            <div class="col-lg-6">
-                            <div class="contDropdown">
-                              <label for="selectCtry" class="col-sm-3 col-form-label" id="text3">{$text3}</label><br>
-                              <select id="selectCtry" name="locality" onchange="loadProv(this)"  class="form-control">
-                                <option value="-1">{$selectCtry}</option>
-                              </select>
-                            </div>          
-                            </div>          
-                        </div>
+                <!-- Dropdown Seleccionar Paises -->
+                <div class="form-group">
+                  <label for="selectCtry" class="col-sm-3 col-form-label" id="text3">{$text3}</label><br>
+                  <select id="selectCtry" name="locality" class="form-control col-sm-3">
+                    <option value="-1" id="selectCtry">{$selectCtry}</option>
+                  </select>
+                </div>
 
-                        <!-- Dropdown Seleccionar tipo de cliente -->
-                        <div class="row">
-                            <div class="col-lg-6">
-                            <div class="contDropdown">
-                              <label for="selectCtry" class="col-sm-3 col-form-label" id="text4">{$text4}</label><br>
-                              <select id="tipoCliente" name="tipoCliente" onchange="loadProv(this)"  class="form-control">
-                                <option value="-1">{$tipoCliente}</option>
-                              </select>
-                            </div>          
-                            </div>          
-                        </div>
+                <!-- Dropdown Seleccionar Tipo Cliente -->
+                <div class="form-group">
+                  <label for="tipoCliente" class="col-sm-3 col-form-label" id="text4">{$text4}</label><br>
+                  <select id="tipoCliente" name="locality" class="form-control col-sm-3">
+                    <option value="-1">Seleccione</option>
+                  </select>
+                </div>
                     </div>              
                 </div>          
             </div>

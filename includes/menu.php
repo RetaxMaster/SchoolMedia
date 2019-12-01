@@ -50,7 +50,7 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_operaciones/calendario_capacitaciones.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de capacitaciones tbl_0075 ./pag_operaciones/calendario_capacitaciones.php</a>
+                  <a href="op_scheduler_conf.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de Instalaciones tbl_0100 ./pag_operaciones/calendario_capacitaciones.php</a>
                 </li>
                 <li>
                   <a href="./ocup_espacios_conf.php?Lang=<?php echo $Lang; ?>&wph=21">Ocupación de espacios</a>
