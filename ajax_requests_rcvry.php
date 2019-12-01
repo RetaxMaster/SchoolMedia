@@ -155,6 +155,18 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadCapsResInfo':
+            include_once(LIBRARY_DIR . "/capacitadores.php");
+            $id_user = $_POST["iduser"] or "";
+            $formacad = $_POST["formacad"] or "";
+            $skills = $_POST["skills"] or "";
+            $certif = $_POST["certificaciones"] or "";
+            $exp = $_POST["experiencias"] or "";
+            $otros = $_POST["otros"] or "";
+            caps_createRecord($id_user, $formacad, $skills, $certif, $exp, $otros);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

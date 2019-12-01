@@ -13,7 +13,7 @@
 // Crea una nueva ubicación
 function caps_createRecord($id_user, $formacad, $skills, $certif, $exp, $otros)
 {
-    $SQLStrQuery = "CALL sp_p_set_acadcaps_Create($id_user, $formacad, $skills, $certif, $exp, $otros)";
+    $SQLStrQuery = "CALL sp_p_set_acadcaps_Create('$id_user', '$formacad', '$skills', '$certif', '$exp', '$otros')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 
@@ -36,7 +36,7 @@ function caps_recoveryAllList(&$nDocs, &$Docs, $join = false)
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_acadcaps_all($tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 8); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera todos los registros filtrados por algún campo
@@ -45,7 +45,7 @@ function caps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = fal
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_acadcaps_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 8); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera un registro filtrados por algún campo
@@ -54,5 +54,5 @@ function caps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = fal
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_acadcaps_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 8); // Pertenece a dbmngmtAdmin.php
 }

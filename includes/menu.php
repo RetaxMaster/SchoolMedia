@@ -72,7 +72,7 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_academico/capacitadores.php?Lang=<?php echo $Lang; ?>&wph=24">Capacitadores y Resumen Curricular tbl_0070 Capacitadores-y-resumen-curricular.jpg /pag_academico/capacitadores.php</a>
+                  <a href="./caps_res_conf.php?Lang=<?php echo $Lang; ?>&wph=24">Capacitadores y Resumen Curricular</a>
                 </li>
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=25">Planes académicos tbl_0071</a>
