@@ -167,6 +167,21 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadPlansAcadInfo':
+            include_once(LIBRARY_DIR . "/planes.php");
+            $tiempodura = $_POST["tiempodura"] or "";
+            $id_modalidad = $_POST["modalidad"] or "";
+            $temario = $_POST["temario"] or "";
+            $prerrequisitos = $_POST["Prerrequisitos"] or "";
+            $perfil = $_POST["perfil"] or "";
+            $objetivos = $_POST["objetivos"] or "";
+            $título = $_POST["titulo"] or "";
+            $fcreac = date("Y-m-d");
+            $lstenabled = $_POST["enabled"] or "";
+            plans_createRecord($tiempodura, $id_modalidad, $temario, $prerrequisitos, $perfil, $objetivos, $título, $fcreac, $lstenabled);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

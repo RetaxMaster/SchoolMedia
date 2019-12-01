@@ -75,7 +75,7 @@
                   <a href="./caps_res_conf.php?Lang=<?php echo $Lang; ?>&wph=24">Capacitadores y Resumen Curricular</a>
                 </li>
                 <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=25">Planes académicos tbl_0071</a>
+                  <a href="./plans_acad_conf.php?Lang=<?php echo $Lang; ?>&wph=25">Planes académicos</a>
                 </li>
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=26">Disponibilidad plan académico tbl_0072</a>
