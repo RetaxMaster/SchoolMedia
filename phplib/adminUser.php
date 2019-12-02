@@ -152,10 +152,11 @@
 		ConvertPointerToArray($ResponsePointer,$UserProfile,$n,16); // Convertir la consulta en un arreglo de datos
 	}
 
-	function RecoveryAllUsers(&$UserProfile,&$n) {
-		$SQLStrQuery="CALL sp_p_get_usrprofs_RecoveryAllUsers()"; // "SELECT * FROM userprofile WHERE (UID='".$iUID."') LIMIT 1"; // En caso de haber mas de una entrada el sistema se limitara al primero que encuentre.
+	function RecoveryAllUsers(&$UserProfile,&$n, $enabled, $shouldJoin = false) {
+		$tinyint = (int) $shouldJoin;
+		$SQLStrQuery="CALL sp_p_get_usrprofs_RecoveryAllUsers($enabled, $tinyint)"; // "SELECT * FROM userprofile WHERE (UID='".$iUID."') LIMIT 1"; // En caso de haber mas de una entrada el sistema se limitara al primero que encuentre.
 		SQLQuery($ResponsePointer,$n,$SQLStrQuery,true); // Realiza la consulta en la base de datos globales
-		ConvertPointerToArray($ResponsePointer,$UserProfile,$n,8); // Convertir la consulta en un arreglo de datos
+		ConvertPointerToArray($ResponsePointer,$UserProfile,$n,10); // Convertir la consulta en un arreglo de datos
 	}
 
 // xxxxxx Actualizar los datos de sesión o acceso de un usuario tbl_userdacs, solo nombre de usuario y rol. 

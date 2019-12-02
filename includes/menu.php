@@ -156,7 +156,7 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/perfil_usuario.php?Lang=<?php echo $Lang; ?>&wph=41">Perfil de usuario</a>
+                  <a href="./perfil_conf.php?Lang=<?php echo $Lang; ?>&wph=41">Perfil de usuario</a>
                 </li>
                 <li>
                   <a href="./cent_op_conf.php?Lang=<?php echo $Lang; ?>&wph=42">Centros de operaciones</a>
