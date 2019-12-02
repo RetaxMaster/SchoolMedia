@@ -124,7 +124,7 @@
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_contable_admin/ubicaciones_disponibles.php?Lang=<?php echo $Lang; ?>&wph=37">Ubicaciones disponibles</a>
                 </li>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_contable_admin/inventario_prod_servicios.php?Lang=<?php echo $Lang; ?>&wph=38">Inventario productos y servicios bl_0050 Inventario_productos_servicios.jpg ./pag_contable_admin/inventario_prod_servicios.php</a>
+                  <a href="./prod_serv_conf.php?Lang=<?php echo $Lang; ?>&wph=38">Inventario productos y servicios</a>
                 </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_contable_admin/convenios_contratos.php?Lang=<?php echo $Lang; ?>&wph=39">Convenios y contratos tbl_0046 convenios_contratos_modal.jpg ./pag_contable_admin/convenios_contratos.php</a>

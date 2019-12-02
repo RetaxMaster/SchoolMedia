@@ -103,8 +103,23 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'getUsers':
             include_once(LIBRARY_DIR . "/adminUser.php");
-            RecoveryAllUsers($Arry, $n);
+            RecoveryAllUsers($Arry, $n, $enabled, true);
             break;
+
+        case 'getFactsHdrs':
+            include_once(LIBRARY_DIR . "/fctr_hdr.php");
+            fcthdr_recoveryAllList($n, $Arry, true);
+            break;
+
+        /* case 'getCots':
+            include_once(LIBRARY_DIR . "/adminUser.php");
+            RecoveryAllUsers($Arry, $n, $enabled, true);
+            break; */
+
+       /*  case 'getFormasPago':
+            include_once(LIBRARY_DIR . "/adminUser.php");
+            RecoveryAllUsers($Arry, $n, $enabled, true);
+            break; */
 
         case 'uploadClientContInfo':
             include_once(LIBRARY_DIR . "/cclients.php");
@@ -240,6 +255,20 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $tel = $_POST["telefono"] or "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
             comp_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $enabled);
+            die();
+            break;
+
+        case 'uploadProdServInfo':
+            include_once(LIBRARY_DIR . "/recibo.php");
+            $id_fact = $_POST["idfact"] or "";
+            $id_cot = $_POST["idcot"] or "";
+            $id_fp = $_POST["fp"] or "";
+            $descrip = $_POST["descrip"] or "";
+            $fecha = $_POST["fecha"] or "";
+            $txdescrip = $_POST["txdescrip"] or "";
+            $monto = $_POST["monto"] or "";
+            $aprobado = isset($_POST["enabled"]) ? 1 : 0;
+            recibo_createRecord($id_fact, $id_cot, $id_fp, $descrip, $fecha, $txdescrip, $monto, $aprobado);
             die();
             break;
 
