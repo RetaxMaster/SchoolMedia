@@ -106,7 +106,7 @@
                   <a href="./cotizacion_conf.php?Lang=<?php echo $Lang; ?>&wph=31">Cotización de la tabla tbl_0051 a la tabla tbl_0054</a>
                 </li>
                 <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=32">Facturar de la tabla tbl_0051 a la tabla tbl_0054</a>
+                  <a href="./facturar_conf.php?Lang=<?php echo $Lang; ?>&wph=32">Facturar de la tabla tbl_0051 a la tabla tbl_0054</a>
                 </li>
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=33">Recibo de caja tbl_0055</a>
