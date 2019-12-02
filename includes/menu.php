@@ -127,7 +127,7 @@
                   <a href="./prod_serv_conf.php?Lang=<?php echo $Lang; ?>&wph=38">Inventario productos y servicios</a>
                 </li>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_contable_admin/convenios_contratos.php?Lang=<?php echo $Lang; ?>&wph=39">Convenios y contratos tbl_0046 convenios_contratos_modal.jpg ./pag_contable_admin/convenios_contratos.php</a>
+                  <a href="./conv_cont_conf.php?Lang=<?php echo $Lang; ?>&wph=39">Convenios y contratos</a>
                 </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/repositorio_imagenes.php?Lang=<?php echo $Lang; ?>&wph=40">Documentos de contratos de Clientes tbl_0048 repositorio_imagenes_contableAnmin.jpg Clonar desde la pagina ./pag_admin_usuarios/repositorio_imagenes.php</a>

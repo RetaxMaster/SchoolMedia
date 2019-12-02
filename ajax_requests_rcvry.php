@@ -272,6 +272,24 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadConvContInfo':
+            include_once(LIBRARY_DIR . "/contratos.php");
+            $codctto = $_POST["codctto"] or "";
+            $id_pais = $_POST["pais"] or "";
+            $id_prov = $_POST["provincia"] or "";
+            $id_client = $_POST["cliente"] or "";
+            $id_tipo = $_POST["tipo"] or "";
+            $fini = $_POST["fini"] or "";
+            $ffin = $_POST["ffin"] or "";
+            $ciclopub = $_POST["ciclopub"] or "";
+            $ciclomsgvalor = $_POST["ciclovalor"] or "";
+            $cantcur = "";
+            $descrip = $_POST["descripcion"] or "";
+            $enabled = isset($_POST["enabled"]) ? 1 : 0;
+            ctrts_createRecord($codctto, $id_pais, $id_prov, $id_client, $id_tipo, $fini, $ffin, $ciclopub, $ciclomsgvalor, $cantcur, $descrip, $enabled);
+            die();
+            break;
+
         case 'updateInfo':
             include_once(LIBRARY_DIR . "/clients.php");
             $idToUpdate = $_POST["idToUpdate"];
