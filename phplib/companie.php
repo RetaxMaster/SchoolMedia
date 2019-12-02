@@ -16,7 +16,7 @@
 // Crea una nueva ubicación
 function comp_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $enabled)
 {
-    $SQLStrQuery = "CALL sp_p_set_usrcomp_Create($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $enabled)";
+    $SQLStrQuery = "CALL sp_p_set_usrcomp_Create('$rs', '$ruc', '$addrs', '$id_pais', '$id_prov', '$email', '$id_ctrycodefijo', '$tel', '$enabled')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 
@@ -39,7 +39,7 @@ function comp_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_usrcomp_all($enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 10); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera todos los registros filtrados por algún campo
@@ -48,7 +48,7 @@ function comp_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_usrcomp_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 10); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera un registro filtrados por algún campo
@@ -57,5 +57,5 @@ function comp_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_usrcomp_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 10); // Pertenece a dbmngmtAdmin.php
 }

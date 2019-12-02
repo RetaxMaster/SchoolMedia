@@ -159,7 +159,7 @@
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/perfil_usuario.php?Lang=<?php echo $Lang; ?>&wph=41">Perfil de usuario</a>
                 </li>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/centros_operaciones.php?Lang=<?php echo $Lang; ?>&wph=42">Centros de operaciones tbl_0025 centros_operaciones.php centro_operaciones2_modal.jpg</a>
+                  <a href="./cent_op_conf.php?Lang=<?php echo $Lang; ?>&wph=42">Centros de operaciones</a>
                 </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/repositorio_imagenes.php?Lang=<?php echo $Lang; ?>&wph=43">Repositorio de imagenes tbl_0026 repositorio_imagenes.php repositorio_imagenes_usuarios.jpg</a>

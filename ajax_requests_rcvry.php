@@ -228,6 +228,21 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadCentOpInfo':
+            include_once(LIBRARY_DIR . "/companie.php");
+            $rs = $_POST["razSocCliente"] or "";
+            $ruc = $_POST["ruc"] or "";
+            $addrs = $_POST["address"] or "";
+            $id_pais = $_POST["pais"] or "";
+            $id_prov = $_POST["provincia"] or "";
+            $email = $_POST["email"] or "";
+            $id_ctrycodefijo = $_POST["CodPaisTel"] or "";
+            $tel = $_POST["telefono"] or "";
+            $enabled = isset($_POST["enabled"]) ? 1 : 0;
+            comp_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $enabled);
+            die();
+            break;
+
         case 'updateInfo':
             include_once(LIBRARY_DIR . "/clients.php");
             $idToUpdate = $_POST["idToUpdate"];

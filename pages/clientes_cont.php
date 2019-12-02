@@ -21,6 +21,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "text2",
                 "text3",
                 "text4",
+                "text4_A",
                 "text5",
                 "text6",
                 "text7",
@@ -35,6 +36,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "{$text2}",
                 "{$text3}",
                 "{$text4}",
+                "{$text4_A}",
                 "{$text5}",
                 "{$text6}",
                 "{$text7}",
@@ -107,6 +109,14 @@ echo '<!-- Custom JavaScripts Functions Needs
                     <option value="-1" id="selectCtry">{$selectCtry}</option>
                   </select>
                 </div>
+
+                <!-- Dropdown Seleccionar Tipo Cliente -->
+                <div class="form-group">
+                  <label for="tipoCliente" class="col-sm-3 col-form-label" id="text4">{$text4}</label><br>
+                  <select id="tipoCliente" name="locality" class="form-control col-sm-3">
+                    <option value="-1">Seleccione</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -118,7 +128,7 @@ echo '<!-- Custom JavaScripts Functions Needs
             <!-- Tabla -->
             <div class="contTabla">
               <div class="tituloTabla">
-                <h6 id="text4">{$text4}</h6>
+                <h6 id="text4_A">{$text4_A}</h6>
               </div>
               <div class="contenido-tabla">
                 <div id="ContTablaVerTodos">
