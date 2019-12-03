@@ -50,16 +50,16 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="op_scheduler_conf.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de Instalaciones tbl_0100 ./pag_operaciones/calendario_capacitaciones.php</a>
+                  <a href="op_scheduler_conf.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de Instalaciones</a>
                 </li>
-                <li>
-                  <a href="./ocup_espacios_conf.php?Lang=<?php echo $Lang; ?>&wph=21">Ocupación de espacios</a>
-                </li>
+                <!-- li>
+                  <a href="./ocup_espacios_conf.php?Lang=< ?php echo $Lang; ?>&wph=21">Ocupación de espacios</a>
+                </li -->
                 <li>
                   <a href="./rep_img_conf.php?Lang=<?php echo $Lang; ?>&wph=22">Repositorio de imágenes</a>
                 </li>
                 <li>
-                  <a href="./list_vals_conf.php?Lang=<?php echo $Lang; ?>&wph=23">Listado de valores de cada escuela</a>
+                  <a href="./list_vals_conf.php?Lang=<?php echo $Lang; ?>&wph=23">Listado de valores para academias</a>
                 </li>
               </ul>
             </div>
@@ -106,10 +106,10 @@
                   <a href="./cotizacion_conf.php?Lang=<?php echo $Lang; ?>&wph=31">Cotización de la tabla tbl_0051 a la tabla tbl_0054</a>
                 </li>
                 <li>
-                  <a href="./facturar_conf.php?Lang=<?php echo $Lang; ?>&wph=32">Facturar de la tabla tbl_0051 a la tabla tbl_0054</a>
+                  <a href="./facturar_conf.php?Lang=<?php echo $Lang; ?>&wph=32">Facturar</a>
                 </li>
                 <li>
-                  <a href="./recibo_conf.php?Lang=<?php echo $Lang; ?>&wph=33">Recibo de caja tbl_0055</a>
+                  <a href="./recibo_conf.php?Lang=<?php echo $Lang; ?>&wph=33">Recibo de caja</a>
                 </li>
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=34">Estado de cuenta view_0001, view_0003</a>
@@ -121,7 +121,7 @@
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=36">Reporte de facturación</a>
                 </li>
                 <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_contable_admin/ubicaciones_disponibles.php?Lang=<?php echo $Lang; ?>&wph=37">Ubicaciones disponibles</a>
+                <a href="./ocup_espacios_conf.php?Lang=<?php echo $Lang; ?>&wph=21">Espacios existentes</a>
                 </li>
                 <li>
                   <a href="./prod_serv_conf.php?Lang=<?php echo $Lang; ?>&wph=38">Inventario productos y servicios</a>

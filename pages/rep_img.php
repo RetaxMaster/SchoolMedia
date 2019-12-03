@@ -26,7 +26,9 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "text7",
                 "text8",
                 "text9",
-                "text10"
+                "text10",
+                "text11",
+                "text12"
             ], 
             "attrsx" :
             [
@@ -39,7 +41,9 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "{$text7}",
                 "{$text8}",
                 "{$text9}",
-                "{$text10}"
+                "{$text10}",
+                "{$text11}",
+                "{$text12}"
             ], 
             "txts" : ' . $wpContentStr_Labels . '
         };
@@ -173,7 +177,7 @@ echo '<!-- Custom JavaScripts Functions Needs
             <div class="modal-content">
                 <div class="modal-header">
                     <center>
-                        <h2 class="estilo-titulo">Galería</h2>
+                        <h2 class="estilo-titulo" id="text11">{$text11}</h2>
                     </center>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
                 </div>
@@ -183,7 +187,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                             <!-- Tabla -->
                             <div class="contTabla">
                                 <div class="tituloTabla">
-                                    <h6 id="text5">{$text5}</h6>
+                                    <h6 id="text12">{$text12}</h6>
                                 </div>
                                 <div class="contenido-tabla">
                                     <div id="ContTablaVerTodos">
