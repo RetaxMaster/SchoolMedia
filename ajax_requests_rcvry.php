@@ -111,9 +111,19 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             caps_recoveryAllList($n, $Arry, true);
             break;
 
+        case 'getCompanies':
+            include_once(LIBRARY_DIR . "/companie.php");
+            comp_recoveryAllList($n, $Arry, $enabled, true);
+            break;
+
         case 'getUsers':
             include_once(LIBRARY_DIR . "/adminUser.php");
             RecoveryAllUsers($Arry, $n, $enabled, true);
+            break;
+
+        case 'getctrycode':
+            include_once(LIBRARY_DIR . "/cods_ints_tlfs.php");
+            citlf_recoveryAllList($n, $Arry, 1);
             break;
 
         case 'getFactsHdrs':
@@ -297,6 +307,25 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $descrip = $_POST["descripcion"] or "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
             ctrts_createRecord($codctto, $id_pais, $id_prov, $id_client, $id_tipo, $fini, $ffin, $ciclopub, $ciclomsgvalor, $cantcur, $descrip, $enabled);
+            die();
+            break;
+
+        case 'uploadPerfilInfo':
+            include_once(LIBRARY_DIR . "/adminUser.php");
+            $id_companyA = $_POST["company"] or "";
+            $id_cargoA = $_POST["cargo"] or "";
+            $urlfotoA = uploadImage($_FILES["foto"], "images/users");
+            $nomA = $_POST["nom"] or "";
+            $apeA = $_POST["ape"] or "";
+            $emailA = $_POST["email"] or "";
+            $id_ctrycodefijoA = $_POST["CodPaisTel"] or "";
+            $telA = $_POST["telCliente"] or "";
+            $extA = $_POST["extCliente"] or "";
+            $id_ctrycodecelA = $_POST["CodPaisCel"] or "";
+            $celA = $_POST["celCliente"] or "";
+            $observA = $_POST["observCliente"] or "";
+            $sexo = $_POST["sexo"] or "";
+            CreateUserProfile($id_companyA, $id_cargoA, $urlfotoA, $nomA, $apeA, $emailA, $id_ctrycodefijoA, $telA, $extA, $id_ctrycodecelA, $celA, $observA, $sexo);
             die();
             break;
 

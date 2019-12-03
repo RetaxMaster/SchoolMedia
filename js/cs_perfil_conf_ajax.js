@@ -36,19 +36,17 @@ function onPageStart() {
 
 
     //Se rellenan los slecets de paises y provincias
-    selectCtryPopulate('#country', 0, 'Seleccione Pais');
-    selectProvPopulate('#Provincia', 0, 'Seleccione Provincia', 168);
-    selectCodCtryPopulate("#CodPais1", 168);
 
+    //Rellena el companies
+    selectPopulate("#company", "getCompanies", 0, 1);
 
-    //Se detecta el evento de cambio de país para rellenar el select de provincia
-    $("#country").on("change", function () {
-        selectProvPopulate('#Provincia', 0, 'Seleccione Provincia', this.value);
-        selectCodCtryPopulate("#CodPais1", this.value);
-    });
+    //Rellena el cargo
+    selectPopulate("#cargo", "getcargo", 0, 2);
 
-    //Rellena el idplan
-    selectPopulate("#id_cap", "getCaps", 0, 1);
+    //Rellena el countrycode
+    selectPopulate("#CodPais1", "getctrycode", 0, 2);
+
+    selectPopulate("#CodPais2", "getctrycode", 0, 2);
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
@@ -64,7 +62,7 @@ function onPageStart() {
         if (validateInputs(inputs)) {
 
             var formData = new FormData(this);
-            formData.append("mode", "uploadCentOpInfo");
+            formData.append("mode", "uploadPerfilInfo");
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
