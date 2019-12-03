@@ -12,7 +12,7 @@
 // Crea un nuevo impuesto por pais
 function caimps_createRecord($id_imp, $id_pais, $valorPorc, $descrip, $enabled)
 {
-    $SQLStrQuery = "CALL sp_p_set_caimps_Create($id_imp, $id_pais, $valorPorc, $descrip, $enabled)";
+    $SQLStrQuery = "CALL sp_p_set_caimps_Create('$id_imp', '$id_pais', '$valorPorc', '$descrip', '$enabled')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 
@@ -21,7 +21,7 @@ function caimps_updateRecord($fields, $id_imp)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            $SQLStrQuery = "CALL sp_p_set_cimps_Update('$key', '$value', $id_client)";
+            $SQLStrQuery = "CALL sp_p_set_cimps_Update('$key', '$value', $id_imp)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
     } else {

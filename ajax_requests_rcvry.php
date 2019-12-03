@@ -18,6 +18,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             clients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_tipo", $_POST["tipoCliente"], $enabled, true);
             break;
 
+        case 'filterProdServByCtry':
+            include_once(LIBRARY_DIR . "/productos.php");
+            prdcts_recoveryAllByAnyField($n, $Arry, "tbl_caprods.id_pais", $_POST["pais"], true);
+            break;
+
         case 'getCtryCode':
             include_once(LIBRARY_DIR . "/cods_ints_tlfs.php");
             citlf_recoveryBy_paisID($n, $Arry, $_POST["ctryId"], 1);
@@ -37,6 +42,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/calific.php");
             cal_recoveryAllList($n, $Arry);
         break;
+
+        case 'getImp':
+            include_once(LIBRARY_DIR . "/impuestos_consumo.php");
+            caimps_recoveryAllList($n, $Arry, $enabled, true);
+            break;
 
         case 'uploadInfo':
             include_once(LIBRARY_DIR . "/clients.php");
@@ -259,16 +269,16 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             break;
 
         case 'uploadProdServInfo':
-            include_once(LIBRARY_DIR . "/recibo.php");
-            $id_fact = $_POST["idfact"] or "";
-            $id_cot = $_POST["idcot"] or "";
-            $id_fp = $_POST["fp"] or "";
-            $descrip = $_POST["descrip"] or "";
-            $fecha = $_POST["fecha"] or "";
-            $txdescrip = $_POST["txdescrip"] or "";
-            $monto = $_POST["monto"] or "";
-            $aprobado = isset($_POST["enabled"]) ? 1 : 0;
-            recibo_createRecord($id_fact, $id_cot, $id_fp, $descrip, $fecha, $txdescrip, $monto, $aprobado);
+            include_once(LIBRARY_DIR . "/productos.php");
+            $cod = $_POST["code"] or "";
+            $descrip = $_POST["descripcion"] or "";
+            $stock = $_POST["stock"] or "";
+            $tiposp = $_POST["servprod"] or "";
+            $puvp = $_POST["puventa"] or "";
+            $id_imp = $_POST["imp"] or "";
+            $costu = $_POST["cu"] or "";
+            $id_pais = $_POST["pais"] or "";
+            prdcts_createRecord($cod, $descrip, $stock, $tiposp, $puvp, $id_imp, $costu, $id_pais);
             die();
             break;
 

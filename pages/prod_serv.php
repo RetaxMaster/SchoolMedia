@@ -82,6 +82,26 @@ echo '<!-- Custom JavaScripts Functions Needs
             <!-- Tabla -->
             <div class="contTabla">
               <div class="tituloTabla">
+                <h6 id="text2">{$text2}</h6>
+              </div>
+              <div class="contenido-tabla">
+                <!-- Dropdown Seleccionar Paises -->
+                <div class="form-group">
+                  <label for="selectCtry" class="col-sm-3 col-form-label" id="text3">{$text3}</label><br>
+                  <select id="selectCtry" name="locality" class="form-control col-sm-3">
+                    <option value="-1" id="selectCtry">{$selectCtry}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Tabla -->
+            <div class="contTabla">
+              <div class="tituloTabla">
                 <h6 id="boxText">{$boxText}</h6>
               </div>
               <div class="contenido-tabla">
@@ -146,65 +166,61 @@ echo '<!-- Custom JavaScripts Functions Needs
                                 <div class="col-sm-4">
                                   <input type="text" class="form-control" id="idCliente" name="idCliente" placeholder="id" disabled>
                                 </div>
-                                <label for="" class="col-sm-2 col-form-label">Cabecera de factura<span class="iconObligatorio">*<span></label>
+                                <label for="" class="col-sm-2 col-form-label">Código</label>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control" id="code" name="code" placeholder="Código">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Stock</label>
+                                <div class="col-sm-4">
+                                  <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock">
+                                </div>
+                                <label for="" class="col-sm-2 col-form-label">Servicio/Producto<span class="iconObligatorio">*<span></label>
                                 <div class="col-sm-4">
                                   <!-- Dropdown Seleccionar Pais -->
                                   <div class="form-group">
-                                    <select id="idfact" name="idfact" class="form-control required">
-                                      <option value="-1">{$idfact}</option>
+                                    <select id="servprod" name="servprod" class="form-control required">
+                                      <option value="P">Producto</option>
+                                      <option value="S">Servicio</option>
                                     </select>
                                   </div>
                                 </div>
                               </div>
                               <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">Cotización aprobada<span class="iconObligatorio">*<span></label>
+                                <label for="" class="col-sm-2 col-form-label">P.U. venta</label>
                                 <div class="col-sm-4">
-                                  <!-- Dropdown Seleccionar Pais -->
-                                  <div class="form-group">
-                                    <select id="idcot" name="idcot" class="form-control required">
-                                      <option value="-1">{$idcot}</option>
-                                      <option value="1">Cotización genérica</option>
-                                    </select>
-                                  </div>
+                                  <input type="text" class="form-control" id="puventa" name="puventa" placeholder="P.U. venta">
                                 </div>
-                                <label for="" class="col-sm-2 col-form-label">Forma de pago<span class="iconObligatorio">*<span></label>
+                                <label for="" class="col-sm-2 col-form-label">Impuesto aplicable<span class="iconObligatorio">*<span></label>
                                 <div class="col-sm-4">
                                   <!-- Dropdown Seleccionar Pais -->
                                   <div class="form-group">
-                                    <select id="fp" name="fp" class="form-control required">
+                                    <select id="imp" name="imp" class="form-control required">
                                       <option value="-1">{$fp}</option>
-                                      <option value="1">Forma de pago genérica</option>
                                     </select>
                                   </div>
                                 </div>
                               </div>
                               <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">Nombre de la forma de pago</label>
-                                <div class="col-sm-4">
-                                  <input type="text" class="form-control" id="descrip" name="descrip" placeholder="Nombre de la forma de pago">
-                                </div>
-                                <label for="" class="col-sm-2 col-form-label">Fecha</label>
-                                <div class="col-sm-4">
-                                  <input type="date" class="form-control" id="fecha" name="fecha" placeholder="Fecha">
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">Descripción de la forma de pago</label>
+                                <label for="" class="col-sm-2 col-form-label">Pais<span class="iconObligatorio">*<span></label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="txdescrip" name="txdescrip" placeholder="Descripción de la forma de pago">
+                                  <!-- Dropdown Seleccionar Pais -->
+                                  <div class="form-group">
+                                    <select id="country" name="pais" class="form-control required">
+                                      <option value="-1">{$country}</option>
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                               <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">Monto</label>
+                                <label for="" class="col-sm-2 col-form-label">Descripcion</label>
                                 <div class="col-sm-4">
-                                  <input type="text" class="form-control" id="monto" name="monto" placeholder="Monto">
+                                  <textarea type="" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
                                 </div>
-                                <label for="" class="col-sm-3 col-form-label"></label>
-                                <div class="col-sm-3">
-                                  <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1" name="enabled" value="1">
-                                    <label class="custom-control-label" for="customCheck1">Aprobado <span class="iconObligatorio">*</span> (Si/No)</label>
-                                  </div>
+                                <label for="" class="col-sm-2 col-form-label">Costo unitario</label>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control" id="cu" name="cu" placeholder="Costo unitario">
                                 </div>
                               </div>
                               <div class="row">

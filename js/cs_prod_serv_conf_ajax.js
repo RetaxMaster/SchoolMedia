@@ -20,7 +20,7 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [0, 1, 2, 4, 5];
+    var tableIndexs = [1, 2, 4, 5, 8];
 
     var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="loadGallery"><i class="far fa-newspaper"></i></a>']
 
@@ -30,6 +30,7 @@ function onPageStart() {
 
 
     //Se rellenan los slecets de paises y provincias
+    selectCtryPopulate('#selectCtry', 0, 'Seleccione Pais');
     selectCtryPopulate('#country', 0, 'Seleccione Pais');
     selectProvPopulate('#Provincia', 0, 'Seleccione Provincia', 168);
     selectCodCtryPopulate("#CodPais1", 168);
@@ -41,8 +42,23 @@ function onPageStart() {
         selectCodCtryPopulate("#CodPais1", this.value);
     });
 
-    //Rellena el idplan
-    selectPopulate("#idfact", "getFactsHdrs", 0, 1);
+    //Detecta el cambio de país
+    $("#selectCtry").on("change", function () {
+        var pais = this.value;
+
+        var data = {
+            mode: "filterProdServByCtry",
+            pais: pais
+        }
+
+        updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
+            return formatDataTable(res, tableIndexs, [], pushToTheEnd);
+        });
+
+    });
+
+    //Rellena el impuestos
+    selectPopulate("#imp", "getImp", 0, 3);
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
