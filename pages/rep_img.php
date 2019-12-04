@@ -282,12 +282,10 @@ echo '<!-- Custom JavaScripts Functions Needs
                                                     <div class="col-sm-4">
                                                         <input type="text" class="form-control" id="idCliente" name="idCliente" placeholder="id" disabled>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label" for="nombre">URL de la imagen</label>
-                                                    <div class="col-sm-10">
+                                                    <div class="col-sm-4">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" id="imgURL" name="imgURL" placeholder="">
+                                                            <input type="file" class="form-control" id="imgURL" name="imgURL" placeholder="">
                                                         </div>
                                                     </div>
                                                 </div>

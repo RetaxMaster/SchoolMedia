@@ -193,7 +193,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/pubs.php");
             $id_client = $_POST["cliente"] or "";
             $descrip = $_POST["observCliente"] or "";
-            $urlimg = $_POST["imgURL"] or "";
+            $urlimg = uploadImage($_FILES["imgURL"], "images/publicidades");
             pubs_createRecord($id_client, $descrip, $urlimg);
             die();
             break;
