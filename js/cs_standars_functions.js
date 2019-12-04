@@ -403,6 +403,7 @@ function selectPopulate(idComponent, mode, id, value, field = "") {
     });
 }
 
+//Valida un grupo de inputs
 function validateInputs(inputs) {
     var flag = true;
     $(inputs).each(function () {
@@ -419,6 +420,31 @@ function validateInputs(inputs) {
     });
 
     return flag;
+}
+
+//Obtiene la data de un registro en específico
+function getDataOfThisRecord(id, mode, dataJSON) {
+
+    var data = {
+        id: id,
+        mode: mode
+    }
+
+    const url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+    $.post(url, data, function(res) {
+        res = JSON.parse(res);
+        res = res.data[0];
+
+        if(res[0] == id) {
+            for (const key in dataJSON) {
+                $("#" + key).val(res[dataJSON[key]]);
+            }
+        }
+        else {
+            alert("No se encontró información para este elemento")
+        }
+    });
 }
 
       // Set Country List Select component

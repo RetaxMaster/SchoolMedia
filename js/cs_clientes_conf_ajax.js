@@ -36,8 +36,6 @@ function onPageStart() {
     //Se detecta el evento de cambio de país para rellenar el select de provincia
     $("#country").on("change", function() {
         selectProvPopulate('#Provincia', 0, 'Seleccione Provincia', this.value);
-        selectCodCtryPopulate("#CodPais1", this.value);
-        selectCodCtryPopulate("#CodPais2", this.value);
     });
 
     var url = './ajax_tipos_clients_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
@@ -87,8 +85,8 @@ function onPageStart() {
     });
 
     //Rellena la lista de códigos de países
-    selectCodCtryPopulate("#CodPais1", 168);
-    selectCodCtryPopulate("#CodPais2", 168);
+    selectPopulate("#CodPais1", "getctrycode", 0, 2);
+    selectPopulate("#CodPais2", "getctrycode", 0, 2);
 
     //Rellena la clasificación del cliente
     selectPopulate("#clasificacionCliente", "getClasifCli", 0, 1);
@@ -106,10 +104,32 @@ function onPageStart() {
     $(document).on("click", ".updateData", function(){
         isUpdating = true;
         idToUpdate = this.id.split("-")[1];
+        
+        getDataOfThisRecord(idToUpdate, "getClientData", {
+            id: 0,
+            rucCliente: 2,
+            razSocCliente: 1,
+            dirCliente: 3,
+            country: 4,
+            Provincia: 5,
+            CodPais1: 7,
+            telCliente: 8,
+            extCliente: 9,
+            CodPais2: 10,
+            celCliente: 11,
+            httpCliente: 12,
+            emailCliente: 6,
+            clasificacionCliente: 14,
+            calificacionCliente: 15,
+            observCliente: 16,
+            tipoCliente2: 13,
+            customCheck1: 17
+        });
     });
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
+        $("#idFormDetalles").get(0).reset();
     });
 
     //Limpia el formulario
@@ -122,8 +142,6 @@ function onPageStart() {
         e.preventDefault();
 
         var inputs = $("#idFormDetalles .required");
-
-        alert(isUpdating)
 
         if (validateInputs(inputs) || isUpdating) {
             

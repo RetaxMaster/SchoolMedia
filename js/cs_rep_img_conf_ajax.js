@@ -138,8 +138,6 @@ function onPageStart() {
 
             var clientId = $("#tablaVerImagenes").get(0).dataset.idCliente;
 
-            alert(clientId);
-
             var formData = new FormData(this);
             formData.append("mode", "uploadRepImgInfo");
             formData.append("cliente", clientId);

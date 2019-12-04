@@ -8,6 +8,8 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
     switch ($_POST["mode"]) {
 
+        // Filtros por algún campo
+
         case 'filterClientsByCtry':
             include_once(LIBRARY_DIR . "/clients.php");
             clients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_pais", $_POST["pais"], $enabled, true);
@@ -22,6 +24,28 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/productos.php");
             prdcts_recoveryAllByAnyField($n, $Arry, "tbl_caprods.id_pais", $_POST["pais"], true);
             break;
+
+        case 'filterClientsContByCtry':
+            include_once(LIBRARY_DIR . "/cclients.php");
+            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_pais", $_POST["pais"], $enabled, true);
+            break;
+
+        case 'filterClientsContByType':
+            include_once(LIBRARY_DIR . "/cclients.php");
+            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_tipo", $_POST["tipoCliente"], $enabled, true);
+            break;
+
+        case 'filterLocAtsByProv':
+            include_once(LIBRARY_DIR . "/loc_ats.php");
+            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_prov", $_POST["pais"], $enabled, true);
+            break;
+
+        case 'filterLocAtsByTpub':
+            include_once(LIBRARY_DIR . "/loc_ats.php");
+            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_tpub", $_POST["tipoCliente"], $enabled, true);
+            break;
+
+        // Obtención de todos los registros de alguna tabla (Usualmente para rellenar un select)
 
         case 'getCtryCode':
             include_once(LIBRARY_DIR . "/cods_ints_tlfs.php");
@@ -46,39 +70,6 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
         case 'getImp':
             include_once(LIBRARY_DIR . "/impuestos_consumo.php");
             caimps_recoveryAllList($n, $Arry, $enabled, true);
-            break;
-
-        case 'uploadInfo':
-            include_once(LIBRARY_DIR . "/clients.php");
-            $rs = $_POST["razSocCliente"] or "";
-            $ruc = $_POST["rucCliente"] or "";
-            $addrs = $_POST["dirCliente"] or "";
-            $id_pais = $_POST["pais"] or "";
-            $id_prov = $_POST["provincia"] or "";
-            $email = $_POST["email"] or "";
-            $id_ctrycodefijo = $_POST["CodPaisTel"] or "";
-            $tel = $_POST["telCliente"] or "";
-            $ext = $_POST["extCliente"] or "";
-            $id_ctrycodecel = $_POST["CodPaisCel"] or "";
-            $cel = $_POST["celCliente"] or "";
-            $website = $_POST["httpCliente"] or "";
-            $id_tipo = $_POST["TipoCliente"] or "";
-            $id_clasific = $_POST["Clasif"] or "";
-            $id_calif = $_POST["Calif"] or "";
-            $descrip = $_POST["observCliente"] or "";
-            $enabled = isset($_POST["clienteHabilitado"]) ? 1 : 0;
-            clients_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $website, $id_tipo, $id_clasific, $id_calif, $descrip, $enabled);
-            die();
-            break;
-
-        case 'filterClientsContByCtry':
-            include_once(LIBRARY_DIR . "/cclients.php");
-            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_pais", $_POST["pais"], $enabled, true);
-            break;
-
-        case 'filterClientsContByType':
-            include_once(LIBRARY_DIR . "/cclients.php");
-            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_tipo", $_POST["tipoCliente"], $enabled, true);
             break;
 
         case 'getClients':
@@ -131,59 +122,81 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             fcthdr_recoveryAllList($n, $Arry, true);
             break;
 
-        /* case 'getCots':
+            /* case 'getCots':
             include_once(LIBRARY_DIR . "/adminUser.php");
             RecoveryAllUsers($Arry, $n, $enabled, true);
             break; */
 
-       /*  case 'getFormasPago':
+            /*  case 'getFormasPago':
             include_once(LIBRARY_DIR . "/adminUser.php");
             RecoveryAllUsers($Arry, $n, $enabled, true);
             break; */
+
+        // Obtención de registros por su id
+        case 'getClientData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/clients.php");
+            clients_recoveryOneByAnyField($n, $Arry, "tbl_cagenclients.id_client", $id, $enabled);
+            break;
+
+        // Insertado de datas
+
+        case 'uploadInfo':
+            include_once(LIBRARY_DIR . "/clients.php");
+            $rs = isset($_POST["razSocCliente"]) ? $_POST["razSocCliente"] : "";
+            $ruc = isset($_POST["rucCliente"]) ? $_POST["rucCliente"] : "";
+            $addrs = isset($_POST["dirCliente"]) ? $_POST["dirCliente"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
+            $email = isset($_POST["email"]) ? $_POST["email"] : "";
+            $id_ctrycodefijo = isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "";
+            $tel = isset($_POST["telCliente"]) ? $_POST["telCliente"] : "";
+            $ext = isset($_POST["extCliente"]) ? $_POST["extCliente"] : "";
+            $id_ctrycodecel = isset($_POST["CodPaisCel"]) ? $_POST["CodPaisCel"] : "";
+            $cel = isset($_POST["celCliente"]) ? $_POST["celCliente"] : "";
+            $website = isset($_POST["httpCliente"]) ? $_POST["httpCliente"] : "";
+            $id_tipo = isset($_POST["TipoCliente"]) ? $_POST["TipoCliente"] : "";
+            $id_clasific = isset($_POST["Clasif"]) ? $_POST["Clasif"] : "";
+            $id_calif = isset($_POST["Calif"]) ? $_POST["Calif"] : "";
+            $descrip = isset($_POST["observCliente"]) ? $_POST["observCliente"] : "";
+            $enabled = isset($_POST["clienteHabilitado"]) ? 1 : 0;
+            clients_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $website, $id_tipo, $id_clasific, $id_calif, $descrip, $enabled);
+            die();
+            break;
 
         case 'uploadClientContInfo':
             include_once(LIBRARY_DIR . "/cclients.php");
-            $id_pais = $_POST["pais"] or "";
-            $id_prov = $_POST["provincia"] or "";
-            $id_client = $_POST["cliente"] or "";
-            $id_tpub = $_POST["tpub"] or "";
-            $nom = $_POST["nombre"] or "";
-            $ape = $_POST["apellido"] or "";
-            $email = $_POST["email"] or "";
-            $id_ctrycodefijo = $_POST["CodPaisTel"] or "";
-            $tel = $_POST["telCliente"] or "";
-            $ext = $_POST["extCliente"] or "";
-            $id_ctrycodecel = $_POST["CodPaisCel"] or "";
-            $cel = $_POST["telCliente"] or "";
-            $id_cargo = $_POST["cargo"] or "";
-            $id_dptoemp = $_POST["depto"] or "";
-            $descrip = $_POST["observCliente"]or "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
+            $id_client = isset($_POST["cliente"]) ? $_POST["cliente"] : "";
+            $id_tpub = isset($_POST["tpub"]) ? $_POST["tpub"] : "";
+            $nom = isset($_POST["nombre"]) ? $_POST["nombre"] : "";
+            $ape = isset($_POST["apellido"]) ? $_POST["apellido"] : "";
+            $email = isset($_POST["email"]) ? $_POST["email"] : "";
+            $id_ctrycodefijo = isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "";
+            $tel = isset($_POST["telCliente"]) ? $_POST["telCliente"] : "";
+            $ext = isset($_POST["extCliente"]) ? $_POST["extCliente"] : "";
+            $id_ctrycodecel = isset($_POST["CodPaisCel"]) ? $_POST["CodPaisCel"] : "";
+            $cel = isset($_POST["telCliente"]) ? $_POST["telCliente"] : "";
+            $id_cargo = isset($_POST["cargo"]) ? $_POST["cargo"] : "";
+            $id_dptoemp = isset($_POST["depto"]) ? $_POST["depto"] : "";
+            $descrip = isseet($_POST["observCliente"]) ? $_POST["observCliente"] : "";
             $principal = isset($_POST["principal"]) ? 1 : 0;
             $enabled = isset($_POST["clienteHabilitado"]) ? 1 : 0;
             cclients_createRecord($id_pais, $id_prov, $id_client, $id_tpub, $nom, $ape, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $id_cargo, $id_dptoemp, $principal, $descrip, $enabled);
             die();
             break;
 
-        case 'filterLocAtsByProv':
-            include_once(LIBRARY_DIR . "/loc_ats.php");
-            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_prov", $_POST["pais"], $enabled, true);
-            break;
-
-        case 'filterLocAtsByTpub':
-            include_once(LIBRARY_DIR . "/loc_ats.php");
-            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_tpub", $_POST["tipoCliente"], $enabled, true);
-            break;
-
         case 'uploadOcupEspaciosInfo':
             include_once(LIBRARY_DIR . "/loc_ats.php");
-            $id_pais = $_POST["pais"] or "";
-            $id_prov = $_POST["provincia2"] or "";
-            $id_client = $_POST["tcliente"] or "";
-            $id_tpub = $_POST["tpub2"] or "";
-            $cod = $_POST["cod"] or "";
-            $cara = $_POST["cara"] or "";
-            $wide = $_POST["weight"] or "";
-            $high = $_POST["heigth"] or "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia2"]) ? $_POST["provincia2"] : "";
+            $id_client = isset($_POST["tcliente"]) ? $_POST["tcliente"] : "";
+            $id_tpub = isset($_POST["tpub2"]) ? $_POST["tpub2"] : "";
+            $cod = isset($_POST["cod"]) ? $_POST["cod"] : "";
+            $cara = isset($_POST["cara"]) ? $_POST["cara"] : "";
+            $wide = isset($_POST["weight"]) ? $_POST["weight"] : "";
+            $high = isset($_POST["heigth"]) ? $_POST["heigth"] : "";
             $enabled = isset($_POST["enabledPunb"]) ? 1 : 0;
             locs_createRecord($id_pais, $id_prov, $id_client, $id_tpub, $cod, $cara, $wide, $high, $enabled);
             die();
@@ -191,8 +204,8 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadRepImgInfo':
             include_once(LIBRARY_DIR . "/pubs.php");
-            $id_client = $_POST["cliente"] or "";
-            $descrip = $_POST["observCliente"] or "";
+            $id_client = isset($_POST["cliente"]) ? $_POST["cliente"] : "";
+            $descrip = isset($_POST["observCliente"]) ? $_POST["observCliente"] : "";
             $urlimg = uploadImage($_FILES["imgURL"], "images/publicidades");
             pubs_createRecord($id_client, $descrip, $urlimg);
             die();
@@ -200,32 +213,32 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadListValsInfo':
             include_once(LIBRARY_DIR . "/list_vals.php");
-            $descrip = $_POST["observCliente"] or "";
+            $descrip = isset($_POST["observCliente"]) ? $_POST["observCliente"] : "";
             lv_createRecord($descrip);
             die();
             break;
 
         case 'uploadCapsResInfo':
             include_once(LIBRARY_DIR . "/capacitadores.php");
-            $id_user = $_POST["iduser"] or "";
-            $formacad = $_POST["formacad"] or "";
-            $skills = $_POST["skills"] or "";
-            $certif = $_POST["certificaciones"] or "";
-            $exp = $_POST["experiencias"] or "";
-            $otros = $_POST["otros"] or "";
+            $id_user = isset($_POST["iduser"]) ? $_POST["iduser"] : "";
+            $formacad = isset($_POST["formacad"]) ? $_POST["formacad"] : "";
+            $skills = isset($_POST["skills"]) ? $_POST["skills"] : "";
+            $certif = isset($_POST["certificaciones"]) ? $_POST["certificaciones"] : "";
+            $exp = isset($_POST["experiencias"]) ? $_POST["experiencias"] : "";
+            $otros = isset($_POST["otros"]) ? $_POST["otros"] : "";
             caps_createRecord($id_user, $formacad, $skills, $certif, $exp, $otros);
             die();
             break;
 
         case 'uploadPlansAcadInfo':
             include_once(LIBRARY_DIR . "/planes.php");
-            $tiempodura = $_POST["tiempodura"] or "";
-            $id_modalidad = $_POST["modalidad"] or "";
-            $temario = $_POST["temario"] or "";
-            $prerrequisitos = $_POST["Prerrequisitos"] or "";
-            $perfil = $_POST["perfil"] or "";
-            $objetivos = $_POST["objetivos"] or "";
-            $título = $_POST["titulo"] or "";
+            $tiempodura = isset($_POST["tiempodura"]) ? $_POST["tiempodura"] : "";
+            $id_modalidad = isset($_POST["modalidad"]) ? $_POST["modalidad"] : "";
+            $temario = isset($_POST["temario"]) ? $_POST["temario"] : "";
+            $prerrequisitos = isset($_POST["Prerrequisitos"]) ? $_POST["Prerrequisitos"] : "";
+            $perfil = isset($_POST["perfil"]) ? $_POST["perfil"] : "";
+            $objetivos = isset($_POST["objetivos"]) ? $_POST["objetivos"] : "";
+            $título = isset($_POST["titulo"]) ? $_POST["titulo"] : "";
             $fcreac = date("Y-m-d");
             $lstenabled = isset($_POST["enabled"]) ? 1 : 0;
             plans_createRecord($tiempodura, $id_modalidad, $temario, $prerrequisitos, $perfil, $objetivos, $título, $fcreac, $lstenabled);
@@ -234,9 +247,9 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadDispPlansInfo':
             include_once(LIBRARY_DIR . "/disponibilidad.php");
-            $id_plan = $_POST["idplan"] or "";
-            $id_pais = $_POST["pais"] or "";
-            $id_prov = $_POST["provincia"] or "";
+            $id_plan = isset($_POST["idplan"]) ? $_POST["idplan"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
             disp_createRecord($id_plan, $id_pais, $id_prov, $enabled);
             die();
@@ -244,9 +257,9 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadDispCapInfo':
             include_once(LIBRARY_DIR . "/disp_cap.php");
-            $id_cap = $_POST["id_cap"] or "";
-            $id_pais = $_POST["pais"] or "";
-            $id_prov = $_POST["provincia"] or "";
+            $id_cap = isset($_POST["id_cap"]) ? $_POST["id_cap"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
             dispcap_createRecord($id_cap, $id_pais, $id_prov, $enabled);
             die();
@@ -254,10 +267,10 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadMatCapInfo':
             include_once(LIBRARY_DIR . "/cappapa.php");
-            $id_cap = $_POST["id_cap"] or "";
-            $idplan = $_POST["idplan"] or "";
-            $id_pais = $_POST["pais"] or "";
-            $id_prov = $_POST["provincia"] or "";
+            $id_cap = isset($_POST["id_cap"]) ? $_POST["id_cap"] : "";
+            $idplan = isset($_POST["idplan"]) ? $_POST["idplan"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
             cappapa_createRecord($idplan, $id_cap, $id_pais, $id_prov, $enabled);
             die();
@@ -265,14 +278,14 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadCentOpInfo':
             include_once(LIBRARY_DIR . "/companie.php");
-            $rs = $_POST["razSocCliente"] or "";
-            $ruc = $_POST["ruc"] or "";
-            $addrs = $_POST["address"] or "";
-            $id_pais = $_POST["pais"] or "";
-            $id_prov = $_POST["provincia"] or "";
-            $email = $_POST["email"] or "";
-            $id_ctrycodefijo = $_POST["CodPaisTel"] or "";
-            $tel = $_POST["telefono"] or "";
+            $rs = isset($_POST["razSocCliente"]) ? $_POST["razSocCliente"] : "";
+            $ruc = isset($_POST["ruc"]) ? $_POST["ruc"] : "";
+            $addrs = isset($_POST["address"]) ? $_POST["address"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
+            $email = isset($_POST["email"]) ? $_POST["email"] : "";
+            $id_ctrycodefijo = isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "";
+            $tel = isset($_POST["telefono"]) ? $_POST["telefono"] : "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
             comp_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id_ctrycodefijo, $tel, $enabled);
             die();
@@ -280,31 +293,31 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadProdServInfo':
             include_once(LIBRARY_DIR . "/productos.php");
-            $cod = $_POST["code"] or "";
-            $descrip = $_POST["descripcion"] or "";
-            $stock = $_POST["stock"] or "";
-            $tiposp = $_POST["servprod"] or "";
-            $puvp = $_POST["puventa"] or "";
-            $id_imp = $_POST["imp"] or "";
-            $costu = $_POST["cu"] or "";
-            $id_pais = $_POST["pais"] or "";
+            $cod = isset($_POST["code"]) ? $_POST["code"] : "";
+            $descrip = isset($_POST["descripcion"]) ? $_POST["descripcion"] : "";
+            $stock = isset($_POST["stock"]) ? $_POST["stock"] : "";
+            $tiposp = isset($_POST["servprod"]) ? $_POST["servprod"] : "";
+            $puvp = isset($_POST["puventa"]) ? $_POST["puventa"] : "";
+            $id_imp = isset($_POST["imp"]) ? $_POST["imp"] : "";
+            $costu = isset($_POST["cu"]) ? $_POST["cu"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
             prdcts_createRecord($cod, $descrip, $stock, $tiposp, $puvp, $id_imp, $costu, $id_pais);
             die();
             break;
 
         case 'uploadConvContInfo':
             include_once(LIBRARY_DIR . "/contratos.php");
-            $codctto = $_POST["codctto"] or "";
-            $id_pais = $_POST["pais"] or "";
-            $id_prov = $_POST["provincia"] or "";
-            $id_client = $_POST["cliente"] or "";
-            $id_tipo = $_POST["tipo"] or "";
-            $fini = $_POST["fini"] or "";
-            $ffin = $_POST["ffin"] or "";
-            $ciclopub = $_POST["ciclopub"] or "";
-            $ciclomsgvalor = $_POST["ciclovalor"] or "";
+            $codctto = isset($_POST["codctto"]) ? $_POST["codctto"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
+            $id_client = isset($_POST["cliente"]) ? $_POST["cliente"] : "";
+            $id_tipo = isset($_POST["tipo"]) ? $_POST["tipo"] : "";
+            $fini = isset($_POST["fini"]) ? $_POST["fini"] : "";
+            $ffin = isset($_POST["ffin"]) ? $_POST["ffin"] : "";
+            $ciclopub = isset($_POST["ciclopub"]) ? $_POST["ciclopub"] : "";
+            $ciclomsgvalor = isset($_POST["ciclovalor"]) ? $_POST["ciclovalor"] : "";
             $cantcur = "";
-            $descrip = $_POST["descripcion"] or "";
+            $descrip = isset($_POST["descripcion"]) ? $_POST["descripcion"] : "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
             ctrts_createRecord($codctto, $id_pais, $id_prov, $id_client, $id_tipo, $fini, $ffin, $ciclopub, $ciclomsgvalor, $cantcur, $descrip, $enabled);
             die();
@@ -312,43 +325,46 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadPerfilInfo':
             include_once(LIBRARY_DIR . "/adminUser.php");
-            $id_companyA = $_POST["company"] or "";
-            $id_cargoA = $_POST["cargo"] or "";
+            $id_companyA = isset($_POST["company"]) ? $_POST["company"] : "";
+            $id_cargoA = isset($_POST["cargo"]) ? $_POST["cargo"] : "";
             $urlfotoA = uploadImage($_FILES["foto"], "images/users");
-            $nomA = $_POST["nom"] or "";
-            $apeA = $_POST["ape"] or "";
-            $emailA = $_POST["email"] or "";
-            $id_ctrycodefijoA = $_POST["CodPaisTel"] or "";
-            $telA = $_POST["telCliente"] or "";
-            $extA = $_POST["extCliente"] or "";
-            $id_ctrycodecelA = $_POST["CodPaisCel"] or "";
-            $celA = $_POST["celCliente"] or "";
-            $observA = $_POST["observCliente"] or "";
-            $sexo = $_POST["sexo"] or "";
+            $nomA = isset($_POST["nom"]) ? $_POST["nom"] : "";
+            $apeA = isset($_POST["ape"]) ? $_POST["ape"] : "";
+            $emailA = isset($_POST["email"]) ? $_POST["email"] : "";
+            $id_ctrycodefijoA = isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "";
+            $telA = isset($_POST["telCliente"]) ? $_POST["telCliente"] : "";
+            $extA = isset($_POST["extCliente"]) ? $_POST["extCliente"] : "";
+            $id_ctrycodecelA = isset($_POST["CodPaisCel"]) ? $_POST["CodPaisCel"] : "";
+            $celA = isset($_POST["celCliente"]) ? $_POST["celCliente"] : "";
+            $observA = isset($_POST["observCliente"]) ? $_POST["observCliente"] : "";
+            $sexo = isset($_POST["sexo"]) ? $_POST["sexo"] : "";
             CreateUserProfile($id_companyA, $id_cargoA, $urlfotoA, $nomA, $apeA, $emailA, $id_ctrycodefijoA, $telA, $extA, $id_ctrycodecelA, $celA, $observA, $sexo);
             die();
             break;
+
+
+        //Actualizado de datas
 
         case 'updateInfo':
             include_once(LIBRARY_DIR . "/clients.php");
             $idToUpdate = $_POST["idToUpdate"];
             clients_updateRecord([
-                "rs" => $_POST["razSocCliente"] or "",
-                "ruc" => $_POST["rucCliente"] or "",
-                "addrs" => $_POST["dirCliente"] or "",
-                "id_pais" => $_POST["pais"] or "",
-                "id_prov" => $_POST["provincia"] or "",
-                "email" => $_POST["email"] or "",
-                "id_ctrycodefijo" => $_POST["CodPaisTel"] or "",
-                "tel" => $_POST["telCliente"] or "",
-                "ext" => $_POST["extCliente"] or "",
-                "id_ctrycodecel" => $_POST["CodPaisCel"] or "",
-                "cel" => $_POST["celCliente"] or "",
-                "website" => $_POST["httpCliente"] or "",
-                "id_tipo" => $_POST["TipoCliente"] or "",
-                "id_clasific" => $_POST["Clasif"] or "",
-                "id_calif" => $_POST["Calif"] or "",
-                "descrip" => $_POST["observCliente"] or "",
+                "rs" => isset($_POST["razSocCliente"]) ? $_POST["razSocCliente"] : "",
+                "ruc" => isset($_POST["rucCliente"]) ? $_POST["rucCliente"] : "",
+                "addrs" => isset($_POST["dirCliente"]) ? $_POST["dirCliente"] : "",
+                "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
+                "id_prov" => isset($_POST["provincia"]) ? $_POST["provincia"] : "",
+                "email" => isset($_POST["email"]) ? $_POST["email"] : "",
+                "id_ctrycodefijo" => isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "",
+                "tel" => isset($_POST["telCliente"]) ? $_POST["telCliente"] : "",
+                "ext" => isset($_POST["extCliente"]) ? $_POST["extCliente"] : "",
+                "id_ctrycodecel" => isset($_POST["CodPaisCel"]) ? $_POST["CodPaisCel"] : "",
+                "cel" => isset($_POST["celCliente"]) ? $_POST["celCliente"] : "",
+                "website" => isset($_POST["httpCliente"]) ? $_POST["httpCliente"] : "",
+                "id_tipo" => isset($_POST["TipoCliente"]) ? $_POST["TipoCliente"] : "",
+                "id_clasific" => isset($_POST["Clasif"]) ? $_POST["Clasif"] : "",
+                "id_calific" => isset($_POST["Calif"]) ? $_POST["Calif"] : "",
+                "descrip" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
                 "enabled" => isset($_POST["clienteHabilitado"]) ? 1 : 0
             ], $idToUpdate);
             die();
