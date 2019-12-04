@@ -230,6 +230,58 @@ function JSonformatedData($nCtry,$CtryLst,&$JSonDataObj) {
         fclose ($fp);
         
         return $types;
+	}
+
+	//Genera un string aleatorio, recibe la longitud del string que se desea -- RetaxMaster
+	function random_string($lenght) {
+		$string_base = "ABCDEFGHIJLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		$random_string = "";
+		$string_base_lenght = strlen($string_base);
+
+		for ($i=0; $i < $lenght ; $i++) {
+		$random = mt_rand(0, $string_base_lenght-1);
+		$random_string .= substr($string_base, $random, 1);
+		}
+
+		return $random_string;
+	}
+
+	//Devuelve la extensión de la imagen, recibe el nombre o el path, realmente da igual ya que hace un explode del "." y toma el último valor
+    function getImageExtension($imageOrPath) {
+        $extension = explode(".", $imageOrPath);
+        return array_pop($extension);
     }
+	
+	//Sube una imagen en la ruta indicada
+	function uploadImage($image, $route) {
+		//Si no está vacía la imagen...
+		if (!empty($image)) {
+
+			//Recolecto los datos de la imagen subida
+            $tmp_name = $image["tmp_name"];
+			$type = $image["type"];
+            $name = $image["name"];
+			$newName = random_string(10) . "." . getImageExtension($name);
+			$dir = "$route/$newName";
+
+			//Verifico que sea una imagen
+			$supported_files = ["image/jpeg", "image/png", "image/gif"];
+			if (in_array($type, $supported_files)) {
+				//Si logró subirse con éxito, retorno la URL
+				if (move_uploaded_file($tmp_name, $dir)) {
+					return $dir;
+				}
+				else {
+					die("Ocurrió un error moviendo la imagen al directorio de imagenes");
+				}
+			}
+			else {
+				die("El archivo subido no es una imagen");
+			}
+		}
+		else {
+			die("No se ha proporcionado ninguna imagen.");
+		}
+	}
 	
 ?>
