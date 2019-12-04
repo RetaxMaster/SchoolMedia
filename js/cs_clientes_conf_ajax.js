@@ -123,7 +123,7 @@ function onPageStart() {
             calificacionCliente: 15,
             observCliente: 16,
             tipoCliente2: 13,
-            customCheck1: 17
+            customCheck1: [17, "checkbox"]
         });
     });
 

@@ -31,9 +31,9 @@ function clients_createRecord($rs, $ruc, $addrs, $id_pais, $id_prov, $email, $id
 // Actualiza algún campo de la tabla según su id, recibe un arreglo asociativo con los campos a actualizar y también recibe el id de la fila que se va a actualizar
 function clients_updateRecord($fields, $id_client)
 {
-    if (!empty($fields)) {
+    if ($fields != "") {
         foreach ($fields as $key => $value) {
-            if (!empty($value)) {
+            if ($value !== "") {
                 echo $key . " => " . $value . "\n <br>";
                 $SQLStrQuery = "CALL sp_p_set_cagencli_Update('$key', '$value', $id_client)";
                 SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta

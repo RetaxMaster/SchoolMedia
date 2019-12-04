@@ -438,7 +438,14 @@ function getDataOfThisRecord(id, mode, dataJSON) {
 
         if(res[0] == id) {
             for (const key in dataJSON) {
-                $("#" + key).val(res[dataJSON[key]]);
+                var index = dataJSON[key];
+                if (typeof index == "number") {
+                    $("#" + key).val(res[index]);
+                }
+                else {
+                    var checked = res[index[0]] == 1;
+                    $("#" + key).prop("checked", checked);
+                }
             }
         }
         else {
