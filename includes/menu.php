@@ -117,9 +117,9 @@
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=35">Cuentas por cobrar view_0002</a>
                 </li>
-                <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=36">Reporte de facturación</a>
-                </li>
+                <!-- li>
+                  <a href="./.php?Lang=< ?php echo $Lang; ?>&wph=36">Reporte de facturación</a>
+                </li -->
                 <li>
                 <a href="./ocup_espacios_conf.php?Lang=<?php echo $Lang; ?>&wph=21">Espacios existentes</a>
                 </li>

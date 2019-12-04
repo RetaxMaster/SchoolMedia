@@ -201,7 +201,7 @@ echo '<!-- Custom JavaScripts Functions Needs
       <div class="modal-content">
         <div class="modal-header">
           <center>
-            <h2 class="estilo-titulo">Datos Generales de "Nombre Cliente"</h2>
+            <h2 class="estilo-titulo">Datos de espacios publicitarios registrados</h2>
           </center>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
         </div>

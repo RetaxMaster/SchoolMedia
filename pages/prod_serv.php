@@ -15,21 +15,35 @@ echo '<!-- Custom JavaScripts Functions Needs
 
 // Se guardan todos los labels
         var global_txtObj={
-            "components_ids" : 
-            [
-                "boxTitle",
-                "boxText",
-                "tblCol1",
-                "tblCol2"
-            ], 
-            "attrsx" :
-            [
-                "{$boxTitle}",
-                "{$boxText}",
-                "{$tblCol1}",
-                "{$tblCol2}"
-            ], 
-            "txts" : ' . $wpContentStr_Labels . '
+          "components_ids" : 
+          [
+              "boxTitle",
+              "text2",
+              "text3",
+              "boxText",
+              "tblCol1",
+              "tblCol2",
+              "tblCol3",
+              "tblCol4",
+              "tblCol5",
+              "tblCol6",
+              "idBtnNuevo"
+          ], 
+          "attrsx" :
+          [
+              "{$boxTitle}",
+              "{$text2}",
+              "{$text3}",
+              "{$boxText}",
+              "{$tblCol1}",
+              "{$tblCol2}",
+              "{$tblCol3}",
+              "{$tblCol4}",
+              "{$tblCol5}",
+              "{$tblCol6}",
+              "{$idBtnNuevo}"
+          ], 
+          "txts" : ' . $wpContentStr_Labels . '
         };
         
         // Variable global que recoge el parse de la respuesta del servidor en la consulta de Ajax, se inicializa en null

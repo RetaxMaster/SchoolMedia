@@ -22,7 +22,9 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "text3",
                 "text4",
                 "text5",
-                "text6"
+                "text6",
+                "text7",
+                "idBtnNuevo"
             ], 
             "attrsx" :
             [
@@ -31,7 +33,9 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "{$text3}",
                 "{$text4}",
                 "{$text5}",
-                "{$text6}"
+                "{$text6}",
+                "{$text7}",
+                "{$idBtnNuevo}"
             ], 
             "txts" : ' . $wpContentStr_Labels . '
         };
@@ -127,7 +131,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="contBtnSuccess">
-                            <button id="idBtnNuevo" class="btn btnSuccess" data-toggle="modal" data-target="#ModalVerTodos"><i class="far fa-plus-square"></i>Nuevo</button>
+                            <button id="idBtnNuevo" class="btn btnSuccess" data-toggle="modal" data-target="#ModalVerTodos">{$idBtnNuevo}</button>
                         </div>
                     </div>
                 </div>
@@ -142,7 +146,7 @@ echo '<!-- Custom JavaScripts Functions Needs
             <div class="modal-content">
                 <div class="modal-header">
                     <center>
-                        <h2 class="estilo-titulo">Datos Generales de "Nombre Cliente"</h2>
+                        <h2 class="estilo-titulo">Datos de disponibilidad de capacitador y pa?s</h2>
                     </center>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
                 </div>
