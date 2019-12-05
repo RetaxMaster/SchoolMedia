@@ -151,6 +151,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             pubs_recoveryOneByAnyField($n, $Arry, "id_pub", $id);
             break;
 
+        case 'getCapsResData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/capacitadores.php");
+            caps_recoveryOneByAnyField($n, $Arry, "id_cap", $id);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -414,6 +420,20 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "id_client" => isset($_POST["cliente"]) ? $_POST["cliente"] : "",
                 "descrip" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
                 "urlimg" => (isset($_FILES["imgURL"]) && !empty($_FILES["imgURL"]["tmp_name"])) ? uploadImage($_FILES["imgURL"], "images/publicidades") : ""
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateCapsResInfo':
+            include_once(LIBRARY_DIR . "/capacitadores.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            caps_updateRecord([
+                "id_user" => isset($_POST["iduser"]) ? $_POST["iduser"] : "",
+                "formacad" => isset($_POST["formacad"]) ? $_POST["formacad"] : "",
+                "skills" => isset($_POST["skills"]) ? $_POST["skills"] : "",
+                "certif" => isset($_POST["certificaciones"]) ? $_POST["certificaciones"] : "",
+                "exp" => isset($_POST["experiencias"]) ? $_POST["experiencias"] : "",
+                "otros" => isset($_POST["otros"]) ? $_POST["otros"] : ""
             ], $idToUpdate);
             die();
             break;

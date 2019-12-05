@@ -155,7 +155,7 @@ function onPageStart() {
 
         var inputs = $("#idFormDetalles .required");
 
-        if (validateInputs(inputs)) {
+        if (validateInputs(inputs) || isUpdating) {
 
             var clientId = $("#tablaVerImagenes").get(0).dataset.idCliente;
 
