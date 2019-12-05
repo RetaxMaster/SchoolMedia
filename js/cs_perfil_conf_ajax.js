@@ -27,7 +27,7 @@ function onPageStart() {
         "firstIndex": 0
     }];
 
-    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="loadGallery"><i class="far fa-newspaper"></i></a>']
+    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
 
     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_perfil_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
@@ -48,6 +48,40 @@ function onPageStart() {
 
     selectPopulate("#CodPais2", "getctrycode", 0, 2);
 
+    // Código para actualizar la data
+
+    var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
+    var idToUpdate;
+
+    $(document).on("click", ".updateData", function () {
+        isUpdating = true;
+        idToUpdate = this.id.split("-")[1];
+
+        getDataOfThisRecord(idToUpdate, "getPerfilData", {
+            idCliente: 0,
+            foto: 3,
+            company: 1,
+            sexo: 15,
+            nom: 4,
+            ape: 5,
+            CodPais1: 7,
+            telCliente: 8,
+            extCliente: 9,
+            CodPais2: 10,
+            celCliente: 11,
+            email: 6,
+            cargo: 2,
+            observCliente: 12
+        });
+    });
+
+    $(document).on("click", "#idBtnNuevo", function () {
+        isUpdating = false;
+        $("#idFormDetalles").get(0).reset();
+    });
+
+    // Termina código para actualizar la data
+
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
         $("#idFormDetalles").get(0).reset();
@@ -59,10 +93,19 @@ function onPageStart() {
 
         var inputs = $("#idFormDetalles .required");
 
-        if (validateInputs(inputs)) {
+        if (validateInputs(inputs) || isUpdating) {
 
             var formData = new FormData(this);
-            formData.append("mode", "uploadPerfilInfo");
+            var successText;
+
+            if (isUpdating) {
+                formData.append("mode", "updatePerfilInfo");
+                formData.append("idToUpdate", idToUpdate);
+                successText = "¡Registro actualizado con éxito!";
+            } else {
+                formData.append("mode", "uploadPerfilInfo");
+                successText = "¡Registro agregado con éxito!";
+            }
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
@@ -83,7 +126,8 @@ function onPageStart() {
                     console.log(res);
 
                     //Limpio el formulario
-                    $("#idFormDetalles").get(0).reset();
+                    if (!isUpdating)
+                        $("#idFormDetalles").get(0).reset();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_perfil_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
@@ -91,7 +135,11 @@ function onPageStart() {
                     });
 
                     //Informo de éxito
-                    alert("Agregado!!");
+                    Swal.fire(
+                        '¡Listo!',
+                        successText,
+                        'success'
+                    )
                 },
                 error: function (e) {
                     console.log(e);

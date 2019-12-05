@@ -187,6 +187,20 @@ function UpdateUserProfileSesion_id($iUID,$id_rol,$UserName) {
 		SQLQuery($ResponsePointer,$n,$SQLStrQuery,false); // Realiza la consulta en la base de datos globales
 	}
 
+		function perfil_updateRecord($fields, $id_client)
+		{
+			if ($fields != "") {
+				foreach ($fields as $key => $value) {
+					if ($value !== "") {
+						$SQLStrQuery = "CALL sp_p_set_usrprofs_Update('$key', '$value', $id_client)";
+						SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
+					}
+				}
+			} else {
+				throw new Exception("Debes enviar al menos un campo");
+			}
+		}
+
 // xxxxxx // Actualizar el passwd de un usuario en sus datos de acceso.
 
 	function UpdateUserPasswd_id($iUID,$UserPasswdCrypt) {

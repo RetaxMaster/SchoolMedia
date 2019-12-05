@@ -181,6 +181,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             cappapa_recoveryOneByAnyField($n, $Arry, "id_cappapais", $id, $enabled);
             break;
 
+        case 'getPerfilData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/adminUser.php");
+            RecoveryUserProfile_id($id, $Arry, $n);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -511,6 +517,27 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
                 "id_prov" => isset($_POST["provincia"]) ? $_POST["provincia"] : "",
                 "enabled" => isset($_POST["enabled"]) ? 1 : 0
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updatePerfilInfo':
+            include_once(LIBRARY_DIR . "/adminUser.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            perfil_updateRecord([
+                "id_company" => isset($_POST["company"]) ? $_POST["company"] : "",
+                "id_cargo" => isset($_POST["cargo"]) ? $_POST["cargo"] : "",
+                "urlfoto" => (isset($_FILES["foto"]) && !empty($_FILES["foto"]["tmp_name"])) ? uploadImage($_FILES["foto"], "images/users") : "",
+                "nom" => isset($_POST["nom"]) ? $_POST["nom"] : "",
+                "ape" => isset($_POST["ape"]) ? $_POST["ape"] : "",
+                "email" => isset($_POST["email"]) ? $_POST["email"] : "",
+                "id_ctrycodefijo" => isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "",
+                "tel" => isset($_POST["telCliente"]) ? $_POST["telCliente"] : "",
+                "ext" => isset($_POST["extCliente"]) ? $_POST["extCliente"] : "",
+                "id_ctrycodecel" => isset($_POST["CodPaisCel"]) ? $_POST["CodPaisCel"] : "",
+                "cel" => isset($_POST["celCliente"]) ? $_POST["celCliente"] : "",
+                "observ" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
+                "sexo" => isset($_POST["sexo"]) ? $_POST["sexo"] : ""
             ], $idToUpdate);
             die();
             break;
