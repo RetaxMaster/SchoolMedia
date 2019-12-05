@@ -163,6 +163,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             plans_recoveryOneByAnyField($n, $Arry, "id_plan", $id, $enabled);
             break;
 
+        case 'getDispPlansData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/disponibilidad.php");
+            disp_recoveryOneByAnyField($n, $Arry, "id_dispa", $id, $enabled);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -456,6 +462,18 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "objetivos" => isset($_POST["objetivos"]) ? $_POST["objetivos"] : "",
                 "título" => isset($_POST["titulo"]) ? $_POST["titulo"] : "",
                 "lstenabled" => isset($_POST["enabled"]) ? 1 : 0
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateDispPlansInfo':
+            include_once(LIBRARY_DIR . "/disponibilidad.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            disp_updateRecord([
+                "id_plan" => isset($_POST["idplan"]) ? $_POST["idplan"] : "",
+                "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
+                "id_prov" => isset($_POST["provincia"]) ? $_POST["provincia"] : "",
+                "enabled" => isset($_POST["enabled"]) ? 1 : 0
             ], $idToUpdate);
             die();
             break;
