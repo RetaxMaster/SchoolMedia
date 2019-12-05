@@ -136,7 +136,13 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
         case 'getClientData':
             $id = $_POST["id"];
             include_once(LIBRARY_DIR . "/clients.php");
-            clients_recoveryOneByAnyField($n, $Arry, "tbl_cagenclients.id_client", $id, $enabled);
+            clients_recoveryOneByAnyField($n, $Arry, "id_client", $id, $enabled);
+            break;
+
+        case 'getClientContData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/cclients.php");
+            cclients_recoveryOneByAnyField($n, $Arry, "id_cclient", $id, $enabled);
             break;
 
         // Insertado de datas
@@ -180,7 +186,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $cel = isset($_POST["telCliente"]) ? $_POST["telCliente"] : "";
             $id_cargo = isset($_POST["cargo"]) ? $_POST["cargo"] : "";
             $id_dptoemp = isset($_POST["depto"]) ? $_POST["depto"] : "";
-            $descrip = isseet($_POST["observCliente"]) ? $_POST["observCliente"] : "";
+            $descrip = isset($_POST["observCliente"]) ? $_POST["observCliente"] : "";
             $principal = isset($_POST["principal"]) ? 1 : 0;
             $enabled = isset($_POST["clienteHabilitado"]) ? 1 : 0;
             cclients_createRecord($id_pais, $id_prov, $id_client, $id_tpub, $nom, $ape, $email, $id_ctrycodefijo, $tel, $ext, $id_ctrycodecel, $cel, $id_cargo, $id_dptoemp, $principal, $descrip, $enabled);
@@ -365,6 +371,31 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "id_clasific" => isset($_POST["Clasif"]) ? $_POST["Clasif"] : "",
                 "id_calific" => isset($_POST["Calif"]) ? $_POST["Calif"] : "",
                 "descrip" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
+                "enabled" => isset($_POST["clienteHabilitado"]) ? 1 : 0
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateClientContInfo':
+            include_once(LIBRARY_DIR . "/cclients.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            cclients_updateRecord([
+                "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
+                "id_prov" => isset($_POST["provincia"]) ? $_POST["provincia"] : "",
+                "id_client" => isset($_POST["cliente"]) ? $_POST["cliente"] : "",
+                "id_tpub" => isset($_POST["tpub"]) ? $_POST["tpub"] : "",
+                "nom" => isset($_POST["nombre"]) ? $_POST["nombre"] : "",
+                "ape" => isset($_POST["apellido"]) ? $_POST["apellido"] : "",
+                "email" => isset($_POST["email"]) ? $_POST["email"] : "",
+                "id_ctrycodefijo" => isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "",
+                "tel" => isset($_POST["telCliente"]) ? $_POST["telCliente"] : "",
+                "ext" => isset($_POST["extCliente"]) ? $_POST["extCliente"] : "",
+                "id_ctrycodecel" => isset($_POST["CodPaisCel"]) ? $_POST["CodPaisCel"] : "",
+                "cel" => isset($_POST["telCliente"]) ? $_POST["telCliente"] : "",
+                "id_cargo" => isset($_POST["cargo"]) ? $_POST["cargo"] : "",
+                "id_dptoemp" => isset($_POST["depto"]) ? $_POST["depto"] : "",
+                "principal" => isset($_POST["principal"]) ? $_POST["observCliente"] : "",
+                "descrip" => isset($_POST["observCliente"]) ? 1 : 0,
                 "enabled" => isset($_POST["clienteHabilitado"]) ? 1 : 0
             ], $idToUpdate);
             die();

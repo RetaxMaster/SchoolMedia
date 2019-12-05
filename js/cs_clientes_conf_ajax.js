@@ -97,7 +97,8 @@ function onPageStart() {
     //Rellena la calificación del cliente
     selectPopulate("#calificacionCliente", "getCalifCli", 0, 1);
 
-    //Abre el formulario para actualizar la data
+    // Código para actualizar la data
+
     var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
     var idToUpdate;
 
@@ -132,6 +133,8 @@ function onPageStart() {
         $("#idFormDetalles").get(0).reset();
     });
 
+    // Termina código para actualizar la data
+
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
         $("#idFormDetalles").get(0).reset();
@@ -146,13 +149,16 @@ function onPageStart() {
         if (validateInputs(inputs) || isUpdating) {
             
             var formData = new FormData(this);
+            var successText;
 
             if (isUpdating) {
                 formData.append("mode", "updateInfo");
                 formData.append("idToUpdate", idToUpdate);
+                successText = "¡Registro actualizado con éxito!";
             }
             else {
                 formData.append("mode", "uploadInfo");
+                successText = "¡Registro agregado con éxito!";
             }
 
             for (var pair of formData.entries()) {
@@ -174,6 +180,7 @@ function onPageStart() {
                     console.log(res);
                     
                     //Limpio el formulario
+                    if (!isUpdating)
                     $("#idFormDetalles").get(0).reset();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
@@ -182,7 +189,11 @@ function onPageStart() {
                     });
 
                     //Informo de éxito
-                    alert("Agregado!!");
+                    Swal.fire(
+                        '¡Listo!',
+                        successText,
+                        'success'
+                    )
                 },
                 error: function (e) {
                     console.log(e);
