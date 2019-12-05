@@ -22,7 +22,7 @@ function onPageStart() {
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
     var tableIndexs = [0, 1, 11, 9, 2, 3, 8];
 
-    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="loadGallery"><i class="far fa-newspaper"></i></a>']
+    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_conv_cont_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
         return formatDataTable(res, tableIndexs, [], pushToTheEnd);
@@ -47,6 +47,37 @@ function onPageStart() {
     //Rellena el tipo clientes
     selectPopulate("#tipo", "getTipoCli", 0, 1);
 
+    // Código para actualizar la data
+
+    var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
+    var idToUpdate;
+
+    $(document).on("click", ".updateData", function () {
+        isUpdating = true;
+        idToUpdate = this.id.split("-")[1];
+
+        getDataOfThisRecord(idToUpdate, "getConvContData", {
+            idCliente: 0,
+            cliente: 4,
+            tipo: 5,
+            fini: 6,
+            ffin: 7,
+            country: 2,
+            Provincia: 3,
+            ciclopub: 8,
+            ciclovalor: 9,
+            descripcion: 11,
+            customCheck1: [12, "checkbox"]
+        });
+    });
+
+    $(document).on("click", "#idBtnNuevo", function () {
+        isUpdating = false;
+        $("#idFormDetalles").get(0).reset();
+    });
+
+    // Termina código para actualizar la data
+
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
         $("#idFormDetalles").get(0).reset();
@@ -58,10 +89,19 @@ function onPageStart() {
 
         var inputs = $("#idFormDetalles .required");
 
-        if (validateInputs(inputs)) {
+        if (validateInputs(inputs) || isUpdating) {
 
             var formData = new FormData(this);
-            formData.append("mode", "uploadConvContInfo");
+            var successText;
+
+            if (isUpdating) {
+                formData.append("mode", "updateConvContInfo");
+                formData.append("idToUpdate", idToUpdate);
+                successText = "¡Registro actualizado con éxito!";
+            } else {
+                formData.append("mode", "uploadConvContInfo");
+                successText = "¡Registro agregado con éxito!";
+            }
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
@@ -82,7 +122,8 @@ function onPageStart() {
                     console.log(res);
 
                     //Limpio el formulario
-                    $("#idFormDetalles").get(0).reset();
+                    if (!isUpdating)
+                        $("#idFormDetalles").get(0).reset();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_conv_cont_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
@@ -90,7 +131,11 @@ function onPageStart() {
                     });
 
                     //Informo de éxito
-                    alert("Agregado!!");
+                    Swal.fire(
+                        '¡Listo!',
+                        successText,
+                        'success'
+                    )
                 },
                 error: function (e) {
                     console.log(e);

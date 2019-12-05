@@ -205,6 +205,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             prdcts_recoveryOneByAnyField($n, $Arry, "id_prod", $id);
             break;
 
+        case 'getConvContData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/contratos.php");
+            ctrts_recoveryOneByAnyField($n, $Arry, "id_ctto", $id, $enabled);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -606,6 +612,26 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "id_imp" => isset($_POST["imp"]) ? $_POST["imp"] : "",
                 "costu" => isset($_POST["cu"]) ? $_POST["cu"] : "",
                 "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : ""
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateConvContInfo':
+            include_once(LIBRARY_DIR . "/contratos.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            ctrts_updateRecord([
+                "codctto" => isset($_POST["codctto"]) ? $_POST["codctto"] : "",
+                "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
+                "id_prov" => isset($_POST["provincia"]) ? $_POST["provincia"] : "",
+                "id_client" => isset($_POST["cliente"]) ? $_POST["cliente"] : "",
+                "id_tipo" => isset($_POST["tipo"]) ? $_POST["tipo"] : "",
+                "fini" => isset($_POST["fini"]) ? $_POST["fini"] : "",
+                "ffin" => isset($_POST["ffin"]) ? $_POST["ffin"] : "",
+                "ciclopub" => isset($_POST["ciclopub"]) ? $_POST["ciclopub"] : "",
+                "ciclomsgvalor" => isset($_POST["ciclovalor"]) ? $_POST["ciclovalor"] : "",
+                "cantcur" => "",
+                "descrip" => isset($_POST["descripcion"]) ? $_POST["descripcion"] : "",
+                "enabled" => isset($_POST["enabled"]) ? 1 : 0
             ], $idToUpdate);
             die();
             break;
