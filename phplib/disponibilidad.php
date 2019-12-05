@@ -20,8 +20,10 @@ function disp_updateRecord($fields, $id_dispa)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
+            if ($value !== "") {
             $SQLStrQuery = "CALL sp_p_set_acaddisp_Update('$key', '$value', $id_dispa)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
+        }
         }
     } else {
         throw new Exception("Debes enviar al menos un campo");

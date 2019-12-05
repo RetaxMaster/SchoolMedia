@@ -23,8 +23,10 @@ function prdcts_updateRecord($fields, $id_prod)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
+            if ($value !== "") {
             $SQLStrQuery = "CALL sp_p_set_caprdcts_Update('$key', '$value', $id_prod)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
+        }
         }
     } else {
         throw new Exception("Debes enviar al menos un campo");

@@ -285,7 +285,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                                                     <label class="col-sm-2 col-form-label" for="nombre">URL de la imagen</label>
                                                     <div class="col-sm-4">
                                                         <div class="input-group">
-                                                            <input type="file" class="form-control" id="imgURL" name="imgURL" placeholder="">
+                                                            <input type="file" class="form-control-file" id="imgURL" name="imgURL" placeholder="">
                                                         </div>
                                                     </div>
                                                 </div>

@@ -145,6 +145,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             cclients_recoveryOneByAnyField($n, $Arry, "id_cclient", $id, $enabled);
             break;
 
+        case 'getRepImgData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/pubs.php");
+            pubs_recoveryOneByAnyField($n, $Arry, "id_pub", $id);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -397,6 +403,17 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "principal" => isset($_POST["principal"]) ? $_POST["observCliente"] : "",
                 "descrip" => isset($_POST["observCliente"]) ? 1 : 0,
                 "enabled" => isset($_POST["clienteHabilitado"]) ? 1 : 0
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateRepImgInfo':
+            include_once(LIBRARY_DIR . "/pubs.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            pubs_updateRecord([
+                "id_client" => isset($_POST["cliente"]) ? $_POST["cliente"] : "",
+                "descrip" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
+                "urlimg" => (isset($_FILES["imgURL"]) && !empty($_FILES["imgURL"]["tmp_name"])) ? uploadImage($_FILES["imgURL"], "images/publicidades") : ""
             ], $idToUpdate);
             die();
             break;

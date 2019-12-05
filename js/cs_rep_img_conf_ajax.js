@@ -31,7 +31,7 @@ function onPageStart() {
             var rep = data[i];
 
             //Se crea su HTML
-            row[x - 1] = '<div class="card tarjetaImagenes" style=""> <img src="' + rep[2] + '" class="card-img-top openInNewTab" alt="..."><div class="card-body bodyTarjeta"><h5 class="card-title">' + rep[0] + '</h5><p class="">' + rep[3] + '</p><p class="card-text">' + rep[1] + '</p></div></div>';
+            row[x - 1] = '<div class="card tarjetaImagenes" style=""> <img src="' + rep[2] + '" class="card-img-top openInNewTab" alt="..."><div class="card-body bodyTarjeta"><h5 class="card-title">' + rep[0] + '</h5><p class="">' + rep[3] + '</p><p class="card-text">' + rep[1] + '</p><a href="#" class="btn btn-primary edit-record" id="i-' + rep[0] + '" data-toggle="modal" data-target="#ModalVerTodos">Editar</a></div></div>';
 
             newData[p] = row;
 
@@ -122,6 +122,27 @@ function onPageStart() {
     
     });
 
+    // Código para actualizar la data
+
+    var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
+    var idToUpdate;
+
+    $(document).on("click", ".edit-record", function () {
+        isUpdating = true;
+        idToUpdate = this.id.split("-")[1];
+
+        getDataOfThisRecord(idToUpdate, "getRepImgData", {
+            idCliente: 0,
+            observCliente: 2
+        });
+    });
+
+    $(document).on("click", "#idBtnNuevo", function () {
+        isUpdating = false;
+        $("#idFormDetalles").get(0).reset();
+    });
+
+    // Termina código para actualizar la data
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
@@ -139,7 +160,17 @@ function onPageStart() {
             var clientId = $("#tablaVerImagenes").get(0).dataset.idCliente;
 
             var formData = new FormData(this);
-            formData.append("mode", "uploadRepImgInfo");
+            var successText;
+
+            if (isUpdating) {
+                formData.append("mode", "updateRepImgInfo");
+                formData.append("idToUpdate", idToUpdate);
+                successText = "¡Registro actualizado con éxito!";
+            } else {
+                formData.append("mode", "uploadRepImgInfo");
+                successText = "¡Registro agregado con éxito!";
+            }
+
             formData.append("cliente", clientId);
 
             for (var pair of formData.entries()) {
@@ -161,7 +192,8 @@ function onPageStart() {
                     console.log(res);
 
                     //Limpio el formulario
-                    $("#idFormDetalles").get(0).reset();
+                    if (!isUpdating)
+                        $("#idFormDetalles").get(0).reset();
                     //Actualizo la DataTable
                     var data = {
                         id: clientId
@@ -172,7 +204,11 @@ function onPageStart() {
                     }); // Se fijan los labels estandars de las tablas y sus busquedas
 
                     //Informo de éxito
-                    alert("Agregado!!");
+                    Swal.fire(
+                        '¡Listo!',
+                        successText,
+                        'success'
+                    )
                 },
                 error: function (e) {
                     console.log(e);

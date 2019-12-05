@@ -196,7 +196,7 @@ function onPageStart() {
                     
                     //Limpio el formulario
                     if(!isUpdating)
-                    $("#idFormDetalles").get(0).reset();
+                        $("#idFormDetalles").get(0).reset();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_cont_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
