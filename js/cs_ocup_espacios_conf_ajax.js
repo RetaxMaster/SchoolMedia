@@ -130,7 +130,7 @@ function onPageStart() {
 
         var inputs = $("#idFormDetalles .required");
 
-        if (validateInputs(inputs)) {
+        if (validateInputs(inputs) || isUpdating) {
 
             var formData = new FormData(this);
             var successText;

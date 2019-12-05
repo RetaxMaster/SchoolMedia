@@ -9,6 +9,7 @@
     puvp
     id_imp
     costu
+    id_pais
 */
 
 // Crea una nueva ubicación

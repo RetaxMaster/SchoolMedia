@@ -199,6 +199,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             locs_recoveryOneByAnyField($n, $Arry, "id_locat", $id, $enabled);
             break;
 
+        case 'getProdServData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/productos.php");
+            prdcts_recoveryOneByAnyField($n, $Arry, "id_prod", $id);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -584,6 +590,22 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "wide" => isset($_POST["weight"]) ? $_POST["weight"] : "",
                 "high" => isset($_POST["heigth"]) ? $_POST["heigth"] : "",
                 "enabled" => isset($_POST["enabledPunb"]) ? 1 : 0
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateProdServInfo':
+            include_once(LIBRARY_DIR . "/productos.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            prdcts_updateRecord([
+                "cod" => isset($_POST["code"]) ? $_POST["code"] : "",
+                "descrip" => isset($_POST["descripcion"]) ? $_POST["descripcion"] : "",
+                "stock" => isset($_POST["stock"]) ? $_POST["stock"] : "",
+                "tiposp" => isset($_POST["servprod"]) ? $_POST["servprod"] : "",
+                "puvp" => isset($_POST["puventa"]) ? $_POST["puventa"] : "",
+                "id_imp" => isset($_POST["imp"]) ? $_POST["imp"] : "",
+                "costu" => isset($_POST["cu"]) ? $_POST["cu"] : "",
+                "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : ""
             ], $idToUpdate);
             die();
             break;
