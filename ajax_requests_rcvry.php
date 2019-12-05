@@ -187,6 +187,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             RecoveryUserProfile_id($id, $Arry, $n);
             break;
 
+        case 'getCentOpData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/companie.php");
+            comp_recoveryOneByAnyField($n, $Arry, "id_company", $id, $enabled);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -538,6 +544,23 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "cel" => isset($_POST["celCliente"]) ? $_POST["celCliente"] : "",
                 "observ" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
                 "sexo" => isset($_POST["sexo"]) ? $_POST["sexo"] : ""
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateCentOpInfo':
+            include_once(LIBRARY_DIR . "/companie.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            comp_updateRecord([
+                "rs" => isset($_POST["razSocCliente"]) ? $_POST["razSocCliente"] : "",
+                "ruc" => isset($_POST["ruc"]) ? $_POST["ruc"] : "",
+                "addrs" => isset($_POST["address"]) ? $_POST["address"] : "",
+                "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
+                "id_prov" => isset($_POST["provincia"]) ? $_POST["provincia"] : "",
+                "email" => isset($_POST["email"]) ? $_POST["email"] : "",
+                "id_ctrycodefijo" => isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "",
+                "tel" => isset($_POST["telefono"]) ? $_POST["telefono"] : "",
+                "enabled" => isset($_POST["enabled"]) ? 1 : 0
             ], $idToUpdate);
             die();
             break;

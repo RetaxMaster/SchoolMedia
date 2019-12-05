@@ -27,7 +27,7 @@ function onPageStart() {
         "firstIndex": 2
     }];
 
-    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="loadGallery"><i class="far fa-newspaper"></i></a>']
+    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_cent_op_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
         return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
@@ -49,6 +49,36 @@ function onPageStart() {
     //Rellena el idplan
     selectPopulate("#id_cap", "getCaps", 0, 1);
 
+    // Código para actualizar la data
+
+    var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
+    var idToUpdate;
+
+    $(document).on("click", ".updateData", function () {
+        isUpdating = true;
+        idToUpdate = this.id.split("-")[1];
+
+        getDataOfThisRecord(idToUpdate, "getCentOpData", {
+            idCliente: 0,
+            razSocCliente: 1,
+            ruc: 2,
+            address: 3,
+            country: 4,
+            Provincia: 5,
+            email: 6,
+            CodPais1: 7,
+            telefono: 8,
+            customCheck1: [9, "checkbox"]
+        });
+    });
+
+    $(document).on("click", "#idBtnNuevo", function () {
+        isUpdating = false;
+        $("#idFormDetalles").get(0).reset();
+    });
+
+    // Termina código para actualizar la data
+
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
         $("#idFormDetalles").get(0).reset();
@@ -60,10 +90,19 @@ function onPageStart() {
 
         var inputs = $("#idFormDetalles .required");
 
-        if (validateInputs(inputs)) {
+        if (validateInputs(inputs) || isUpdating) {
 
             var formData = new FormData(this);
-            formData.append("mode", "uploadCentOpInfo");
+            var successText;
+
+            if (isUpdating) {
+                formData.append("mode", "updateCentOpInfo");
+                formData.append("idToUpdate", idToUpdate);
+                successText = "¡Registro actualizado con éxito!";
+            } else {
+                formData.append("mode", "uploadCentOpInfo");
+                successText = "¡Registro agregado con éxito!";
+            }
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
@@ -84,7 +123,8 @@ function onPageStart() {
                     console.log(res);
 
                     //Limpio el formulario
-                    $("#idFormDetalles").get(0).reset();
+                    if (!isUpdating)
+                        $("#idFormDetalles").get(0).reset();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_cent_op_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
@@ -92,7 +132,11 @@ function onPageStart() {
                     });
 
                     //Informo de éxito
-                    alert("Agregado!!");
+                    Swal.fire(
+                        '¡Listo!',
+                        successText,
+                        'success'
+                    )
                 },
                 error: function (e) {
                     console.log(e);
