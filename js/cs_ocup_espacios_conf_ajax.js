@@ -20,10 +20,12 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [0, 8, 1, 3, 4, 5];
+    var tableIndexs = [0, 8, 1, 3, 4];
+
+    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_ocup_espacios_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-        return formatDataTable(res, tableIndexs);
+        return formatDataTable(res, tableIndexs, [], pushToTheEnd);
     }); // Se fijan los labels estandars de las tablas y sus busquedas
 
     //Se rellenan los slecets de paises y provincias
@@ -54,7 +56,7 @@ function onPageStart() {
         }
 
         updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
-            return formatDataTable(res, tableIndexs);
+            return formatDataTable(res, tableIndexs, [], pushToTheEnd);
         });
 
     });
@@ -69,14 +71,14 @@ function onPageStart() {
         }
 
         updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
-            return formatDataTable(res, tableIndexs);
+            return formatDataTable(res, tableIndexs, [], pushToTheEnd);
         });
 
     });
 
     //Rellena la lista de códigos de países
-    selectCodCtryPopulate("#CodPais1", 168);
-    selectCodCtryPopulate("#CodPais2", 168);
+    selectPopulate("#CodPais1", "getctrycode", 0, 2);
+    selectPopulate("#CodPais2", "getctrycode", 0, 2);
 
     //Rellena el formato publicitario
     selectPopulate("#tpub", "gettpub", 0, 1);
@@ -86,6 +88,36 @@ function onPageStart() {
 
     //Rellena el tipo de cliente
     selectPopulate("#tcliente", "getTipoCli", 0, 1);
+
+    // Código para actualizar la data
+
+    var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
+    var idToUpdate;
+
+    $(document).on("click", ".updateData", function () {
+        isUpdating = true;
+        idToUpdate = this.id.split("-")[1];
+
+        getDataOfThisRecord(idToUpdate, "getOcupEspaciosData", {
+            idCliente: 0,
+            tpub2: 4,
+            tcliente: 3,
+            cod: 5,
+            cara: 6,
+            width: 7,
+            height: 8,
+            country: 1,
+            Provincia2: 2,
+            customCheck1: [9, "checkbox"]
+        });
+    });
+
+    $(document).on("click", "#idBtnNuevo", function () {
+        isUpdating = false;
+        $("#idFormDetalles").get(0).reset();
+    });
+
+    // Termina código para actualizar la data
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
@@ -101,7 +133,16 @@ function onPageStart() {
         if (validateInputs(inputs)) {
 
             var formData = new FormData(this);
-            formData.append("mode", "uploadOcupEspaciosInfo");
+            var successText;
+
+            if (isUpdating) {
+                formData.append("mode", "updateOcupEspaciosInfo");
+                formData.append("idToUpdate", idToUpdate);
+                successText = "¡Registro actualizado con éxito!";
+            } else {
+                formData.append("mode", "uploadOcupEspaciosInfo");
+                successText = "¡Registro agregado con éxito!";
+            }
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
@@ -122,15 +163,20 @@ function onPageStart() {
                     console.log(res);
 
                     //Limpio el formulario
-                    $("#idFormDetalles").get(0).reset();
+                    if (!isUpdating)
+                        $("#idFormDetalles").get(0).reset();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_ocup_espacios_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-                        return formatDataTable(res, tableIndexs);
+                        return formatDataTable(res, tableIndexs, [], pushToTheEnd);
                     });
 
                     //Informo de éxito
-                    alert("Agregado!!");
+                    Swal.fire(
+                        '¡Listo!',
+                        successText,
+                        'success'
+                    )
                 },
                 error: function (e) {
                     console.log(e);

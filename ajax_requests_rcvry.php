@@ -193,6 +193,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             comp_recoveryOneByAnyField($n, $Arry, "id_company", $id, $enabled);
             break;
 
+        case 'getOcupEspaciosData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/loc_ats.php");
+            locs_recoveryOneByAnyField($n, $Arry, "id_locat", $id, $enabled);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -561,6 +567,23 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "id_ctrycodefijo" => isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "",
                 "tel" => isset($_POST["telefono"]) ? $_POST["telefono"] : "",
                 "enabled" => isset($_POST["enabled"]) ? 1 : 0
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateOcupEspaciosInfo':
+            include_once(LIBRARY_DIR . "/loc_ats.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            locs_updateRecord([
+                "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
+                "id_prov" => isset($_POST["provincia2"]) ? $_POST["provincia2"] : "",
+                "id_client" => isset($_POST["tcliente"]) ? $_POST["tcliente"] : "",
+                "id_tpub" => isset($_POST["tpub2"]) ? $_POST["tpub2"] : "",
+                "cod" => isset($_POST["cod"]) ? $_POST["cod"] : "",
+                "cara" => isset($_POST["cara"]) ? $_POST["cara"] : "",
+                "wide" => isset($_POST["weight"]) ? $_POST["weight"] : "",
+                "high" => isset($_POST["heigth"]) ? $_POST["heigth"] : "",
+                "enabled" => isset($_POST["enabledPunb"]) ? 1 : 0
             ], $idToUpdate);
             die();
             break;
