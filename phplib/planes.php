@@ -46,7 +46,7 @@ function plans_recoveryAllList(&$nDocs, &$Docs, $enabled)
 //Recupera todos los registros filtrados por algún campo
 function plans_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled)
 { // true or false
-    $SQLStrQuery = "CALL sp_p_lst_acadplans_byAnyField($field, $value, $enabled)";
+    $SQLStrQuery = "CALL sp_p_lst_acadplans_byAnyField('$field', '$value', $enabled)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 10); // Pertenece a dbmngmtAdmin.php
 }
@@ -54,7 +54,7 @@ function plans_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled)
 //Recupera un registro filtrados por algún campo
 function plans_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled)
 { // true or false
-    $SQLStrQuery = "CALL sp_p_get_acadplans_byAnyField($field, $value, $enabled)";
+    $SQLStrQuery = "CALL sp_p_get_acadplans_byAnyField('$field', '$value', $enabled)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 10); // Pertenece a dbmngmtAdmin.php
 }

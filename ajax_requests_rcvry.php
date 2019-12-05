@@ -157,6 +157,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             caps_recoveryOneByAnyField($n, $Arry, "id_cap", $id);
             break;
 
+        case 'getPlansAcadData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/planes.php");
+            plans_recoveryOneByAnyField($n, $Arry, "id_plan", $id, $enabled);
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -434,6 +440,22 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "certif" => isset($_POST["certificaciones"]) ? $_POST["certificaciones"] : "",
                 "exp" => isset($_POST["experiencias"]) ? $_POST["experiencias"] : "",
                 "otros" => isset($_POST["otros"]) ? $_POST["otros"] : ""
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updatePlansAcadInfo':
+            include_once(LIBRARY_DIR . "/planes.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            plans_updateRecord([
+                "tiempodura" => isset($_POST["tiempodura"]) ? $_POST["tiempodura"] : "",
+                "id_modalidad" => isset($_POST["modalidad"]) ? $_POST["modalidad"] : "",
+                "temario" => isset($_POST["temario"]) ? $_POST["temario"] : "",
+                "prerrequisitos" => isset($_POST["Prerrequisitos"]) ? $_POST["Prerrequisitos"] : "",
+                "perfil" => isset($_POST["perfil"]) ? $_POST["perfil"] : "",
+                "objetivos" => isset($_POST["objetivos"]) ? $_POST["objetivos"] : "",
+                "título" => isset($_POST["titulo"]) ? $_POST["titulo"] : "",
+                "lstenabled" => isset($_POST["enabled"]) ? 1 : 0
             ], $idToUpdate);
             die();
             break;
