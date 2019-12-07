@@ -1,32 +1,56 @@
-<?php                       
-/*	ESTO ES UN EJEMPLO, PUEDEN TENER MAS O MENOS FUNCIONES
-    tbl_crmprocs
-        id_proc
-        id_tipo
-        descrip
+<?php
+/*	
+ tbl_crmprocs
+	id_proc
+    id_tipo
+    descrip
 */
-// Datos de un solo proceso del crm de acuerdo a su ID 
-function pcrm_recoveryToShowByID(&$nDocs,&$Docs,$id,$ctryCod) {
-	$SQLStrQuery="CALL sp_p_get_genpcrm_id ($id,$ctryCod)";
-	SQLQuery($ResponsePointer,$nDocs,$SQLStrQuery,true); // Realiza la consulta
-	ConvertPointerToArray($ResponsePointer,$Docs,$nDocs,3); // Pertenece a dbmngmtAdmin.php
+
+// Crea una nueva ubicación
+function procs_createRecord($id_tipo, $descrip)
+{
+	$SQLStrQuery = "CALL sp_p_set_crmprocs_Create('$id_tipo', '$descrip')";
+	SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 
-// Datos de un proceso de crm de acuerdo a su pais.
-// Si $ctryCod es 1 recupera los resultados con id del codigo del tipo de cliente
-// si es 0 recupera los resultados con los nombres en texto de los tipos de clientes
-function pcrm_recoveryBy_paisID(&$nDocs,&$Docs,$id,$ctryCod) { // true or false
-	$SQLStrQuery="CALL sp_p_lst_genpcrm_id_tipoCli($id,$ctryCod)";
-	SQLQuery($ResponsePointer,$nDocs,$SQLStrQuery,true); // Realiza la consulta
-	ConvertPointerToArray($ResponsePointer,$Docs,$nDocs,3); // Pertenece a dbmngmtAdmin.php
+// Actualiza algún campo de la tabla según su id, recibe un arreglo asociativo con los campos a actualizar y también recibe el id de la fila que se va a actualizar
+function procs_updateRecord($fields, $id_proc)
+{
+	if (!empty($fields)) {
+		foreach ($fields as $key => $value) {
+			if ($value !== "") {
+				$SQLStrQuery = "CALL sp_p_set_crmprocs_Update('$key', '$value', '$id_proc')";
+				SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
+			}
+		}
+	} else {
+		throw new Exception("Debes enviar al menos un campo");
+	}
 }
 
-// datos de todos los codigo telefonico de paises
-function pcrm_recoveryAllList(&$nDocs,&$Docs,$ctryCod) { // true or false
-	$SQLStrQuery="CALL sp_p_lst_genpcrm_all($ctryCod)";
-	SQLQuery($ResponsePointer,$nDocs,$SQLStrQuery,true); // Realiza la consulta
-	ConvertPointerToArray($ResponsePointer,$Docs,$nDocs,3); // Pertenece a dbmngmtAdmin.php
+//Recupera todos los registros, opcionalmente puedes especificar si deseas hacer un join para traer los datos crudos o reemplazados
+function procs_recoveryAllList(&$nDocs, &$Docs, $join = false)
+{ // true or false
+	$tinyint = (int) $join;
+	$SQLStrQuery = "CALL sp_p_lst_crmprocs_all($tinyint)";
+	SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
+	ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 3); // Pertenece a dbmngmtAdmin.php
 }
 
+//Recupera todos los registros filtrados por algún campo
+function procs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+{ // true or false
+	$tinyint = (int) $join;
+	$SQLStrQuery = "CALL sp_p_lst_crmprocs_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
+	SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
+	ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 3); // Pertenece a dbmngmtAdmin.php
+}
 
-?>
+//Recupera un registro filtrados por algún campo
+function procs_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+{ // true or false
+	$tinyint = (int) $join;
+	$SQLStrQuery = "CALL sp_p_get_crmprocs_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
+	SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
+	ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 3); // Pertenece a dbmngmtAdmin.php
+}
