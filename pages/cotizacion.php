@@ -94,10 +94,14 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <th id="tblCol3">{$tblCol3}</th>
                         <th id="tblCol4">{$tblCol4}</th>
                         <th id="tblCol5">{$tblCol5}</th>
+                        <th id="tblCol6">{$tblCol6}</th>
+                        <th id="tblCol7">{$tblCol7}</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

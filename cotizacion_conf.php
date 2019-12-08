@@ -4,7 +4,7 @@
 	include_once(LIBRARY_DIR."/admin_wpHeader.php");
 	include_once(LIBRARY_DIR."/admin_wpContent.php");
 	include_once(LIBRARY_DIR."/stringmngmt.php");
-	include_once(LIBRARY_DIR."/cotizacion.php");
+	include_once(LIBRARY_DIR."/cot_hdrs.php");
 	include_once(LIBRARY_DIR."/valid_conn.php");
 	$Lang=$_GET["Lang"]; // Sino hay un idioma prefijado se fija en es.
 	$id_wph=$_GET["wph"]; // Sino hay una pagina prefijada se define en 0 (pagina de login)
