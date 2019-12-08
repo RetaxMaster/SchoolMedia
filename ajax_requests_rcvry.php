@@ -12,7 +12,6 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'filterClientsByCtry':
             include_once(LIBRARY_DIR . "/clients.php");
-            $pais = $_POST["pais"];
             $tipoCliente = $_POST["tipoCliente"];
 
             $extraWhere = hasValue($tipoCliente) ? "AND tbl_cagenclients.id_tipo = $tipoCliente" : "";
@@ -23,7 +22,6 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
         case 'filterClientsByType':
             include_once(LIBRARY_DIR . "/clients.php");
             $pais = $_POST["pais"];
-            $tipoCliente = $_POST["tipoCliente"];
 
             $extraWhere = hasValue($pais) ? "AND tbl_cagenclients.id_pais = $pais" : "";
 
@@ -37,12 +35,20 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'filterClientsContByCtry':
             include_once(LIBRARY_DIR . "/cclients.php");
-            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_pais", $_POST["pais"], $enabled, true);
+            $tipoCliente = $_POST["tipoCliente"];
+
+            $extraWhere = hasValue($tipoCliente) ? "AND tbl_cagenclients.id_tipo = $tipoCliente" : "";
+            
+            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_pais", $_POST["pais"], $enabled, true, $extraWhere);
             break;
 
         case 'filterClientsContByType':
             include_once(LIBRARY_DIR . "/cclients.php");
-            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_tipo", $_POST["tipoCliente"], $enabled, true);
+            $pais = $_POST["pais"];
+
+            $extraWhere = hasValue($pais) ? "AND tbl_cagenclients.id_pais = $pais" : "";
+
+            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_tipo", $_POST["tipoCliente"], $enabled, true, $extraWhere);
             break;
 
         case 'filterLocAtsByProv':
