@@ -12,12 +12,22 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'filterClientsByCtry':
             include_once(LIBRARY_DIR . "/clients.php");
-            clients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_pais", $_POST["pais"], $enabled, true);
+            $pais = $_POST["pais"];
+            $tipoCliente = $_POST["tipoCliente"];
+
+            $extraWhere = hasValue($tipoCliente) ? "AND tbl_cagenclients.id_tipo = $tipoCliente" : "";
+            
+            clients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_pais", $_POST["pais"], $enabled, true, $extraWhere);
             break;
 
         case 'filterClientsByType':
             include_once(LIBRARY_DIR . "/clients.php");
-            clients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_tipo", $_POST["tipoCliente"], $enabled, true);
+            $pais = $_POST["pais"];
+            $tipoCliente = $_POST["tipoCliente"];
+
+            $extraWhere = hasValue($pais) ? "AND tbl_cagenclients.id_pais = $pais" : "";
+
+            clients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_tipo", $_POST["tipoCliente"], $enabled, true, $extraWhere);
             break;
 
         case 'filterProdServByCtry':

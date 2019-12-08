@@ -283,5 +283,10 @@ function JSonformatedData($nCtry,$CtryLst,&$JSonDataObj) {
 			die("No se ha proporcionado ninguna imagen.");
 		}
 	}
+
+	//Determina si tiene un valor
+	function hasValue($value) {
+		return (isset($value) && !empty($value) && $value > 0);
+	}
 	
 ?>
