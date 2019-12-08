@@ -42,7 +42,7 @@ function enc_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function enc_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function enc_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_openc_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
@@ -51,7 +51,7 @@ function enc_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere 
 }
 
 //Recupera un registro filtrados por algún campo
-function enc_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function enc_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_openc_byAnyField('$field', '$value', $tinyint, '$extraWhere')";

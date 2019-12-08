@@ -40,7 +40,7 @@ function fps_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function fps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $extraWhere = "", $join = false)
+function fps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_cafps_byAnyField('$field', '$value', $enabled, $tinyint, '$extraWhere')";
@@ -49,7 +49,7 @@ function fps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $e
 }
 
 //Recupera un registro filtrados por algún campo
-function fps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $extraWhere = "", $join = false)
+function fps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_cafps_byAnyField('$field', '$value', $enabled, $tinyint, '$extraWhere')";

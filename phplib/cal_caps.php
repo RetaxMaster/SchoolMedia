@@ -47,7 +47,7 @@ function calcaps_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function calcaps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function calcaps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_acadcalcaps_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
@@ -56,7 +56,7 @@ function calcaps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWh
 }
 
 //Recupera un registro filtrados por algún campo
-function calcaps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function calcaps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_acadcalcaps_byAnyField('$field', '$value', $tinyint, '$extraWhere')";

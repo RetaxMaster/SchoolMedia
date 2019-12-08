@@ -50,7 +50,7 @@ function cothdrs_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function cothdrs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function cothdrs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_cacothdrs_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
@@ -59,7 +59,7 @@ function cothdrs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWh
 }
 
 //Recupera un registro filtrados por algún campo
-function cothdrs_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function cothdrs_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_cacothdrs_byAnyField('$field', '$value', $tinyint, '$extraWhere')";

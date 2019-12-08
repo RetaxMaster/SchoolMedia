@@ -48,7 +48,7 @@ function calist_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function calist_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function calist_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_opcalist_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
@@ -57,7 +57,7 @@ function calist_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhe
 }
 
 //Recupera un registro filtrados por algún campo
-function calist_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function calist_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_opcalist_byAnyField('$field', '$value', $tinyint, '$extraWhere')";

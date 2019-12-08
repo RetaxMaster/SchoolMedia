@@ -39,19 +39,19 @@ function pubs_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function pubs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
+function pubs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_capubs_byAnyField('$field', '$value', $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_capubs_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 4); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera un registro filtrados por algún campo
-function pubs_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false)
+function pubs_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_capubs_byAnyField('$field', '$value', $tinyint)";
+    $SQLStrQuery = "CALL sp_p_get_capubs_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 4); // Pertenece a dbmngmtAdmin.php
 }

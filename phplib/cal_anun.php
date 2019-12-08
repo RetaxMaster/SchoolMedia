@@ -48,7 +48,7 @@ function calanun_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function calanun_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function calanun_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_opcalanun_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
@@ -57,7 +57,7 @@ function calanun_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWh
 }
 
 //Recupera un registro filtrados por algún campo
-function calanun_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function calanun_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_opcalanun_byAnyField('$field', '$value', $tinyint, '$extraWhere')";

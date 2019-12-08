@@ -42,7 +42,7 @@ function caps_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function caps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function caps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_acadcaps_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
@@ -51,7 +51,7 @@ function caps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere
 }
 
 //Recupera un registro filtrados por algún campo
-function caps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $extraWhere = "", $join = false)
+function caps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_acadcaps_byAnyField('$field', '$value', $tinyint, '$extraWhere')";

@@ -40,7 +40,7 @@ function lv_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function lv_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $extraWhere = "", $join = false)
+function lv_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_caLstVals_byAnyField('$field', '$value', $enabled, $tinyint, '$extraWhere')";
@@ -49,7 +49,7 @@ function lv_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $ex
 }
 
 //Recupera un registro filtrados por algún campo
-function lv_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $extraWhere = "", $join = false)
+function lv_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_caLstVals_byAnyField('$field', '$value', $enabled, $tinyint, '$extraWhere')";
