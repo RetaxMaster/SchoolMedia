@@ -77,6 +77,21 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             clients_recoveryAllList($n, $Arry, $enabled, true);
             break;
 
+        case 'getContacto':
+            include_once(LIBRARY_DIR . "/cclients.php");
+            cclients_recoveryAllList($n, $Arry, $enabled, true);
+            break;
+
+        case 'getProceso':
+            include_once(LIBRARY_DIR . "/procs_crm.php");
+            procs_recoveryAllList($n, $Arry, true);
+            break;
+
+        case 'getSubproceso':
+            include_once(LIBRARY_DIR . "/subprocs_crm.php");
+            subprocs_recoveryAllList($n, $Arry, true);
+            break;
+
         case 'gettpub':
             include_once(LIBRARY_DIR . "/format_pub.php");
             fp_recoveryAllList($n, $Arry);
@@ -143,6 +158,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $id = $_POST["id"];
             include_once(LIBRARY_DIR . "/cclients.php");
             cclients_recoveryOneByAnyField($n, $Arry, "id_cclient", $id, $enabled);
+            break;
+
+        case 'getSegClientsData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/tracks.php");
+            track_recoveryOneByAnyField($n, $Arry, "id_track", $id);
             break;
 
         case 'getRepImgData':
@@ -414,6 +435,19 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadSegClientesInfo':
+            include_once(LIBRARY_DIR . "/tracks.php");
+            $id_cclient = isset($_POST["contacto"]) ? $_POST["contacto"] : "";
+            $id_client = isset($_POST["client"]) ? $_POST["client"] : "";
+            $id_user = isset($_POST["usuario"]) ? $_POST["usuario"] : "";
+            $id_proc = isset($_POST["etapa"]) ? $_POST["etapa"] : "";
+            $id_subproc = isset($_POST["accion"]) ? $_POST["accion"] : "";
+            $descrip = isset($_POST["actividad"]) ? $_POST["actividad"] : "";
+            $fcontact = date("Y-m-d");
+            track_createRecord($id_cclient, $id_client, $id_user, $id_proc, $id_subproc, $descrip, $fcontact);
+            die();
+            break;
+
 
         //Actualizado de datas
 
@@ -632,6 +666,20 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "cantcur" => "",
                 "descrip" => isset($_POST["descripcion"]) ? $_POST["descripcion"] : "",
                 "enabled" => isset($_POST["enabled"]) ? 1 : 0
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateSegClientesInfo':
+            include_once(LIBRARY_DIR . "/tracks.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            track_updateRecord([
+                "id_cclient" => isset($_POST["contacto"]) ? $_POST["contacto"] : "",
+                "id_client" => isset($_POST["client"]) ? $_POST["client"] : "",
+                "id_user" => isset($_POST["usuario"]) ? $_POST["usuario"] : "",
+                "id_proc" => isset($_POST["etapa"]) ? $_POST["etapa"] : "",
+                "id_subproc" => isset($_POST["accion"]) ? $_POST["accion"] : "",
+                "descrip" => isset($_POST["actividad"]) ? $_POST["actividad"] : ""
             ], $idToUpdate);
             die();
             break;

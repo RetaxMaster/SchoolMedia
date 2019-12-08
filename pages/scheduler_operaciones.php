@@ -160,7 +160,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                 </div>
 
                 <!-- Dropdown Seleccionar Tipo Instalación -->
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                   <label for="tipoCliente" class="col-sm-3 col-form-label" id="text5">{$text5}</label><br>
                   <select id="tipoCliente" name="locality" class="form-control col-sm-3">
                   <option value="-1" disabled selected>Seleccione</option>
