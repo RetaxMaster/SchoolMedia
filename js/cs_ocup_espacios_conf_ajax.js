@@ -41,18 +41,20 @@ function onPageStart() {
 
     //Se detecta el evento de cambio de país para rellenar el select de provincia
     $("#country").on("change", function () {
-        console.log("ads");
-        
         selectProvPopulate('#Provincia2', 0, 'Seleccione Provincia', this.value);
     });
 
     //Detecta el cambio de país
-    $("#Provincia").on("change", function () {
+    $("#selectCtry").on("change", function () {
         var pais = this.value;
+        var prov = $("#Provincia").val();
+        var tpub = $("#tpub").val();
 
         var data = {
-            mode: "filterLocAtsByProv",
-            pais: pais
+            mode: "filterLocAtsByCtry",
+            pais: pais,
+            prov: prov,
+            tpub: tpub
         }
 
         updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
@@ -61,12 +63,35 @@ function onPageStart() {
 
     });
 
-    //Detecta el cambio de tipo de publicidad
+    //Detecta el cambio de provincia
+    $("#Provincia").on("change", function () {
+        var pais = $("#selectCtry").val();
+        var prov = this.value;
+        var tpub = $("#tpub").val();
+
+        var data = {
+            mode: "filterLocAtsByProv",
+            pais: pais,
+            prov: prov,
+            tpub: tpub
+        }
+
+        updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
+            return formatDataTable(res, tableIndexs, [], pushToTheEnd);
+        });
+
+    });
+
+    //Detecta el cambio de yipo de publicidad
     $("#tpub").on("change", function () {
+        var pais = $("#selectCtry").val();
+        var prov = $("#Provincia").val();
         var tpub = this.value;
 
         var data = {
             mode: "filterLocAtsByTpub",
+            pais: pais,
+            prov: prov,
             tpub: tpub
         }
 

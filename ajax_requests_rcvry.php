@@ -69,14 +69,40 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             track_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_tipo", $_POST["tipoCliente"], true, $extraWhere);
             break;
 
+        case 'filterLocAtsByCtry':
+            include_once(LIBRARY_DIR . "/loc_ats.php");
+            $prov = $_POST["prov"];
+            $tpub = $_POST["tpub"];
+
+            $extraWhere = "";
+            $extraWhere .= hasValue($prov) ? "AND tbl_calocats.id_prov = $prov " : "";
+            $extraWhere .= hasValue($tpub) ? "AND tbl_calocats.id_tpub = $tpub " : "";
+
+            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_pais", $_POST["pais"], $enabled, true, $extraWhere);
+            break;
+
         case 'filterLocAtsByProv':
             include_once(LIBRARY_DIR . "/loc_ats.php");
-            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_prov", $_POST["pais"], $enabled, true);
+            $pais = $_POST["pais"];
+            $tpub = $_POST["tpub"];
+
+            $extraWhere = "";
+            $extraWhere .= hasValue($pais) ? "AND tbl_calocats.id_pais = $pais " : "";
+            $extraWhere .= hasValue($tpub) ? "AND tbl_calocats.id_tpub = $tpub " : "";
+
+            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_prov", $_POST["prov"], $enabled, true, $extraWhere);
             break;
 
         case 'filterLocAtsByTpub':
             include_once(LIBRARY_DIR . "/loc_ats.php");
-            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_tpub", $_POST["tipoCliente"], $enabled, true);
+            $pais = $_POST["pais"];
+            $prov = $_POST["prov"];
+
+            $extraWhere = "";
+            $extraWhere .= hasValue($pais) ? "AND tbl_calocats.id_pais = $pais " : "";
+            $extraWhere .= hasValue($prov) ? "AND tbl_calocats.id_prov = $prov " : "";
+
+            locs_recoveryAllByAnyField($n, $Arry, "tbl_calocats.id_tpub", $_POST["tpub"], $enabled, true, $extraWhere);
             break;
 
         // Obtención de todos los registros de alguna tabla (Usualmente para rellenar un select)
@@ -171,15 +197,15 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             fcthdr_recoveryAllList($n, $Arry, true);
             break;
 
-            /* case 'getCots':
-            include_once(LIBRARY_DIR . "/adminUser.php");
-            RecoveryAllUsers($Arry, $n, $enabled, true);
-            break; */
+        case 'getCots':
+            include_once(LIBRARY_DIR . "/cot_hdrs.php");
+            cothdrs_recoveryAllList($n, $Arry, true);
+            break;
 
-            /*  case 'getFormasPago':
-            include_once(LIBRARY_DIR . "/adminUser.php");
-            RecoveryAllUsers($Arry, $n, $enabled, true);
-            break; */
+        case 'getFormasPago':
+            include_once(LIBRARY_DIR . "/formas_pago.php");
+            fps_recoveryAllList($n, $Arry, $enabled, true);
+            break;
 
         // Obtención de registros por su id
         case 'getClientData':

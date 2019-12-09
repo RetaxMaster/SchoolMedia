@@ -44,6 +44,10 @@ function onPageStart() {
     //Rellena el idplan
     selectPopulate("#idfact", "getFactsHdrs", 0, 1);
 
+    selectPopulate("#idcot", "getCots", 0, 1);
+
+    selectPopulate("#fp", "getFormasPago", 0, 1);
+
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
         $("#idFormDetalles").get(0).reset();
