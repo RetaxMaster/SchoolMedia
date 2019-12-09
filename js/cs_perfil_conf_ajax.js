@@ -20,7 +20,7 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [6, 8, 1];
+    var tableIndexs = [6, 8, 10, 1];
 
     var juntar = [{
         "fields": [6, 7],

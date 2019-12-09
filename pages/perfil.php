@@ -23,6 +23,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "tblCol2",
                 "tblCol3",
                 "tblCol4",
+                "tblCol5",
                 "idBtnNuevo"
             ], 
             "attrsx" :
@@ -33,6 +34,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "{$tblCol2}",
                 "{$tblCol3}",
                 "{$tblCol4}",
+                "{$tblCol5}",
                 "{$idBtnNuevo}"
             ], 
             "txts" : ' . $wpContentStr_Labels . '
@@ -99,10 +101,12 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <th id="tblCol2">{$tblCol2}</th>
                         <th id="tblCol3">{$tblCol3}</th>
                         <th id="tblCol4">{$tblCol4}</th>
+                        <th id="tblCol5">{$tblCol5}</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

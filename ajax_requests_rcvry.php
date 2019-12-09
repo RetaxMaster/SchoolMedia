@@ -46,9 +46,27 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/cclients.php");
             $pais = $_POST["pais"];
 
+            $extraWhere = hasValue($pais) ? "AND tbl_cacclients.id_pais = $pais" : "";
+
+            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_tipo", $_POST["tipoCliente"], $enabled, true, $extraWhere);
+            break;
+
+        case 'filterTracksByCtry':
+            include_once(LIBRARY_DIR . "/tracks.php");
+            $tipoCliente = $_POST["tipoCliente"];
+
+            $extraWhere = hasValue($tipoCliente) ? "AND tbl_cagenclients.id_tipo = $tipoCliente" : "";
+
+            track_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_pais", $_POST["pais"], true, $extraWhere);
+            break;
+
+        case 'filterTracksByType':
+            include_once(LIBRARY_DIR . "/tracks.php");
+            $pais = $_POST["pais"];
+
             $extraWhere = hasValue($pais) ? "AND tbl_cagenclients.id_pais = $pais" : "";
 
-            cclients_recoveryAllByAnyField($n, $Arry, "tbl_cacclients.id_tipo", $_POST["tipoCliente"], $enabled, true, $extraWhere);
+            track_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.id_tipo", $_POST["tipoCliente"], true, $extraWhere);
             break;
 
         case 'filterLocAtsByProv':

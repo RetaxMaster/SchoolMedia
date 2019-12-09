@@ -61,10 +61,13 @@ function onPageStart() {
     //Detecta el cambio de país
     $("#selectCtry").on("change", function () {
         var pais = this.value;
+        var tipoCliente = $("#tipoCliente").val();
+
 
         var data = {
             mode: "filterTracksByCtry",
-            pais: pais
+            pais: pais,
+            tipoCliente: tipoCliente
         }
 
         updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
@@ -76,10 +79,13 @@ function onPageStart() {
     //Detecta el cambio de tipo de cliente
     $("#tipoCliente").on("change", function () {
         var tipoCliente = this.value;
+        var pais = $("#selectCtry").val();
+
 
         var data = {
             mode: "filterTracksByType",
-            tipoCliente: tipoCliente
+            tipoCliente: tipoCliente,
+            pais: pais
         }
 
         updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
