@@ -16,3 +16,4 @@
 <script src="<?php echo JS_DIR; ?>/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 <script src="<?php echo JS_DIR; ?>/scripts.js"></script>
+<script src="<?php echo JS_DIR; ?>/cs_search_clientes_config.js"></script>

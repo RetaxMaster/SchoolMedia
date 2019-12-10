@@ -19,6 +19,10 @@ body{
     margin-right: 0;
 }
 
+.dropdown-item {
+    cursor: pointer !important;
+}
+
 .banner{
     margin: 0;
     height: 95vh;

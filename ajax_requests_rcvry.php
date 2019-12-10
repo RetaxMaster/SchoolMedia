@@ -8,7 +8,14 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
     switch ($_POST["mode"]) {
 
-        // Filtros por algún campo
+            // Filtros por algún campo
+
+        case 'filterClients':
+            include_once(LIBRARY_DIR . "/clients.php");
+            $query = $_POST["query"];
+
+            clients_recoveryAllByAnyField($n, $Arry, "tbl_cagenclients.rs", $query, $enabled, true, "LIMIT 10");
+            break;
 
         case 'filterClientsByCtry':
             include_once(LIBRARY_DIR . "/clients.php");
@@ -160,6 +167,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
         case 'getcargo':
             include_once(LIBRARY_DIR . "/crgo_laboral.php");
             crgo_recoveryAllList($n, $Arry);
+            break;
+
+        case 'getcargobydepto':
+            include_once(LIBRARY_DIR . "/crgo_laboral.php");
+            crgo_recoveryToShowByID_Dpto($n, $Arry, $_POST["val"]);
             break;
 
         case 'getdepto':

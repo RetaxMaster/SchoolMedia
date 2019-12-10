@@ -93,6 +93,12 @@ function onPageStart() {
 
     });
 
+    //Detecta el cambio de departamento
+    $("#depto").on("change", function () {
+        var depto = this.value;
+         selectPopulate("#cargo", "getcargobydepto", 0, 2, "tbl_gencargos.id_dptoemp", depto);
+    });
+
     //Rellena la lista de códigos de países
     selectPopulate("#CodPais1", "getctrycode", 0, 2);
     selectPopulate("#CodPais2", "getctrycode", 0, 2);
@@ -105,9 +111,6 @@ function onPageStart() {
 
     //Rellena la calificación del cliente
     selectPopulate("#calificacionCliente", "getCalifCli", 0, 1);
-
-    //Rellena la cliente
-    selectPopulate("#Cliente", "getClients", 0, 1);
 
     //Rellena el formato publicitario
     selectPopulate("#tpub", "gettpub", 0, 1);
@@ -158,7 +161,7 @@ function onPageStart() {
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     //Envía el formulario
@@ -201,7 +204,7 @@ function onPageStart() {
                     
                     //Limpio el formulario
                     if(!isUpdating)
-                        $("#idFormDetalles").get(0).reset();
+                        resetDefaultForm();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_clientes_cont_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {

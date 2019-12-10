@@ -216,12 +216,15 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                           <!-- Dropdown Seleccionar Cliente -->
                           <label for="" class="col-sm-2 col-form-label">Cliente:</label>
-                          <div class="col-sm-4">
-                            <div class="form-group">
-                              <select id="Cliente" name="cliente" class="form-control required">
-                                <option value="-1">{$Cliente}</option>
-                              </select>
+                          <div class="dropdown col-sm-4">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Click para buscar
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ClienteDD">
+                              <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
+                              <div class="results"></div>
                             </div>
+                            <input type="hidden" name="cliente" id="Cliente" class="dropdown-value">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -255,7 +258,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                             </div>
                           </div>
                           <label class="col-sm-2 col-form-label" for="nombre">Nombre</label>
-                          <div class="col-sm-4">   
+                          <div class="col-sm-4">
                             <div class="input-group">
                               <input type="text" class="form-control" id="nombre" name="nombre" placeholder="">
                             </div>
@@ -316,21 +319,21 @@ echo '<!-- Custom JavaScripts Functions Needs
                         </div>
 
                         <div class="form-group row">
-                          <label for="" class="col-sm-2 col-form-label">Cargo<span class="iconObligatorio">*<span></label>
-                          <div class="col-sm-4">
-                            <!-- Dropdown Seleccionar Pais -->
-                            <div class="form-group">
-                              <select id="cargo" name="cargo" class="form-control required">
-                                <option value="-1">{$cargo}</option>
-                              </select>
-                            </div>
-                          </div>
                           <label for="" class="col-sm-2 col-form-label">Departamento<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar Provincia -->
                             <div class="form-group">
                               <select id="depto" name="depto" class="form-control required">
                                 <option value="-1">{$depto}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <label for="" class="col-sm-2 col-form-label">Cargo<span class="iconObligatorio">*<span></label>
+                          <div class="col-sm-4">
+                            <!-- Dropdown Seleccionar Pais -->
+                            <div class="form-group">
+                              <select id="cargo" name="cargo" class="form-control required">
+                                <option value="-1">{$cargo}</option>
                               </select>
                             </div>
                           </div>
