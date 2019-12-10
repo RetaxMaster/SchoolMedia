@@ -22,7 +22,7 @@ function onPageStart() {
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
     var tableIndexs = [0, 3, 4];
      var juntar = [{
-         "fields": [4, 5],
+         "fields": [4, 5, 2],
          "firstIndex": 2
      }];
 
@@ -94,6 +94,12 @@ function onPageStart() {
 
     });
 
+    //Detecta el cambio de departamento
+    $("#client").on("change", function () {
+        var client = this.value;
+        selectPopulate("#contacto", "getContactoByClient", 0, 1, "tbl_cagenclients.id_client", client);
+    });
+
     //Rellena la clasificación del cliente
     selectPopulate("#client", "getClients", 0, 1);
 
@@ -127,11 +133,16 @@ function onPageStart() {
             accion: 5,
             actividad: 6
         });
+
+        disableAllFields("#idFormDetalles", true);
+        $("#action-buttons").hide();
     });
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
         $("#idFormDetalles").get(0).reset();
+        disableAllFields("#idFormDetalles", false);
+        $("#action-buttons").show();
     });
 
     // Termina código para actualizar la data

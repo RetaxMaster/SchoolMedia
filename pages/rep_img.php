@@ -246,7 +246,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <div class="col-lg-6 col-md-6 col-sm-6"></div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="contBtnSuccess">
-                                <button id="idBtnNuevo" class="btn btnSuccess" data-toggle="modal" data-target="#ModalVerTodos"><i class="far fa-plus-square"></i>Nuevo</button>
+                                <button id="idBtnNuevo" class="btn btnSuccess" data-toggle="modal" data-target="#ModalVerTodos" data-dismiss="modal"><i class="far fa-plus-square"></i>Nuevo</button>
                             </div>
                         </div>
                     </div>

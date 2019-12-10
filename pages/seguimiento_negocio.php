@@ -292,7 +292,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" id="action-buttons">
                           <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="contBtnCancel">
                               <button type="button" id="idBtnLimpiar" class="btn btnCancel">{$idBtnLimpiar}</button>

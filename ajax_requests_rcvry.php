@@ -149,6 +149,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             cclients_recoveryAllList($n, $Arry, $enabled, true);
             break;
 
+        case 'getContactoByClient':
+            include_once(LIBRARY_DIR . "/cclients.php");
+            cclients_recoveryAllByAnyField($n, $Arry, $_POST["field"], $_POST["val"], $enabled, true);
+            break;
+
         case 'getProceso':
             include_once(LIBRARY_DIR . "/procs_crm.php");
             procs_recoveryAllList($n, $Arry, true);

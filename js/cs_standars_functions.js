@@ -462,6 +462,13 @@ function resetDefaultForm() {
     $(".dropdown .dropdown-value").val("");
 }
 
+//Habilita o desabilita todos los campos de un form
+function disableAllFields(formSelector, action) {
+    $(formSelector + " input").prop("disabled", action);
+    $(formSelector + " select").prop("disabled", action);
+    $(formSelector + " textarea").prop("disabled", action);
+}
+
       // Set Country List Select component
 /* Populate dropdown with list of provinces
 $.getJSON(url, function (data) {
