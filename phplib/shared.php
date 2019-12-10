@@ -288,5 +288,65 @@ function JSonformatedData($nCtry,$CtryLst,&$JSonDataObj) {
 	function hasValue($value) {
 		return (isset($value) && !empty($value) && $value > 0);
 	}
+
+	//Valida si se puede añadir cierto capacitador en cierto lugar
+	function validateMatCap($fields) {
+
+		include_once(LIBRARY_DIR . "/disp_cap.php"); // Disponibilidad de capacitadores
+		include_once(LIBRARY_DIR . "/disponibilidad.php"); // Disponibilidad de planes
+		$capacitador = $fields["id_cap"];
+		$plan = $fields["idplan"];
+		$pais = $fields["pais"];
+		$provincia = $fields["provincia"];
+
+		//Primero valido la disponibilidad del capacitador en ese país, busco los registros que coincidan con el capacitador y el país, si me trae mas de 1 registro es porque si puede ese capacitador en ese país
+		dispcap_recoveryAllByAnyField($n, $Arry, "tbl_acaddispcappais.id_cap", $capacitador, 1, 1, "AND tbl_acaddispcappais.id_pais = $pais");
+
+		if ($n > 0) {
+			
+			//Ahora valido la disponibilidad del capacitador en esa provincia
+			dispcap_recoveryAllByAnyField($n, $Arry, "tbl_acaddispcappais.id_cap", $capacitador, 1, 1, "AND tbl_acaddispcappais.id_prov = $provincia");
+
+			if ($n > 0) {
+
+				//Ahora valido la disponibilidad del plan académico en el país
+				disp_recoveryAllByAnyField($n, $Arry, "tbl_acaddispas.id_plan", $plan, 1, 1, "AND tbl_acaddispas.id_pais = $pais");
+
+				if ($n > 0) {
+					
+					//Ahora valido la disponibilidad del plan académico en la provincia
+					disp_recoveryAllByAnyField($n, $Arry, "tbl_acaddispas.id_plan", $plan, 1, 1, "AND tbl_acaddispas.id_prov = $provincia");
+
+					if ($n > 0) {
+
+						//Todo correcto
+						$response["status"] = true;
+
+					}
+					else {
+						$response["status"] = false;
+						$response["message"] = "Este plan no está disponible en esta provincia.";
+					}
+
+				}
+				else {
+					$response["status"] = false;
+					$response["message"] = "Este plan no está disponible en este país.";
+				}
+
+			}
+			else {
+				$response["status"] = false;
+				$response["message"] = "Este capacitador no está disponible en esta provincia.";
+			}
+
+		}
+		else {
+			$response["status"] = false;
+			$response["message"] = "Este capacitador no está disponible en este país.";
+		}
+		
+		return $response;
+	}
 	
 ?>

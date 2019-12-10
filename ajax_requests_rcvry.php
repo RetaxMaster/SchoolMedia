@@ -437,13 +437,20 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadMatCapInfo':
             include_once(LIBRARY_DIR . "/cappapa.php");
-            $id_cap = isset($_POST["id_cap"]) ? $_POST["id_cap"] : "";
-            $idplan = isset($_POST["idplan"]) ? $_POST["idplan"] : "";
-            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
-            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
-            $enabled = isset($_POST["enabled"]) ? 1 : 0;
-            cappapa_createRecord($idplan, $id_cap, $id_pais, $id_prov, $enabled);
-            die();
+            $validate = validateMatCap($_POST);
+            if ($validate["status"]) {
+                die();
+                $id_cap = isset($_POST["id_cap"]) ? $_POST["id_cap"] : "";
+                $idplan = isset($_POST["idplan"]) ? $_POST["idplan"] : "";
+                $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+                $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
+                $enabled = isset($_POST["enabled"]) ? 1 : 0;
+                cappapa_createRecord($idplan, $id_cap, $id_pais, $id_prov, $enabled);
+                die();
+            }
+            else {
+                die($validate["message"]);
+            }
             break;
 
         case 'uploadCentOpInfo':

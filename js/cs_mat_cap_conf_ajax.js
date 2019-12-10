@@ -20,12 +20,17 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [0, 2, 3, 4, 5];
+    var tableIndexs = [0, 2, 6, 4, 5];
+
+    var juntar = [{
+        "fields": [6, 7],
+        "firstIndex": 2
+    }];
 
     var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_mat_cap_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-        return formatDataTable(res, tableIndexs, [], pushToTheEnd);
+        return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
     }); // Se fijan los labels estandars de las tablas y sus busquedas
 
 
@@ -40,7 +45,7 @@ function onPageStart() {
     });
 
     //Rellena el idcaps
-    selectPopulate("#id_cap", "getCaps", 0, 1);
+    selectPopulate("#id_cap", "getCaps", 0, 6);
 
     //Rellena el idplan
     selectPopulate("#idplan", "getPlans", 0, 7);
@@ -112,23 +117,33 @@ function onPageStart() {
                     console.log("Enviando...");
                 },
                 success: function (res) {
-                    console.log(res);
+                    
+                    if (res != "") {
+                        //Informo de error
+                        Swal.fire(
+                            'Error',
+                            res,
+                            'error'
+                        )
+                    }
+                    else {
+                        //Limpio el formulario
+                        if (!isUpdating)
+                            $("#idFormDetalles").get(0).reset();
+                        //Actualizo la DataTable
+                        $("#tablaVerTodos").DataTable().destroy();
+                        setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_mat_cap_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
+                            return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
+                        });
+    
+                        //Informo de éxito
+                        Swal.fire(
+                            '¡Listo!',
+                            successText,
+                            'success'
+                        )
+                    }
 
-                    //Limpio el formulario
-                    if (!isUpdating)
-                        $("#idFormDetalles").get(0).reset();
-                    //Actualizo la DataTable
-                    $("#tablaVerTodos").DataTable().destroy();
-                    setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_mat_cap_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-                        return formatDataTable(res, tableIndexs, [], pushToTheEnd);
-                    });
-
-                    //Informo de éxito
-                    Swal.fire(
-                        '¡Listo!',
-                        successText,
-                        'success'
-                    )
                 },
                 error: function (e) {
                     console.log(e);
