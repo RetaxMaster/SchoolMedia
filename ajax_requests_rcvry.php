@@ -542,6 +542,15 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadLstValsInfo':
+            include_once(LIBRARY_DIR . "/list_vals.php");
+            $id_client = isset($_POST["cliente"]) ? $_POST["cliente"] : "";
+            $descrip = isset($_POST["observCliente"]) ? $_POST["observCliente"] : "";
+            $urlimg = uploadImage($_FILES["imgURL"], "images/publicidades");
+            lv_createRecord($id_client, $descrip, $urlimg);
+            die();
+            break;
+
 
         //Actualizado de datas
 
@@ -774,6 +783,17 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "id_proc" => isset($_POST["etapa"]) ? $_POST["etapa"] : "",
                 "id_subproc" => isset($_POST["accion"]) ? $_POST["accion"] : "",
                 "descrip" => isset($_POST["actividad"]) ? $_POST["actividad"] : ""
+            ], $idToUpdate);
+            die();
+            break;
+
+        case 'updateLstValsInfo':
+            include_once(LIBRARY_DIR . "/list_vals.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            lv_updateRecord([
+                "id_client" => isset($_POST["cliente"]) ? $_POST["cliente"] : "",
+                "descrip" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
+                "urlimg" => (isset($_FILES["imgURL"]) && !empty($_FILES["imgURL"]["tmp_name"])) ? uploadImage($_FILES["imgURL"], "images/publicidades") : ""
             ], $idToUpdate);
             die();
             break;

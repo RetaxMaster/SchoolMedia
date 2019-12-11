@@ -31,28 +31,28 @@ function lv_updateRecord($fields, $id_lstval)
 }
 
 //Recupera todos los registros, opcionalmente puedes especificar si deseas hacer un join para traer los datos crudos o reemplazados
-function lv_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
+function lv_recoveryAllList(&$nDocs, &$Docs, $join = false)
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_caLstVals_all($enabled, $tinyint)";
+    $SQLStrQuery = "CALL sp_p_lst_caLstVals_all($tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 4); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera todos los registros filtrados por algún campo
-function lv_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false, $extraWhere = "")
+function lv_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_caLstVals_byAnyField('$field', '$value', $enabled, $tinyint, '$extraWhere')";
+    $SQLStrQuery = "CALL sp_p_lst_caLstVals_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 4); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera un registro filtrados por algún campo
-function lv_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled, $join = false, $extraWhere = "")
+function lv_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_caLstVals_byAnyField('$field', '$value', $enabled, $tinyint, '$extraWhere')";
+    $SQLStrQuery = "CALL sp_p_get_caLstVals_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
     ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 4); // Pertenece a dbmngmtAdmin.php
 }
