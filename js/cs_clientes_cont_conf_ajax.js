@@ -132,7 +132,7 @@ function onPageStart() {
 
         getDataOfThisRecord(idToUpdate, "getClientContData", {
             idCliente: 0,
-            Cliente: 3,
+            Cliente: [3, "drop-cliente"],
             country: 1,
             Provincia: 2,
             tpub: 4,
@@ -154,7 +154,7 @@ function onPageStart() {
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     // Termina código para actualizar la data

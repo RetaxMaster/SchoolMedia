@@ -114,6 +114,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         // Obtención de todos los registros de alguna tabla (Usualmente para rellenar un select)
 
+        case 'getClientName':
+            include_once(LIBRARY_DIR . "/clients.php");
+            clients_recoveryOneByAnyField($n, $Arry, "tbl_cagenclients.id_client", $_POST["id"], $enabled, true);
+            break;
+
         case 'getCtryCode':
             include_once(LIBRARY_DIR . "/cods_ints_tlfs.php");
             citlf_recoveryBy_paisID($n, $Arry, $_POST["ctryId"], 1);

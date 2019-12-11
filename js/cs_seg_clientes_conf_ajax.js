@@ -140,7 +140,7 @@ function onPageStart() {
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
         disableAllFields("#idFormDetalles", false);
         $("#action-buttons").show();
     });

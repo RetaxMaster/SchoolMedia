@@ -444,8 +444,28 @@ function getDataOfThisRecord(id, mode, dataJSON) {
                     $("#" + key).val(res[index]);
                 }
                 else {
-                    var checked = res[index[0]] == 1;
-                    $("#" + key).prop("checked", checked);
+                    switch (index[1]) {
+                        case "checkbox":
+                            var checked = res[index[0]] == 1;
+                            $("#" + key).prop("checked", checked);
+                            break;
+
+                        case "drop-cliente":
+                            var dataValue = res[index[0]];
+
+                            var data = {
+                                mode: "getClientName",
+                                id: dataValue
+                            }
+
+                            $.post(url, data, function(res) {
+                                res = JSON.parse(res);
+                                var data = res.data;
+                                $("#" + key).parent().children(".btn").text(data[0][1]);
+                                $("#" + key).val(dataValue);
+                            });
+                            break;
+                    }
                 }
             }
         }
@@ -457,9 +477,10 @@ function getDataOfThisRecord(id, mode, dataJSON) {
 
 //Resetea el formulario por defecto
 function resetDefaultForm() {
-    $("#idFormDetalles").get(0).reset();
+    resetDefaultForm();
     $(".dropdown .btn").text("Click para buscar");
     $(".dropdown .dropdown-value").val("");
+    $(".contenido-tabla select").prop('selectedIndex', 0);
 }
 
 //Habilita o desabilita todos los campos de un form

@@ -62,7 +62,7 @@ function onPageStart() {
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     // Termina código para actualizar la data

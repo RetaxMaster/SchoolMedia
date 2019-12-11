@@ -71,7 +71,7 @@ function onPageStart() {
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     // Termina código para actualizar la data
@@ -129,7 +129,7 @@ function onPageStart() {
                     else {
                         //Limpio el formulario
                         if (!isUpdating)
-                            $("#idFormDetalles").get(0).reset();
+                            resetDefaultForm();
                         //Actualizo la DataTable
                         $("#tablaVerTodos").DataTable().destroy();
                         setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_mat_cap_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
