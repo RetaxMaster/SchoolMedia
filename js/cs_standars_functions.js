@@ -328,8 +328,22 @@ function formatDataTable(res, tableIndexs, juntar = [], pushToTheEnd = []) {
 
         //Recorro tableIndexs para guardar dentro de row los valores de res.data que me interesan
         for (let i = 0; i < tableIndexs.length; i++) {
+            //dataKeyPosition guarda el indice del campo en la base de datos que tiene el valor que necesito, por ejemplo, el id sería el 0, la rs sería el 1, etc... Si se manda un array, es porque se necesita filtrar este dato
             var dataKeyPosition = tableIndexs[i];
             var value = data[key][dataKeyPosition];
+            
+            //Reviso si se usará el index para definir el valor o si se debe realizar alguna acción para mostrarlo
+            if (typeof dataKeyPosition != "number") {
+                //Hace alguna acción, ya sea filtro, o alguna otra cosa, pero sustituye 
+                value = makeSomeAction({
+                    "action": dataKeyPosition[1],
+                    "fieldIndexOfDatabaseQuery": dataKeyPosition[0],
+                    "valueOfDatabaseField": data[key][dataKeyPosition[0]]
+                });
+
+                console.log("Afetr validate:", value);
+                
+            }
 
             //Reviso si debe concatenar
             var concat = shouldConcat(i);
@@ -357,6 +371,23 @@ function formatDataTable(res, tableIndexs, juntar = [], pushToTheEnd = []) {
     }
 
     return newData;
+}
+
+function makeSomeAction(jsonData) {
+    var value = "";
+    
+    switch (jsonData.action) {
+        case "filterMode":
+            switch (jsonData.valueOfDatabaseField) {
+                case "0": value = "Presencial"; break;
+                case "1": value = "InCompany"; break;
+                case "2": value = "Virtual Online"; break;
+                case "3": value = "Todas las modalidades"; break;
+            }
+            break;
+    }
+    
+    return value;
 }
 
 //////////////////////////// S E L E C T /////////////////////////////////  
@@ -392,9 +423,6 @@ function selectPopulate(idComponent, mode, id, value, field = "", val = "") {
 
     $.post(url, data, function (res) {
         res = JSON.parse(res);
-        console.log(res);
-        console.log(idComponent);
-        
         
         var data = res.data;
         $(idComponent).children().remove();
@@ -477,7 +505,7 @@ function getDataOfThisRecord(id, mode, dataJSON) {
 
 //Resetea el formulario por defecto
 function resetDefaultForm() {
-    resetDefaultForm();
+    $("#idFormDetalles").get(0).reset();
     $(".dropdown .btn").text("Click para buscar");
     $(".dropdown .dropdown-value").val("");
     $(".contenido-tabla select").prop('selectedIndex', 0);

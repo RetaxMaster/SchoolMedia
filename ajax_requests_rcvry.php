@@ -119,10 +119,10 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             clients_recoveryOneByAnyField($n, $Arry, "tbl_cagenclients.id_client", $_POST["id"], $enabled, true);
             break;
 
-        case 'getCtryCode':
+        /* case 'getCtryCode':
             include_once(LIBRARY_DIR . "/cods_ints_tlfs.php");
             citlf_recoveryBy_paisID($n, $Arry, $_POST["ctryId"], 1);
-            break;
+            break; */
 
         case 'getClasifCli':
             include_once(LIBRARY_DIR . "/clasif_cuentas.php");
@@ -216,7 +216,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'getctrycode':
             include_once(LIBRARY_DIR . "/cods_ints_tlfs.php");
-            citlf_recoveryAllList($n, $Arry, 1);
+            citlf_recoveryAllListFormatted($n, $Arry);
             break;
 
         case 'getFactsHdrs':

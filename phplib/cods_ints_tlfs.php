@@ -28,5 +28,12 @@ function citlf_recoveryAllList(&$nDocs,&$Docs,$ctryCod) { // true or false
 	ConvertPointerToArray($ResponsePointer,$Docs,$nDocs,3); // Pertenece a dbmngmtAdmin.php
 }
 
+// datos de todos los codigo telefonico de paises
+function citlf_recoveryAllListFormatted(&$nDocs,&$Docs) { // true or false
+	$SQLStrQuery="CALL sp_p_lst_gencitlf_all_formatted()";
+	SQLQuery($ResponsePointer,$nDocs,$SQLStrQuery,true); // Realiza la consulta
+	ConvertPointerToArray($ResponsePointer,$Docs,$nDocs,4); // Pertenece a dbmngmtAdmin.php
+}
+
 
 ?>
