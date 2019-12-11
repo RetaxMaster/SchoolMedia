@@ -192,11 +192,11 @@ echo '<!-- Custom JavaScripts Functions Needs
                               <div class="form-group row">
                                 <label for="" class="col-sm-2 col-form-label">Fecha inicio</label>
                                 <div class="col-sm-4">
-                                  <input type="date" class="form-control" id="fini" name="fini" placeholder="Fecha inicio">
+                                  <input type="date" class="form-control" id="fini" name="fini" placeholder="Fecha inicio" value="<?= date("Y-m-d") ?>">
                                 </div>
                                 <label for="" class="col-sm-2 col-form-label">Fecha fin<span class="iconObligatorio">*<span></label>
                                 <div class="col-sm-4">
-                                  <input type="date" class="form-control required" id="ffin" name="ffin" placeholder="Fecha fin">
+                                  <input type="date" class="form-control required" id="ffin" name="ffin" placeholder="Fecha fin" value="<?= date("Y-m-d") ?>">
                                 </div>
                               </div>
                               <div class="form-group row">

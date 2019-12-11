@@ -20,7 +20,7 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [0, 8, 1, 3, 4];
+    var tableIndexs = [0, 8, 1, 3, 4, 2, 5];
 
     var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
@@ -111,9 +111,6 @@ function onPageStart() {
     //Rellena el formato publicitario
     selectPopulate("#tpub2", "gettpub", 0, 1);
 
-    //Rellena el tipo de cliente
-    selectPopulate("#tcliente", "getTipoCli", 0, 1);
-
     // Código para actualizar la data
 
     var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
@@ -146,7 +143,7 @@ function onPageStart() {
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     //Envía el formulario
@@ -189,7 +186,7 @@ function onPageStart() {
 
                     //Limpio el formulario
                     if (!isUpdating)
-                        $("#idFormDetalles").get(0).reset();
+                        resetDefaultForm();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_ocup_espacios_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {

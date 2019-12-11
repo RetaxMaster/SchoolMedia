@@ -46,7 +46,7 @@ function onPageStart() {
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     //Envía el formulario

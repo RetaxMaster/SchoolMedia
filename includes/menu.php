@@ -50,16 +50,22 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="op_scheduler_conf.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de Instalaciones</a>
+                  <a href="op_scheduler_conf.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de Instalaciones Publicitarias</a>
+                </li>
+                <li>
+                  <a href="op_scheduler_conf.php?Lang=<?php echo $Lang; ?>&wph=21">Calendario de Instalaciones de Valores</a>
                 </li>
                 <!-- li>
                   <a href="./ocup_espacios_conf.php?Lang=< ?php echo $Lang; ?>&wph=21">Ocupación de espacios</a>
                 </li -->
                 <li>
-                  <a href="./rep_img_conf.php?Lang=<?php echo $Lang; ?>&wph=22">Repositorio de imágenes</a>
+                  <a href="./rep_img_conf.php?Lang=<?php echo $Lang; ?>&wph=22">Repositorio de imágenes para instalar</a>
                 </li>
                 <li>
                   <a href="./list_vals_conf.php?Lang=<?php echo $Lang; ?>&wph=23">Listado de valores para academias</a>
+                </li>
+                <li>
+                  <a href="./rep_img_conf.php?Lang=<?php echo $Lang; ?>&wph=44">Repositorio de instalaciones finalizadas</a>
                 </li>
               </ul>
             </div>
@@ -85,6 +91,9 @@
                 </li>
                 <li>
                   <a href="./mat_cap_conf.php?Lang=<?php echo $Lang; ?>&wph=28">Matriz de capacitador y curso</a>
+                </li>
+                <li>
+                  <a href="./mat_cap_conf.php?Lang=<?php echo $Lang; ?>&wph=29">Calendario de capacitaciones</a>
                 </li>
                 <li>
                   <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_operaciones/calendario_capacitaciones.php?Lang=<?php echo $Lang; ?>&wph=29">Calendario de capacitaciones tbl_0075 ./pag_operaciones/calendario_capacitaciones.php</a>
@@ -129,9 +138,6 @@
                 <li>
                   <a href="./conv_cont_conf.php?Lang=<?php echo $Lang; ?>&wph=39">Convenios y contratos</a>
                 </li>
-                <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/repositorio_imagenes.php?Lang=<?php echo $Lang; ?>&wph=40">Documentos de contratos de Clientes tbl_0048 repositorio_imagenes_contableAnmin.jpg Clonar desde la pagina ./pag_admin_usuarios/repositorio_imagenes.php</a>
-                </li>
               </ul>
             </div>
           </li>
@@ -160,9 +166,6 @@
                 </li>
                 <li>
                   <a href="./cent_op_conf.php?Lang=<?php echo $Lang; ?>&wph=42">Centros de operaciones</a>
-                </li>
-                <li>
-                  <a href="http://www.esdca.net/schoolMedia/page/pages/es/pag_admin_usuarios/repositorio_imagenes.php?Lang=<?php echo $Lang; ?>&wph=43">Repositorio de imagenes tbl_0026 repositorio_imagenes.php repositorio_imagenes_usuarios.jpg</a>
                 </li>
               </ul>
             </div>

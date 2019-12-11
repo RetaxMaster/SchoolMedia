@@ -60,7 +60,7 @@ function onPageStart() {
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     //Envía el formulario
@@ -102,8 +102,8 @@ function onPageStart() {
                     console.log(res);
 
                     //Limpio el formulario
-                    if (!isUpdating)
-                        $("#idFormDetalles").get(0).reset();
+                    if(!isUpdating)
+                        resetDefaultForm();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_caps_res_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {

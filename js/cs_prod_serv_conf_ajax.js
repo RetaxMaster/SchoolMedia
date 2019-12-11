@@ -57,6 +57,14 @@ function onPageStart() {
 
     });
 
+    //Detecta el cambio de país
+    $("#country").on("change", function () {
+
+        var pais = this.value;
+        selectPopulate("#imp", "getimpbyctry", 0, 2, "tbl_caimps.id_pais", pais);
+
+    });
+
     //Rellena el impuestos
     selectPopulate("#imp", "getImp", 0, 3);
 
@@ -91,7 +99,7 @@ function onPageStart() {
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     //Envía el formulario
@@ -133,8 +141,8 @@ function onPageStart() {
                     console.log(res);
 
                     //Limpio el formulario
-                    if (!isUpdating)
-                        $("#idFormDetalles").get(0).reset();
+                    if(!isUpdating)
+                        resetDefaultForm();
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_prod_serv_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {

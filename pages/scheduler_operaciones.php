@@ -54,7 +54,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "text2",
                 "text3",
                 "text4",
-                "text5",
                 "text6",
                 "text7",
                 "text8",
@@ -70,7 +69,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                 "{$text2}",
                 "{$text3}",
                 "{$text4}",
-                "{$text5}",
                 "{$text6}",
                 "{$text7}",
                 "{$text8}",
@@ -159,15 +157,22 @@ echo '<!-- Custom JavaScripts Functions Needs
                   </select>
                 </div>
 
-                <!-- Dropdown Seleccionar Tipo Instalación -->
-                <div class="form-group" style="display: none;">
-                  <label for="tipoCliente" class="col-sm-3 col-form-label" id="text5">{$text5}</label><br>
-                  <select id="tipoCliente" name="locality" class="form-control col-sm-3">
-                  <option value="-1" disabled selected>Seleccione</option>
-                  <option value="0">Publicidad</option>
-                    <option value="1">Valores</option>
+
+                <!-- Dropdown Seleccionar Estatus de la instalacion -->
+                <div class="form-group">
+                  <label for="" class="col-sm-2 col-form-label">Estatus de la instalación<span class="iconObligatorio">*<span></label>
+                  <select id="statusInstallVal1" name="statusInstallVal1" class="form-control col-sm-4">
+                    <option value="-1" selected disabled>Seleccione</option>
+                    <option value="0">Reservado</option>
+                    <option value="1">Asignado para instalar</option>
+                    <option value="2">Por supervisar instalación</option>
+                    <option value="3">Rechazada la instalación</option>
+                    <option value="4">Aprobado por Receptor</option>
+                    <option value="5">Informe elaborado y enviado</option>
+                   <option value="6">Cerrado por el Receptor</option>
                   </select>
                 </div>
+
               </div>
             </div>
           </div>

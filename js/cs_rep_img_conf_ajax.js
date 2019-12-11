@@ -151,7 +151,7 @@ function onPageStart() {
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
-        $("#idFormDetalles").get(0).reset();
+        resetDefaultForm();
     });
 
     //Envía el formulario
@@ -197,8 +197,8 @@ function onPageStart() {
                     console.log(res);
 
                     //Limpio el formulario
-                    if (!isUpdating)
-                        $("#idFormDetalles").get(0).reset();
+                    if(!isUpdating)
+                        resetDefaultForm();
                     //Actualizo la DataTable
                     var data = {
                         id: clientId

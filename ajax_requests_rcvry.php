@@ -139,6 +139,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             caimps_recoveryAllList($n, $Arry, $enabled, true);
             break;
 
+        case 'getimpbyctry':
+            include_once(LIBRARY_DIR . "/impuestos_consumo.php");
+            caimps_recoveryAllByAnyField($n, $Arry, $_POST["field"], $_POST["val"], $enabled, 1);
+            break;
+
         case 'getClients':
             include_once(LIBRARY_DIR . "/clients.php");
             clients_recoveryAllList($n, $Arry, $enabled, true);
