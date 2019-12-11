@@ -19,6 +19,54 @@ function onPageStart() {
             break;
     }
 
+    function makeCalendar(dateToRepresent) {
+        //Obtenemos en qué día inicia el mes
+        var date = new Date(dateToRepresent);
+        var iniciaEnDia = date.getUTCDay();
+
+        //Obtenemos cuantos días tiene el mes
+        var date2 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        var diasDelMes = date2.getDate() + iniciaEnDia;
+
+        var rows = Math.ceil(diasDelMes / 7); // Filas que se generaran para el calendario
+        var celdasQueSeDebenGenerar = rows * 7; //Celdas que se generarán para el calendario
+        
+        var calendar = "<tr>";
+
+        for (i = 1; i <= celdasQueSeDebenGenerar; i++) {
+
+
+            if (i > iniciaEnDia && i <= diasDelMes) {
+                var dia = i - iniciaEnDia;
+
+                calendar +=
+                `<td>
+                    <div id="day" class="text-center">${dia}</div>
+                    <div class="text-center">
+                        <button id="idBtnNuevo" class="form-control btn btnSuccess btn-razSoc" data-toggle="modal" data-target="#Modal_tbl_0100"><i class="far fa-plus-square"></i></button>
+                        <button id="idBtnDetalles" class="form-control btn btnSuccess btn-razSoc" data-toggle="modal" data-target="#Modal_ProgInstall"><i class="fas fa-list-ul"></i></i></button>
+                    </div>  
+                </td>`;
+
+            } else {
+                calendar += "<td></td>";
+            }
+
+            if (i % 7 == 0)
+                calendar +=  "</tr><tr>";
+        }
+
+        calendar += "</tr>";
+
+        $("#calendarBody").children().remove();
+        $("#calendarBody").append($(calendar));
+        
+    }
+
+    setTimeout(() => {
+        makeCalendar("2019-06-1");
+    }, 3000);
+
     //Se rellenan los selects de paises y provincias
     selectCtryPopulate('#selectCtry', 0, 'Seleccione Pais');
 
