@@ -541,6 +541,43 @@ textarea.form-control {
     margin: 20px 14px 0px;
 }
 
+.item-container {
+    padding: 3px;
+}
 
+.item-container .card {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+}
 
+.item-container .card:before {
+    content: '\00D7';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 34px;
+    opacity: 0;
+    cursor: pointer;
+    transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
+    -moz-transition: 0.3s all ease;
+    -ms-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
+}
 
+.item-container .card:hover:before {
+    opacity: 1;
+}

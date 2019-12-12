@@ -494,6 +494,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadConvContInfo':
             include_once(LIBRARY_DIR . "/contratos.php");
+            echo "<pre>";
+            var_dump($_FILES);
+            echo "</pre>";
+            die();
+            die();
             $codctto = isset($_POST["codctto"]) ? $_POST["codctto"] : "";
             $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
             $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
@@ -506,7 +511,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $cantcur = "";
             $descrip = isset($_POST["descripcion"]) ? $_POST["descripcion"] : "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
-            ctrts_createRecord($codctto, $id_pais, $id_prov, $id_client, $id_tipo, $fini, $ffin, $ciclopub, $ciclomsgvalor, $cantcur, $descrip, $enabled);
+            ctrts_createRecord($rp, $codctto, $id_pais, $id_prov, $id_client, $id_tipo, $fini, $ffin, $ciclopub, $ciclomsgvalor, $cantcur, $descrip, $enabled);
             die();
             break;
 

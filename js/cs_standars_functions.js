@@ -518,6 +518,43 @@ function disableAllFields(formSelector, action) {
     $(formSelector + " textarea").prop("disabled", action);
 }
 
+// Crea un elemento de imagen
+
+function createImage(file, id = null) {
+    var img = URL.createObjectURL(file);
+    var dataId = id != null ? `id="p-${id}"` : "";
+    return f.createHTMLNode( //html
+    `
+        <div class="image col-12 col-sm-4 col-md-3 d-flex align-items-center" ${dataId}>
+            <div class="image-container">
+                <img src="${img}" alt="Preview">
+            </div>
+        </div>
+    `);
+}
+
+function createFile(file, id = null) {
+    var dataId = id != null ? `id="p-${id}"` : "";
+    return $( //html
+        `
+        <div class="col-sm-4 item-container" ${dataId}>
+            <div class="card">
+                <span>${file.name}</span>
+            </div>
+        </div>
+    `);
+}
+
+function getRandomString(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < length; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
       // Set Country List Select component
 /* Populate dropdown with list of provinces
 $.getJSON(url, function (data) {
