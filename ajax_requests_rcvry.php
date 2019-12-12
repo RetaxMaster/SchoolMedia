@@ -803,6 +803,42 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        // Acciones de los calendarios
+        case 'getCalAnuntsActivities':
+            include_once(LIBRARY_DIR . "/cal_anun.php");
+            $pais = $_POST["pais"];
+            $tipoCliente = $_POST["tipoCliente"];
+            $estatus = $_POST["estatus"];
+            $fecha = $_POST["fecha"];
+
+            //Filtro principal por mes y año (Obtengo las actividades del mes en cuestion)
+            $fecha = explode("-", $fecha);
+            $where = "WHERE MONTH(finicio) = ".$fecha[1]." AND YEAR(finicio) = ".$fecha[0];
+
+            calanun_recoveryAllByAnyField($n, $Arry, 1, $where);
+            echo json_encode($Arry);
+            die();
+            break;
+
+        case 'getCalAnuntsActivitiesByDay':
+            include_once(LIBRARY_DIR . "/cal_anun.php");
+            $pais = $_POST["pais"];
+            $tipoCliente = $_POST["tipoCliente"];
+            $estatus = $_POST["estatus"];
+            $fecha = $_POST["fecha"];
+
+            //Filtro principal por la fecha exacta (Día incluido)
+            $where = "WHERE finicio = \"$fecha\"";
+
+            calanun_recoveryAllByAnyField($n, $Arry, 1, $where);
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+            echo json_encode($response);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

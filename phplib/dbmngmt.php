@@ -69,6 +69,16 @@ include_once("./phplib/sosemV20config.php"); // Incluye vaiables de configuracio
 		}
 	}
 
+	if (!function_exists('mysqli_fetch_all')) {
+		function mysqli_fetch_all(mysqli_result $result)
+		{
+			$data = [];
+			while ($row = $result->fetch_array())
+				$data[] = $row;
+			return $data;
+		}
+	}
+
 	// Extrae una sola columna de una matriz bidimensional, devuelve siempre un vector unidimensional
 	function extractColumn($matrixData,$columnPos,&$vectorDataResponse){
 		$vectorDataResponse=null; // se realiza una limpieza de la variable

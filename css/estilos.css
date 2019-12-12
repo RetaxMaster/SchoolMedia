@@ -23,6 +23,11 @@ body{
     cursor: pointer !important;
 }
 
+.anotacion {
+    text-align: center;
+    color: #7b7b7b;
+}
+
 .banner{
     margin: 0;
     height: 95vh;

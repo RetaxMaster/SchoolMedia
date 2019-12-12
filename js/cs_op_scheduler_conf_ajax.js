@@ -19,53 +19,9 @@ function onPageStart() {
             break;
     }
 
-    function makeCalendar(dateToRepresent) {
-        //Obtenemos en qué día inicia el mes
-        var date = new Date(dateToRepresent);
-        var iniciaEnDia = date.getUTCDay();
+    var tableIndexs = [0, 8, 1, 3, 4, 2, 5, 9];
 
-        //Obtenemos cuantos días tiene el mes
-        var date2 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-        var diasDelMes = date2.getDate() + iniciaEnDia;
-
-        var rows = Math.ceil(diasDelMes / 7); // Filas que se generaran para el calendario
-        var celdasQueSeDebenGenerar = rows * 7; //Celdas que se generarán para el calendario
-        
-        var calendar = "<tr>";
-
-        for (i = 1; i <= celdasQueSeDebenGenerar; i++) {
-
-
-            if (i > iniciaEnDia && i <= diasDelMes) {
-                var dia = i - iniciaEnDia;
-
-                calendar +=
-                `<td>
-                    <div id="day" class="text-center">${dia}</div>
-                    <div class="text-center">
-                        <button id="idBtnNuevo" class="form-control btn btnSuccess btn-razSoc" data-toggle="modal" data-target="#Modal_tbl_0100"><i class="far fa-plus-square"></i></button>
-                        <button id="idBtnDetalles" class="form-control btn btnSuccess btn-razSoc" data-toggle="modal" data-target="#Modal_ProgInstall"><i class="fas fa-list-ul"></i></i></button>
-                    </div>  
-                </td>`;
-
-            } else {
-                calendar += "<td></td>";
-            }
-
-            if (i % 7 == 0)
-                calendar +=  "</tr><tr>";
-        }
-
-        calendar += "</tr>";
-
-        $("#calendarBody").children().remove();
-        $("#calendarBody").append($(calendar));
-        
-    }
-
-    setTimeout(() => {
-        makeCalendar("2019-06-1");
-    }, 3000);
+    var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
     //Se rellenan los selects de paises y provincias
     selectCtryPopulate('#selectCtry', 0, 'Seleccione Pais');
@@ -86,18 +42,59 @@ function onPageStart() {
         
     });
 
-    /*Rellena la lista de códigos de países
-    selectCodCtryPopulate("#CodPais1", 168);
-    selectCodCtryPopulate("#CodPais2", 168);
+    //Detecta el cambio de fecha
+    $(document).on("change", "#fecha", function (e) {
 
-    //Rellena la clasificación del cliente
-    selectPopulate("#clasificacionCliente", "getClasifCli", 0, 1);
+        var pais = $("#selectCtry").val();
+        var tipoCliente = $("#tipoCliente").val();
+        var estatus = $("#statusInstallVal1").val();
+        var fecha = $("#fecha").val();
+    
+        makeCalendar(this.value);
+        fillActivitiesOfTheDay({
+            mode: "getCalAnuntsActivities",
+            pais: pais,
+            tipoCliente: tipoCliente,
+            estatus: estatus,
+            fecha: fecha
+        });
+    
+    });
 
-    //Rellena el tipo de cliente
-    selectPopulate("#tipoCliente2", "getTipoCli", 0, 1);
+    //Detecta cuando se quiere mirar la lista de actividades de un día
+    $(document).on("click", ".see-act", function (e) {
+    
+        var id = (this.id).split("-").pop();
+        var fecha = $("#fecha").val();
+        var pais = $("#selectCtry").val();
+        var tipoCliente = $("#tipoCliente").val();
+        var estatus = $("#statusInstallVal1").val();
 
-    //Rellena la calificación del cliente
-    selectPopulate("#calificacionCliente", "getCalifCli", 0, 1); */
+        var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+        //Manipulo la fecha para establecer el día
+        fecha = fecha.split("-");
+        fecha.pop();
+        fecha.push(id);
+        fecha = fecha.join("-");
+
+        console.log(fecha);
+
+        var data = {
+            mode: "getCalAnuntsActivitiesByDay",
+            fecha: fecha,
+            pais: pais,
+            tipoCliente: tipoCliente,
+            estatus: estatus
+        }
+        
+        updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
+            return formatDataTable(res, tableIndexs, [], pushToTheEnd);
+        });
+
+    });
+
+    
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {

@@ -48,19 +48,21 @@ function calanun_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function calanun_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
+function calanun_recoveryAllByAnyField(&$nDocs, &$Docs, $join = false, $where = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_opcalanun_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
+    $SQLStrQuery = "CALL sp_p_lst_opcalanun_byAnyField($tinyint, '$where')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 13); // Pertenece a dbmngmtAdmin.php
+    $Docs = mysqli_fetch_all($ResponsePointer);
+    $nDocs = mysqli_num_rows($ResponsePointer);
 }
 
 //Recupera un registro filtrados por algún campo
-function calanun_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
+function calanun_recoveryOneByAnyField(&$nDocs, &$Docs, $join = false, $where = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_opcalanun_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
+    $SQLStrQuery = "CALL sp_p_get_opcalanun_byAnyField($tinyint, '$where')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 13); // Pertenece a dbmngmtAdmin.php
+    $Docs = mysqli_fetch_all($ResponsePointer);
+    $nDocs = mysqli_num_rows($ResponsePointer);
 }

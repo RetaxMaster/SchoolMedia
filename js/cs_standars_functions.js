@@ -555,6 +555,87 @@ function getRandomString(length) {
     return text;
 }
 
+function makeCalendar(dateToRepresent) {
+    //A cualquier fecha pasado le establezco el día 1
+    dateToRepresent = dateToRepresent.split("-");
+    dateToRepresent.pop();
+    dateToRepresent.push("01");
+    dateToRepresent = dateToRepresent.join("-");
+    console.log(dateToRepresent);
+    //Obtenemos en qué día inicia el mes
+    var date = new Date(dateToRepresent);
+    var iniciaEnDia = date.getUTCDay();
+
+    //Obtenemos cuantos días tiene el mes
+    var date2 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    var diasDelMes = date2.getDate() + iniciaEnDia;
+
+    var rows = Math.ceil(diasDelMes / 7); // Filas que se generaran para el calendario
+    var celdasQueSeDebenGenerar = rows * 7; //Celdas que se generarán para el calendario
+    
+    var calendar = "<tr>";
+
+    for (i = 1; i <= celdasQueSeDebenGenerar; i++) {
+
+
+        if (i > iniciaEnDia && i <= diasDelMes) {
+            var dia = i - iniciaEnDia;
+
+            calendar +=
+            `<td>
+                <div id="d-${dia}" class="text-center">${dia} <b>(<span class="numAct">0</span>)</b></div>
+                <div class="text-center">
+                    <button class="form-control btn btnSuccess btn-razSoc add-act" data-toggle="modal" data-target="#Modal_tbl_0100" id="add-${dia}"><i class="far fa-plus-square"></i></button>
+                    <button class="form-control btn btnSuccess btn-razSoc see-act" data-toggle="modal" data-target="#Modal_ProgInstall" id="see-${dia}"><i class="fas fa-list-ul"></i></i></button>
+                </div>  
+            </td>`;
+
+        } else {
+            calendar += "<td></td>";
+        }
+
+        if (i % 7 == 0)
+            calendar +=  "</tr><tr>";
+    }
+
+    calendar += "</tr>";
+
+    $("#calendarBody").children().remove();
+    $("#calendarBody").append($(calendar));
+    
+}
+
+//Rellena el número de actividades por día (El número de al lado del día)
+function fillActivitiesOfTheDay(data) {
+
+    //Hacemos una consulta para traer todas las actividades de este mes con sus respectivos filtros
+
+    var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+    $.post(url, data, function (res) {
+        res = JSON.parse(res);
+        var numeroActividades = {};
+
+        //Miro que actividades hay en qué días
+        $(res).each(function () {
+
+            var dia = "d-" + (this.finicio).split("-")[2];
+
+            if (numeroActividades.hasOwnProperty(dia)) {
+                numeroActividades[dia]++;
+            } else {
+                numeroActividades[dia] = 1;
+            }
+        });
+
+        //Inserto dichas actividades
+        for (const key in numeroActividades)
+            $("#" + key + " .numAct").text(numeroActividades[key]);
+
+    })
+
+}
+
       // Set Country List Select component
 /* Populate dropdown with list of provinces
 $.getJSON(url, function (data) {

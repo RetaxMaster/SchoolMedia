@@ -138,8 +138,9 @@ echo '<!-- Custom JavaScripts Functions Needs
 
                 <!-- Seleccionar Fecha -->
                 <div class="form-group">
+                  <label for="selectCtry" class="col-sm-12 col-form-label">Selecciona la fecha (Solo se tomará en cuenta el mes y el año)</label><br>
                   <div class="col-lg-3">
-                    <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" class="form-control" id="fecha" name="fecha">
                   </div>
                 </div>
 
@@ -206,38 +207,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                     <tbody id="calendarBody">
                       <tr>
 
-                        <?php
-
-                        //Obtenemos en qué día inicia el mes
-                        $timestamp = mktime(0, 0, 0, date("m"), 1, date("Y"));
-                        $iniciaEnDia = date("w", $timestamp);
-
-                        //Obtenemos cuántos días tiene mes y sumamos el día en el quen inicia para saltar esas fechas
-                        $diasDelMes = cal_days_in_month(CAL_GREGORIAN, date("m"), date("Y")) + $iniciaEnDia;
-                        $rows = ceil($diasDelMes / 7); // Filas que se generaran para el calendario
-                        $celdasQueSeDebenGenerar = $rows * 7; //Celdas que se generarán para el calendario
-
-                        for ($i = 1; $i <= $celdasQueSeDebenGenerar; $i++) {
-
-                          if ($i > $iniciaEnDia && $i <= $diasDelMes) {
-                            $dia = $i - $iniciaEnDia;
-
-                            echo '<td>
-                                <div id="day" class="text-center">' . $dia . '</div>
-                                <div class="text-center">
-                                    <button id="idBtnNuevo" class="form-control btn btnSuccess btn-razSoc" data-toggle="modal" data-target="#Modal_tbl_0100"><i class="far fa-plus-square"></i></button>
-                                    <button id="idBtnDetalles" class="form-control btn btnSuccess btn-razSoc" data-toggle="modal" data-target="#Modal_ProgInstall"><i class="fas fa-list-ul"></i></i></button>
-                                </div>  
-                              </td>';
-                          } else {
-                            echo "<td></td>";
-                          }
-
-                          if ($i % 7 == 0)
-                            echo "</tr><tr>";
-                        }
-
-                        ?>
+                        <td colspan="7" class="anotacion">Usa los filtros para empezar tu búsqueda</td>
 
                       </tr>
                     </tbody>
