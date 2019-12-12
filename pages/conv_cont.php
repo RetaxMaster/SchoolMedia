@@ -240,9 +240,9 @@ echo '<!-- Custom JavaScripts Functions Needs
                                 </div>
                               </div>
                               <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">Descripción</label>
+                                <label for="" class="col-sm-2 col-form-label">Cantidad contratada<span class="iconObligatorio">*<span></label>
                                 <div class="col-sm-4">
-                                  <textarea type="" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
+                                  <input type="number" class="form-control" id="cantcur" name="cantcur" placeholder="Cantidad contratada">
                                 </div>
                                 <label for="" class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-3">
@@ -250,6 +250,12 @@ echo '<!-- Custom JavaScripts Functions Needs
                                     <input type="checkbox" class="custom-control-input" id="customCheck1" name="enabled" value="1">
                                     <label class="custom-control-label" for="customCheck1">Convenios y contratos disponibles habilitados <span class="iconObligatorio">*</span> (Si/No)</label>
                                   </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="" class="col-lg-2 col-form-label">Descripción</label>
+                                <div class="col-lg-10">
+                                  <textarea type="" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
                                 </div>
                               </div>
                               <div class="row">

@@ -64,9 +64,9 @@
                 <li>
                   <a href="./list_vals_conf.php?Lang=<?php echo $Lang; ?>&wph=23">Listado de valores para academias</a>
                 </li>
-                <li>
-                  <a href="./rep_img_conf.php?Lang=<?php echo $Lang; ?>&wph=44">Repositorio de instalaciones finalizadas</a>
-                </li>
+                <!-- li>
+                  <a href="./rep_img_conf.php?Lang=< ?php echo $Lang; ?>&wph=44">Repositorio de instalaciones finalizadas</a>
+                </li -->
               </ul>
             </div>
           </li>

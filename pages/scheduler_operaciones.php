@@ -165,17 +165,18 @@ echo '<!-- Custom JavaScripts Functions Needs
 
                 <!-- Dropdown Seleccionar Estatus de la instalacion -->
                 <div class="form-group">
-                  <label for="" class="col-sm-2 col-form-label">Estatus de la instalación<span class="iconObligatorio">*<span></label>
+                  <label for="" class="col-sm-3 col-form-label">Estatus de la instalación<span class="iconObligatorio">*<span></label>
                   <select id="statusInstallVal1" name="statusInstallVal1" class="form-control col-sm-4">
                     <option value="-1" selected disabled>Seleccione</option>
                     <option value="0">Reservado</option>
                     <option value="1">Asignado para instalar</option>
                     <option value="2">Por supervisar instalación</option>
                     <option value="3">Rechazada la instalación</option>
-                    <option value="4">Aprobado por Receptor</option>
+                    <option value="4">Aprobado por Supervisor</option>
                     <option value="5">Informe elaborado y enviado</option>
                     <option value="6">Cerrado por el Receptor</option>
-                  </select>
+                    <option value="10">Espacios disponibles</option>
+                 </select>
                 </div>
 
               </div>
@@ -249,17 +250,17 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <div class="col-sm-4">
                             <input type="text" class="form-control" id="idActivityPub" name="idActivityPub" placeholder="id" disabled>
                           </div>
-                          <label for="" class="col-sm-2 col-form-label">Contrato Nro.</label>
-                          <div class="col-sm-4">
-                            <input type="text" class="form-control" id="id_cttoPub" name="id_cttoPub" placeholder="Ctto Num">
-                          </div>
-                        </div>
-
-                        <div class="form-group row">
                           <!-- Dropdown Seleccionar Anunciante -->
                           <label for="" class="col-sm-2 col-form-label">Anunciante<span class="iconObligatorio">*<span></label>
                           <select id="anunciantePub" name="anunciantePub" class="form-control col-sm-4">
                             <option value="-1">Seleccione</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group row">
+                          <label for="" class="col-sm-2 col-form-label">Contrato Nro.</label>
+                          <select id="id_cttoPub" name="id_cttoPub" class="form-control col-sm-4">
+                             <option value="-1">Seleccione Cttos activos del anunciante</option>
                           </select>
                           <!-- Dropdown Seleccionar Receptor -->
                           <label for="" class="col-sm-2 col-form-label">Receptor<span class="iconObligatorio">*<span></label>
@@ -267,7 +268,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                             <option value="-1">Seleccione</option>
                           </select>
                         </div>
-
                         <div class="form-group row">
                           <!-- Dropdown Seleccionar Locacion o ubicacion de donde se colocara el anuncio de acuerdo al campo COD de la tbl_0044 -->
                           <label for="" class="col-sm-2 col-form-label">Ubicación donde se instalará<span class="iconObligatorio">*<span></label>
@@ -331,13 +331,11 @@ echo '<!-- Custom JavaScripts Functions Needs
                             <option value="1">Asignado para instalar</option>
                             <option value="2">Por supervisar instalación</option>
                             <option value="3">Rechazada la instalación</option>
-                            <option value="4">Aprobado por Anunciante</option>
+                            <option value="4">Aprobado por Supervisor</option>
                             <option value="5">Informe elaborado y enviado</option>
                             <option value="6">Cerrado por el Anunciante</option>
                           </select>
                         </div>
-
-
                         <div class="row">
                           <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="contBtnCancel">
