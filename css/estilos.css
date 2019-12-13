@@ -19,6 +19,10 @@ body{
     margin-right: 0;
 }
 
+.modal {
+    overflow: auto !important;
+}
+
 .dropdown-item {
     cursor: pointer !important;
 }
@@ -26,6 +30,11 @@ body{
 .anotacion {
     text-align: center;
     color: #7b7b7b;
+}
+
+.image-container, .image-container img {
+    display: flex;
+    width: 100%;
 }
 
 .banner{

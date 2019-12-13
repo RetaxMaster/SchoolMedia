@@ -286,7 +286,7 @@ function JSonformatedData($nCtry,$CtryLst,&$JSonDataObj) {
 
 	//Determina si tiene un valor
 	function hasValue($value) {
-		return (isset($value) && !empty($value) && $value > 0);
+		return (isset($value) && $value != "" && $value >= 0);
 	}
 
 	//Valida si se puede añadir cierto capacitador en cierto lugar

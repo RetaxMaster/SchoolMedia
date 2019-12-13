@@ -426,6 +426,7 @@ function selectPopulate(idComponent, mode, id, value, field = "", val = "") {
         
         var data = res.data;
         $(idComponent).children().remove();
+        $(idComponent).append("<option value='-1'>Seleccione</option>");
         for (let i = 0; i < data.length; i++) {
             $(idComponent).append("<option value='" + data[i][id] + "'>" + data[i][value] + "</option>");
         }
@@ -493,6 +494,26 @@ function getDataOfThisRecord(id, mode, dataJSON) {
                                 $("#" + key).val(dataValue);
                             });
                             break;
+
+                        case 'arte':
+                                //Establecemos en el campo hidden el valor de la iamgen
+                                var dataValue = res[index[0]];
+                                $("#" + key).val(dataValue);
+
+                                //Buscamos la url de esa imagen
+                                var data = {
+                                    mode: "getRepImgUrl",
+                                    id: dataValue
+                                }
+
+                                $.post(url, data, function (res) {
+                                    res = JSON.parse(res);
+                                    var data = res.data;
+
+                                    $("#arteGrafico").attr("src", data[0][2]);
+                                    $("#arteGrafico").show();
+                                });
+                            break;
                     }
                 }
             }
@@ -509,6 +530,10 @@ function resetDefaultForm() {
     $(".dropdown .btn").text("Click para buscar");
     $(".dropdown .dropdown-value").val("");
     $(".contenido-tabla select").prop('selectedIndex', 0);
+    $("#arte-grafico").val("");
+    $("#arteGrafico").attr("src", "");
+    $("#arteGrafico").hide();
+    $("#gallery").children().remove();
 }
 
 //Habilita o desabilita todos los campos de un form
@@ -560,11 +585,11 @@ function makeCalendar(dateToRepresent) {
     dateToRepresent = dateToRepresent.split("-");
     dateToRepresent.pop();
     dateToRepresent.push("01");
-    dateToRepresent = dateToRepresent.join("-");
-    console.log(dateToRepresent);
+    dateToRepresent = dateToRepresent.join("-") + "T00:00:00";
     //Obtenemos en qué día inicia el mes
     var date = new Date(dateToRepresent);
     var iniciaEnDia = date.getUTCDay();
+    
 
     //Obtenemos cuantos días tiene el mes
     var date2 = new Date(date.getFullYear(), date.getMonth() + 1, 0);

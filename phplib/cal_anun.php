@@ -44,7 +44,8 @@ function calanun_recoveryAllList(&$nDocs, &$Docs, $join = false)
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_opcalanun_all($tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 13); // Pertenece a dbmngmtAdmin.php
+    $Docs = mysqli_fetch_all($ResponsePointer);
+    $nDocs = mysqli_num_rows($ResponsePointer);
 }
 
 //Recupera todos los registros filtrados por algún campo

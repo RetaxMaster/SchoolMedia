@@ -176,7 +176,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                     <option value="5">Informe elaborado y enviado</option>
                     <option value="6">Cerrado por el Receptor</option>
                     <option value="10">Espacios disponibles</option>
-                 </select>
+                  </select>
                 </div>
 
               </div>
@@ -260,7 +260,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <div class="form-group row">
                           <label for="" class="col-sm-2 col-form-label">Contrato Nro.</label>
                           <select id="id_cttoPub" name="id_cttoPub" class="form-control col-sm-4">
-                             <option value="-1">Seleccione Cttos activos del anunciante</option>
+                            <option value="-1">Seleccione Cttos activos del anunciante</option>
                           </select>
                           <!-- Dropdown Seleccionar Receptor -->
                           <label for="" class="col-sm-2 col-form-label">Receptor<span class="iconObligatorio">*<span></label>
@@ -285,7 +285,15 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <div class="form-group row">
                           <label for="" class="col-sm-2 col-form-label">Arte gráfico</label>
                           <div class="col-sm-10">
-                            <textarea type="" class="form-control" id="observCliente" name="observCliente" placeholder="Sustituir este componente por una imagen que pueda abrirse en pantalla completa"></textarea>
+                            <div class="arte-grafico">
+                              <div class="button-container">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#Modal_select_image" type="button" id="select-arte-grafico">Seleccionar imagen</button>
+                              </div>
+                              <div class="image-container my-3">
+                                <img style="display: none;" alt="Arte gráfico" id="arteGrafico">
+                              </div>
+                              <input type="hidden" name="arte-grafico" id="arte-grafico">
+                            </div>
                           </div>
                         </div>
 
@@ -293,7 +301,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <div class="form-group row">
                           <label for="" class="col-sm-2 col-form-label">Fecha de Instalación</label>
                           <div class="col-sm-4">
-                            <input type="date" class="form-control" id="finicioPub" name="finicioPub" value="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" class="form-control" id="finicioPub" name="finicioPub" readonly>
                           </div>
                           <!-- Fecha de finalización o desinstalación -->
                           <label for="" class="col-sm-2 col-form-label">Fecha de finalización</label>
@@ -339,7 +347,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <div class="row">
                           <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="contBtnCancel">
-                              <button type="button" id="idBtnLimpiarPub" class="btn btnCancel">Limpiar</button>
+                              <button type="button" id="idBtnLimpiar" class="btn btnCancel">Limpiar</button>
                             </div>
                           </div>
                           <div class="col-lg-6 col-md-6 col-sm-6">
@@ -359,6 +367,39 @@ echo '<!-- Custom JavaScripts Functions Needs
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ********************************************** -->
+  <!-- MODAL Selección arte gráfico -->
+  <!-- ********************************************** -->
+
+  <div class="modal fade bd-example-modal-lg" id="Modal_select_image" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <center>
+            <h2 class="estilo-titulo">Registro de trabajo para Publicidad</h2>
+          </center>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="row" id="gallery">
+            <!-- <div class="col-sm-3 my-2">
+                <div class="image-container">
+                  <img src="http://placeimg.com/640/480/any" alt="asd">
+                </div>
+              </div> -->
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="close-gallery">Cerrar</button>
         </div>
       </div>
     </div>
@@ -571,13 +612,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                                 </tr>
                             </tfoot !-->
                         </table>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="contBtnSuccess">
-                          <button id="idBtnNuevo" class="btn btnSuccess" data-toggle="modal" data-target="#Modal_tbl_0100"><i class="far fa-plus-square"></i>Nuevo</button>
-                        </div>
                       </div>
                     </div>
                   </div>
