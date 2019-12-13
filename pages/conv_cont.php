@@ -258,7 +258,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                                   <textarea type="" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row" id="uploadDocs">
                                 <label class="col-sm-2 col-form-label" for="nombre">Adjunta archivos:</label>
                                 <div class="col-sm-4">
                                   <div class="input-group">
@@ -267,11 +267,16 @@ echo '<!-- Custom JavaScripts Functions Needs
                                 </div>
                                 <div class="col-sm-12 mb-5">
                                   <div class="items-container row" id="all-images">
-                                      <!-- <div class="col-sm-4 item-container">
+                                    <!-- <div class="col-sm-4 item-container">
                                         <div class="card">
                                           <span>Item</span>
                                         </div>
                                       </div> -->
+                                  </div>
+                                  <div class="all-documents">
+                                    <a href="./files_conf.php?Lang=<?php echo $Lang; ?>&wph=23" target="_blank">
+                                      <button type="button" class="btn btn-primary">Ver documentos cargados</button>
+                                    </a>
                                   </div>
                                 </div>
                               </div>

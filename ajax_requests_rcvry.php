@@ -541,11 +541,6 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'uploadConvContInfo':
             include_once(LIBRARY_DIR . "/contratos.php");
-            echo "<pre>";
-            var_dump($_FILES);
-            echo "</pre>";
-            die();
-            die();
             $codctto = isset($_POST["codctto"]) ? $_POST["codctto"] : "";
             $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
             $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
@@ -826,7 +821,9 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'updateConvContInfo':
             include_once(LIBRARY_DIR . "/contratos.php");
+            include_once(LIBRARY_DIR . "/con_contr_doc.php");
             $idToUpdate = $_POST["idToUpdate"];
+
             ctrts_updateRecord([
                 "codctto" => isset($_POST["codctto"]) ? $_POST["codctto"] : "",
                 "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
@@ -841,6 +838,15 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "descrip" => isset($_POST["descripcion"]) ? $_POST["descripcion"] : "",
                 "enabled" => isset($_POST["enabled"]) ? 1 : 0
             ], $idToUpdate);
+
+            //Subo los documentos
+            if (!empty($_FILES)) {
+                foreach ($_FILES as $file) {
+                    $ruta = uploadImage($file, "images/contratos");
+                    concontrdoc_createRecord($idToUpdate, "1", date("Y-m-d"), $_POST["descripcion"], $ruta);
+                }
+            }
+
             die();
             break;
 

@@ -12,7 +12,7 @@
 // Crea una nueva ubicación
 function concontrdoc_createRecord($id_ctto, $id_cttoadnda, $fechains, $descrip, $urldoc)
 {
-    $SQLStrQuery = "CALL sp_p_set_caconcontrdoc_Create($id_ctto, $id_cttoadnda, $fechains, $descrip, $urldoc)";
+    $SQLStrQuery = "CALL sp_p_set_caconcontrdoc_Create('$id_ctto', '$id_cttoadnda', '$fechains', '$descrip', '$urldoc')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 

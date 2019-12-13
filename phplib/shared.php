@@ -284,6 +284,31 @@ function JSonformatedData($nCtry,$CtryLst,&$JSonDataObj) {
 		}
 	}
 
+	//Sube un archivo en la ruta indicada
+	function uploadFile($image, $route) {
+		//Si no está vacía la imagen...
+		if (!empty($image)) {
+
+			//Recolecto los datos de la imagen subida
+            $tmp_name = $image["tmp_name"];
+			$type = $image["type"];
+			$name = $image["name"];
+			$newName = random_string(4) . "-" . $name;
+			$dir = "$route/$newName";
+
+			//Si logró subirse con éxito, retorno la URL
+			if (move_uploaded_file($tmp_name, $dir)) {
+				return $dir;
+			}
+			else {
+				die("Ocurrió un error moviendo la imagen al directorio de imagenes");
+			}
+		}
+		else {
+			die("No se ha proporcionado ninguna imagen.");
+		}
+	}
+
 	//Determina si tiene un valor
 	function hasValue($value) {
 		return (isset($value) && $value != "" && $value >= 0);

@@ -83,6 +83,8 @@ function onPageStart() {
         isUpdating = true;
         idToUpdate = this.id.split("-")[1];
 
+        $("#uploadDocs").show();
+
         getDataOfThisRecord(idToUpdate, "getConvContData", {
             idCliente: 0,
             cliente: 4,
@@ -100,6 +102,7 @@ function onPageStart() {
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
+        $("#uploadDocs").hide();
         resetDefaultForm();
     });
 
@@ -119,7 +122,6 @@ function onPageStart() {
         if (validateInputs(inputs) || isUpdating) {
 
             var formData = new FormData(this);
-            formData.append("files", filesToUpload);
 
             //Inserto los archivos a subir
             for (var pair of filesToUpload.entries()) {
@@ -163,6 +165,10 @@ function onPageStart() {
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_conv_cont_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
                         return formatDataTable(res, tableIndexs, [], pushToTheEnd);
                     });
+
+                    //Elimino las vistas previas y limpio el formData
+                    filesToUpload = new FormData();
+                    $("#all-images").children().remove();
 
                     //Informo de éxito
                     Swal.fire(
