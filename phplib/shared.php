@@ -309,6 +309,21 @@ function JSonformatedData($nCtry,$CtryLst,&$JSonDataObj) {
 		}
 	}
 
+	//Determina si una archivo es una imagen
+	function isImage($nameOrPath) {
+		$extension = explode(".", $nameOrPath);
+		$extension = array_pop($extension);
+		$available_extensions = ["jpg", "jpeg", "png", "gif"];
+		return in_array($extension, $available_extensions);
+	}
+
+	//Obtiene el nombre de un archivo con base en su ruta
+	function getPathFileName($path) {
+		$extension = explode("/", $path);
+		return array_pop($extension);
+	}
+
+
 	//Determina si tiene un valor
 	function hasValue($value) {
 		return (isset($value) && $value != "" && $value >= 0);

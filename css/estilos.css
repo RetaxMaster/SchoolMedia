@@ -12,6 +12,11 @@ body{
     padding: 0;
 }
 
+a, a:hover {
+    text-decoration: none;
+    color: #000;
+}
+
 .padOff{
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -577,9 +582,10 @@ textarea.form-control {
     align-items: center;
     padding: 10px;
     position: relative;
+    cursor: pointer;
 }
 
-.item-container .card:before {
+.item-container .card:not(.no-dismissable):before {
     content: '\00D7';
     position: absolute;
     top: 0;
@@ -593,7 +599,6 @@ textarea.form-control {
     color: #fff;
     font-size: 34px;
     opacity: 0;
-    cursor: pointer;
     transition: 0.3s all ease;
     -webkit-transition: 0.3s all ease;
     -moz-transition: 0.3s all ease;

@@ -274,7 +274,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                                       </div> -->
                                   </div>
                                   <div class="all-documents">
-                                    <a href="./files_conf.php?Lang=<?php echo $Lang; ?>&wph=23" target="_blank">
+                                    <a href="./files_conf.php?Lang=<?php echo $Lang; ?>&wph=23" target="_blank" id="loadedFiles">
                                       <button type="button" class="btn btn-primary">Ver documentos cargados</button>
                                     </a>
                                   </div>

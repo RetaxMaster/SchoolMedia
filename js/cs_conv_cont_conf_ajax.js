@@ -84,6 +84,9 @@ function onPageStart() {
         idToUpdate = this.id.split("-")[1];
 
         $("#uploadDocs").show();
+        $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=convCont&reg=" + idToUpdate);
+        console.log($("#loadedFiles").attr("href"));
+        
 
         getDataOfThisRecord(idToUpdate, "getConvContData", {
             idCliente: 0,

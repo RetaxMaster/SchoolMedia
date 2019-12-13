@@ -842,7 +842,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             //Subo los documentos
             if (!empty($_FILES)) {
                 foreach ($_FILES as $file) {
-                    $ruta = uploadImage($file, "images/contratos");
+                    $ruta = uploadFile($file, "images/contratos");
                     concontrdoc_createRecord($idToUpdate, "1", date("Y-m-d"), $_POST["descripcion"], $ruta);
                 }
             }
