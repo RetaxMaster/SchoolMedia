@@ -49,6 +49,33 @@ function onPageStart() {
     //Rellena el idplan
     selectPopulate("#id_cap", "getCaps", 0, 1);
 
+    //Detecta la inserción de archivos
+    var filesToUpload = new FormData();
+    $(document).on("change", "#documents", function (e) {
+
+        for (var i = 0; i < this.files.length; i++) {
+            var element = this.files[i];
+            var id = getRandomString(7);
+            filesToUpload.append(id, element);
+
+            var picture = createFile(element, id);
+            $("#all-images").append(picture);
+        }
+
+        this.value = "";
+
+    });
+
+    //Detecta cuando se elimina una imagen a subir
+    $(document).on("click", ".item-container", function (e) {
+
+        var id = this.id;
+        $(`#${id}`).remove();
+        id = id.split("-")[1];
+        filesToUpload.delete(id);
+
+    });
+
     // Código para actualizar la data
 
     var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar
@@ -57,6 +84,9 @@ function onPageStart() {
     $(document).on("click", ".updateData", function () {
         isUpdating = true;
         idToUpdate = this.id.split("-")[1];
+
+        $("#uploadDocs").show();
+        $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=centOp&reg=" + idToUpdate);
 
         getDataOfThisRecord(idToUpdate, "getCentOpData", {
             idCliente: 0,
@@ -74,6 +104,7 @@ function onPageStart() {
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
+        $("#uploadDocs").hide();
         resetDefaultForm();
     });
 
@@ -93,6 +124,12 @@ function onPageStart() {
         if (validateInputs(inputs) || isUpdating) {
 
             var formData = new FormData(this);
+
+            //Inserto los archivos a subir
+            for (var pair of filesToUpload.entries()) {
+                formData.append(pair[0], pair[1]);
+            }
+
             var successText;
 
             if (isUpdating) {
@@ -130,6 +167,10 @@ function onPageStart() {
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_cent_op_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
                         return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
                     });
+
+                    //Elimino las vistas previas y limpio el formData
+                    filesToUpload = new FormData();
+                    $("#all-images").children().remove();
 
                     //Informo de éxito
                     Swal.fire(

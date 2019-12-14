@@ -95,13 +95,13 @@ echo '<!-- Custom JavaScripts Functions Needs
 
           <?php foreach($Arry as $file): ?>
             
-            <?php if(isImage($file[5])): ?>
+            <?php if(isImage($file)): ?>
             
               <div class="col-sm-3 item-container">
-                <a href="./download.php?Lang=<?php echo $Lang; ?>&wph=23&path=<?= $file[5] ?>">
+                <a href="./download.php?Lang=<?php echo $Lang; ?>&wph=23&path=<?= $file ?>">
                   <div class="card no-dismissable">
                     <div class="image-container">
-                      <img src="<?= $file[5] ?>" alt="Imagen">
+                      <img src="<?= $file ?>" alt="Imagen">
                     </div>
                   </div>
                 </a>
@@ -110,9 +110,9 @@ echo '<!-- Custom JavaScripts Functions Needs
             <?php else: ?>
             
               <div class="col-sm-3 item-container">
-                <a href="./download.php?Lang=<?php echo $Lang; ?>&wph=23&path=<?= $file[5] ?>">
+                <a href="./download.php?Lang=<?php echo $Lang; ?>&wph=23&path=<?= $file ?>">
                   <div class="card no-dismissable">
-                    <span><?= getPathFileName($file[5]) ?></span>
+                    <span><?= getPathFileName($file) ?></span>
                   </div>
                 </a>
               </div>

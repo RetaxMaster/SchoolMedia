@@ -41,17 +41,34 @@
 	$sect = $_GET["sect"];
 	$reg = $_GET["reg"];
 
+	//Procesa el array devuelto por una consulta de tipo recovery para dejar unicamente el array con los campos que me interesan, recibe el array y l campo que me interesa conservar (En este caso solamente devolvera un arreglo unidimensional ya que unicamente me interesa tener la URL de los archivos)
+	function proccess_array($array, $urlIndex) {
+		$result = [];
+
+		foreach ($array as $value)
+			array_push($result, $value[$urlIndex]);
+
+		return $result;
+	}
+
 	switch ($sect) {
 		case 'convCont':
 			include_once(LIBRARY_DIR . "/con_contr_doc.php");
 			concontrdoc_recoveryAllByAnyField($n, $Arry, "id_ctto", $reg);
+			$Arry = array_filter($Arry);
+			$Arry = proccess_array($Arry, 5);
+			break;
+
+		case 'centOp':
+			include_once(LIBRARY_DIR . "/doc_emps.php");
+			docemps_recoveryAllByAnyField($n, $Arry, "id_company", $reg);
+			$Arry = array_filter($Arry);
+			$Arry = proccess_array($Arry, 4);
 			break;
 		
 		default:
 			header("location: ./main.php?Lang=$Lang&wph=2");
 			break;
 	}
-
-	$Arry = array_filter($Arry);
 
 	include_once(USR_PAGES."/files.php");

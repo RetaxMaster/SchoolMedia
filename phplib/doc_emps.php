@@ -11,7 +11,7 @@
 // Crea una nueva ubicación
 function docemps_createRecord($id_company, $titlefile, $descrip, $urlfile)
 {
-    $SQLStrQuery = "CALL sp_p_set_usrdocemps_Create($id_company, $titlefile, $descrip, $urlfile)";
+    $SQLStrQuery = "CALL sp_p_set_usrdocemps_Create('$id_company', '$titlefile', '$descrip', '$urlfile')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }
 
@@ -36,7 +36,7 @@ function docemps_recoveryAllList(&$nDocs, &$Docs, $join = false)
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_usrdocemps_all($tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera todos los registros filtrados por algún campo
@@ -45,7 +45,7 @@ function docemps_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = 
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_usrdocemps_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera un registro filtrados por algún campo
@@ -54,5 +54,5 @@ function docemps_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = 
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_usrdocemps_byAnyField('$field', '$value', $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 2); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
 }

@@ -215,6 +215,28 @@ echo '<!-- Custom JavaScripts Functions Needs
                                   </div>
                                 </div>
                               </div>
+                              <div class="row" id="uploadDocs">
+                                <label class="col-sm-2 col-form-label" for="nombre">Adjunta archivos:</label>
+                                <div class="col-sm-4">
+                                  <div class="input-group">
+                                    <input type="file" class="form-control-file" id="documents" multiple>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12 mb-5">
+                                  <div class="items-container row" id="all-images">
+                                    <!-- <div class="col-sm-4 item-container">
+                                        <div class="card">
+                                          <span>Item</span>
+                                        </div>
+                                      </div> -->
+                                  </div>
+                                  <div class="all-documents mt-3">
+                                    <a href="./files_conf.php?Lang=<?php echo $Lang; ?>&wph=23" target="_blank" id="loadedFiles">
+                                      <button type="button" class="btn btn-primary">Ver documentos cargados</button>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
                               <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                   <div class="contBtnCancel">

@@ -85,7 +85,6 @@ function onPageStart() {
 
         $("#uploadDocs").show();
         $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=convCont&reg=" + idToUpdate);
-        console.log($("#loadedFiles").attr("href"));
         
 
         getDataOfThisRecord(idToUpdate, "getConvContData", {

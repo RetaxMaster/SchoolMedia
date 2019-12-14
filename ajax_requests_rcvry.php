@@ -771,6 +771,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'updateCentOpInfo':
             include_once(LIBRARY_DIR . "/companie.php");
+            include_once(LIBRARY_DIR . "/doc_emps.php");
             $idToUpdate = $_POST["idToUpdate"];
             comp_updateRecord([
                 "rs" => isset($_POST["razSocCliente"]) ? $_POST["razSocCliente"] : "",
@@ -783,6 +784,15 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "tel" => isset($_POST["telefono"]) ? $_POST["telefono"] : "",
                 "enabled" => isset($_POST["enabled"]) ? 1 : 0
             ], $idToUpdate);
+
+            //Subo los documentos
+            if (!empty($_FILES)) {
+                foreach ($_FILES as $file) {
+                    $ruta = uploadFile($file, "images/cent_op");
+                    docemps_createRecord($idToUpdate, getPathFileName($ruta), "", $ruta);
+                }
+            }
+
             die();
             break;
 
