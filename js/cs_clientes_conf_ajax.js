@@ -111,7 +111,7 @@ function onPageStart() {
         idToUpdate = this.id.split("-")[1];
         
         getDataOfThisRecord(idToUpdate, "getClientData", {
-            id: 0,
+            idCliente: 0,
             rucCliente: 2,
             razSocCliente: 1,
             dirCliente: 3,

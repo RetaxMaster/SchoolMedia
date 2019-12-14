@@ -238,10 +238,15 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                           <label for="" class="col-sm-2 col-form-label" id="text12">{$text12}<span class="iconObligatorio">*<span></label>
                           <!-- Dropdown Seleccionar cliente -->
-                          <div class="col-sm-4">
-                            <select id="client" name="client" class="form-control">
-                              <option value="-1">{$client}</option>
-                            </select>
+                          <div class="dropdown col-sm-4">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Click para buscar
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ClienteDD">
+                              <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
+                              <div class="results"></div>
+                            </div>
+                            <input type="hidden" name="client" id="client" class="dropdown-value">
                           </div>
                         </div>
                         <div class="form-group row">

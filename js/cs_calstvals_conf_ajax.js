@@ -136,7 +136,7 @@ function onPageStart() {
         isUpdating = true;
         idToUpdate = this.id.split("-")[1];
 
-        getDataOfThisRecord(idToUpdate, "getRepImgData", {
+        getDataOfThisRecord(idToUpdate, "getLstValsData", {
             idCliente: 0,
             observCliente: 2
         });
@@ -204,7 +204,7 @@ function onPageStart() {
                         id: clientId
                     }
 
-                    updateTableLabels('#tablaVerImagenes', LangLabelsURL, './ajax_calst_vals_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
+                    updateTableLabels('#tablaVerImagenes', LangLabelsURL, './ajax_calst_vals_gallery_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function (res) {
                         return formatTable(res);
                     }); // Se fijan los labels estandars de las tablas y sus busquedas
 

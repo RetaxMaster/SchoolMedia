@@ -20,12 +20,17 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [0, 2, 3, 4];
+    var tableIndexs = [0, 2, 4, 5];
+
+    var juntar = [{
+        "fields": [2, 3],
+        "firstIndex": 1
+    }];
 
     var pushToTheEnd = ['<a href="#" id="e-{id}" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="updateData"><i class="far fa-newspaper"></i></a>']
 
     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_disp_cap_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-        return formatDataTable(res, tableIndexs, [], pushToTheEnd);
+        return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
     }); // Se fijan los labels estandars de las tablas y sus busquedas
 
 
@@ -40,7 +45,7 @@ function onPageStart() {
     });
 
     //Rellena el idplan
-    selectPopulate("#id_cap", "getCaps", 0, 1);
+    selectPopulate("#id_cap", "getCaps", 0, 6, "", "", [7]);
 
     // Código para actualizar la data
 
@@ -116,7 +121,7 @@ function onPageStart() {
                     //Actualizo la DataTable
                     $("#tablaVerTodos").DataTable().destroy();
                     setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_disp_cap_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-                        return formatDataTable(res, tableIndexs, [], pushToTheEnd);
+                        return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
                     });
 
                     //Informo de éxito

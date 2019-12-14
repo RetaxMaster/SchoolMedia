@@ -45,7 +45,7 @@ function onPageStart() {
     });
 
     //Rellena el idcaps
-    selectPopulate("#id_cap", "getCaps", 0, 6);
+    selectPopulate("#id_cap", "getCaps", 0, 6, "", "", [7]);
 
     //Rellena el idplan
     selectPopulate("#idplan", "getPlans", 0, 7);

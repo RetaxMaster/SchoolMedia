@@ -252,9 +252,16 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                           <!-- Dropdown Seleccionar Anunciante -->
                           <label for="" class="col-sm-2 col-form-label">Anunciante<span class="iconObligatorio">*<span></label>
-                          <select id="anunciantePub" name="anunciantePub" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
+                          <div class="dropdown col-sm-4">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Click para buscar
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ClienteDD">
+                              <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
+                              <div class="results"></div>
+                            </div>
+                            <input type="hidden" name="anunciantePub" id="anunciantePub" class="dropdown-value">
+                          </div>
                         </div>
 
                         <div class="form-group row">
@@ -264,9 +271,16 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </select>
                           <!-- Dropdown Seleccionar Receptor -->
                           <label for="" class="col-sm-2 col-form-label">Receptor<span class="iconObligatorio">*<span></label>
-                          <select id="receptorPub" name="receptorPub" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
+                          <div class="dropdown col-sm-4">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Click para buscar
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ClienteDD2">
+                              <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
+                              <div class="results"></div>
+                            </div>
+                            <input type="hidden" name="receptorPub" id="receptorPub" class="dropdown-value">
+                          </div>
                         </div>
                         <div class="form-group row">
                           <!-- Dropdown Seleccionar Locacion o ubicacion de donde se colocara el anuncio de acuerdo al campo COD de la tbl_0044 -->

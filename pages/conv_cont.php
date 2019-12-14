@@ -171,13 +171,15 @@ echo '<!-- Custom JavaScripts Functions Needs
                               </div>
                               <div class="form-group row">
                                 <label for="" class="col-sm-2 col-form-label">Cliente<span class="iconObligatorio">*<span></label>
-                                <div class="col-sm-4">
-                                  <!-- Dropdown Seleccionar Pais -->
-                                  <div class="form-group">
-                                    <select id="cliente" name="cliente" class="form-control required">
-                                      <option value="-1">{$cliente}</option>
-                                    </select>
+                                <div class="dropdown col-sm-4">
+                                  <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Click para buscar
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="ClienteDD">
+                                    <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
+                                    <div class="results"></div>
                                   </div>
+                                  <input type="hidden" name="cliente" id="cliente" class="dropdown-value">
                                 </div>
                                 <label for="" class="col-sm-2 col-form-label">Tipo de cliente<span class="iconObligatorio">*<span></label>
                                 <div class="col-sm-4">

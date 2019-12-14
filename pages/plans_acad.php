@@ -228,6 +228,14 @@ echo '<!-- Custom JavaScripts Functions Needs
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="nombre">Documento</label>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group">
+                                                            <input type="file" class="form-control-file" id="urldoc" name="urldoc">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
                                                     <div class="col-sm-3">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" id="customCheck1" name="enabled" value="1">

@@ -36,7 +36,7 @@ function dispcap_recoveryAllList(&$nDocs, &$Docs, $enabled, $join = false)
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_acaddispcap_all($enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 6); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera todos los registros filtrados por algún campo
@@ -45,7 +45,7 @@ function dispcap_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $enabled
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_acaddispcap_byAnyField('$field', '$value', $enabled, $tinyint, '$extraWhere')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 5); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 6); // Pertenece a dbmngmtAdmin.php
 }
 
 //Recupera un registro filtrados por algún campo

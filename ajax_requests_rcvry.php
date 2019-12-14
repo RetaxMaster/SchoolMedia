@@ -289,6 +289,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             pubs_recoveryOneByAnyField($n, $Arry, "id_pub", $id);
             break;
 
+        case 'getLstValsData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/list_vals.php");
+            lv_recoveryOneByAnyField($n, $Arry, "id_lstval", $id);
+            break;
+
         case 'getCapsResData':
             $id = $_POST["id"];
             include_once(LIBRARY_DIR . "/capacitadores.php");
@@ -467,8 +473,9 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $objetivos = isset($_POST["objetivos"]) ? $_POST["objetivos"] : "";
             $título = isset($_POST["titulo"]) ? $_POST["titulo"] : "";
             $fcreac = date("Y-m-d");
+            $urldoc = uploadFile($_FILES["urldoc"], "images/plans_acad_docs");
             $lstenabled = isset($_POST["enabled"]) ? 1 : 0;
-            plans_createRecord($tiempodura, $id_modalidad, $temario, $prerrequisitos, $perfil, $objetivos, $título, $fcreac, $lstenabled);
+            plans_createRecord($tiempodura, $id_modalidad, $temario, $prerrequisitos, $perfil, $objetivos, $título, $fcreac, $urldoc, $lstenabled);
             die();
             break;
 
@@ -706,6 +713,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "perfil" => isset($_POST["perfil"]) ? $_POST["perfil"] : "",
                 "objetivos" => isset($_POST["objetivos"]) ? $_POST["objetivos"] : "",
                 "título" => isset($_POST["titulo"]) ? $_POST["titulo"] : "",
+                "urldoc" => (isset($_FILES["urldoc"]) && !empty($_FILES["urldoc"]["tmp_name"])) ? uploadFile($_FILES["urldoc"], "images/plans_acad_docs") : "",
                 "lstenabled" => isset($_POST["enabled"]) ? 1 : 0
             ], $idToUpdate);
             die();

@@ -127,7 +127,7 @@ function onPageStart() {
         getDataOfThisRecord(idToUpdate, "getSegClientsData", {
             id_track: 0,
             contacto: 1,
-            client: 2,
+            client: [2, "drop-cliente"],
             usuario: 3,
             etapa: 4,
             accion: 5,

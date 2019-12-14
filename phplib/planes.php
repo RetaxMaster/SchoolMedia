@@ -16,7 +16,7 @@
 
 // Crea una nueva ubicación
 function plans_createRecord($tiempodura, $id_modalidad, $temario, $prerrequisitos, $perfil, $objetivos, $título, $fcreac, $urldoc, $lstenabled)
-{
+{   
     $SQLStrQuery = "CALL sp_p_set_acadplans_Create('$tiempodura', '$id_modalidad', '$temario', '$prerrequisitos', '$perfil', '$objetivos', '$título', '$fcreac', '$urldoc', '$lstenabled')";
     SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 }

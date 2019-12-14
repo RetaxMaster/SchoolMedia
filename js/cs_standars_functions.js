@@ -412,7 +412,7 @@ function fillSelectLst(dataArry,componentLst,indice0,indice1,indice2) {
 //////////////////////////////////////////////////////////////////////////
 
 //Rellena un select, el id se refiere al indice del Id de la respuesta y el value se refiere al indice del valor de la respuesta, por ejemplo: ["1", "V.I.P"], id sería 0 y value sería 1
-function selectPopulate(idComponent, mode, id, value, field = "", val = "") {
+function selectPopulate(idComponent, mode, id, value, field = "", val = "", juntar = []) {
     const url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=1&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
 
     var data = {
@@ -428,7 +428,15 @@ function selectPopulate(idComponent, mode, id, value, field = "", val = "") {
         $(idComponent).children().remove();
         $(idComponent).append("<option value='-1'>Seleccione</option>");
         for (let i = 0; i < data.length; i++) {
-            $(idComponent).append("<option value='" + data[i][id] + "'>" + data[i][value] + "</option>");
+            var text = data[i][value];
+
+            if (juntar.length > 0) {
+                for (const key in juntar) {
+                    text += " " + data[i][juntar[key]];
+                }
+            }
+            
+            $(idComponent).append("<option value='" + data[i][id] + "'>" + text + "</option>");
         }
     });
 }

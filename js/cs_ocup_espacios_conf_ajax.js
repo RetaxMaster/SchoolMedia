@@ -123,7 +123,7 @@ function onPageStart() {
         getDataOfThisRecord(idToUpdate, "getOcupEspaciosData", {
             idCliente: 0,
             tpub2: 4,
-            tcliente: 3,
+            tcliente: [3, "drop-cliente"],
             cod: 5,
             cara: 6,
             width: 7,

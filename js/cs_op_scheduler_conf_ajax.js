@@ -254,9 +254,9 @@ function onPageStart() {
 
         getDataOfThisRecord(idToUpdate, "getCalAnunData", {
             idActivityPub: 0,
-            anunciantePub: 2,
+            anunciantePub: [2, "drop-cliente"],
             id_cttoPub: 1,
-            receptorPub: 3,
+            receptorPub: [3, "drop-cliente"],
             locationPub: 4,
             caraPub: 5,
             "arte-grafico": [6, "arte"],
