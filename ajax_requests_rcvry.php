@@ -887,6 +887,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'updateCalAnunInfo':
             include_once(LIBRARY_DIR . "/cal_anun.php");
+            include_once(LIBRARY_DIR . "/img_install_pubs.php");
             $idToUpdate = $_POST["idToUpdate"];
             calanun_updateRecord([
                 "id_ctto" => isset($_POST["id_cttoPub"]) ? $_POST["id_cttoPub"] : "",
@@ -902,6 +903,15 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "id_uservend" => isset($_POST["sellerOub"]) ? $_POST["sellerOub"] : "",
                 "estatus" => isset($_POST["statusInstallPub"]) ? $_POST["statusInstallPub"] : ""
             ], $idToUpdate);
+
+            //Subo los documentos
+            if (!empty($_FILES)) {
+                foreach ($_FILES as $file) {
+                    $ruta = uploadFile($file, "images/calAnun");
+                    inspubs_createRecord($idToUpdate, $ruta);
+                }
+            }
+
             die();
             break;
 

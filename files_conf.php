@@ -65,6 +65,13 @@
 			$Arry = array_filter($Arry);
 			$Arry = proccess_array($Arry, 4);
 			break;
+
+		case 'calAnun':
+			include_once(LIBRARY_DIR . "/img_install_pubs.php");
+			inspubs_recoveryAllByAnyField($n, $Arry, "id_calinst", $reg);
+			$Arry = array_filter($Arry);
+			$Arry = proccess_array($Arry, 2);
+			break;
 		
 		default:
 			header("location: ./main.php?Lang=$Lang&wph=2");

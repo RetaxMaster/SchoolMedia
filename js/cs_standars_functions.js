@@ -548,11 +548,13 @@ function disableAllFields(formSelector, action) {
 function createImage(file, id = null) {
     var img = URL.createObjectURL(file);
     var dataId = id != null ? `id="p-${id}"` : "";
-    return f.createHTMLNode( //html
+    return $( //html
     `
-        <div class="image col-12 col-sm-4 col-md-3 d-flex align-items-center" ${dataId}>
-            <div class="image-container">
-                <img src="${img}" alt="Preview">
+        <div class="col-sm-3 item-container" ${dataId}>
+            <div class="card">
+                <div class="image-container">
+                    <img src="${img}" alt="Imagen">
+                </div>
             </div>
         </div>
     `);
