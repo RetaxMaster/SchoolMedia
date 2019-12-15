@@ -53,7 +53,7 @@
                   <a href="op_scheduler_conf.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de Instalaciones Publicitarias</a>
                 </li>
                 <li>
-                  <a href="scheduler_valores.php?Lang=<?php echo $Lang; ?>&wph=21">Calendario de Instalaciones de Valores</a>
+                  <a href="scheduler_valores_conf.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de Instalaciones de Valores</a>
                 </li>
                 <!-- li>
                   <a href="./ocup_espacios_conf.php?Lang=< ?php echo $Lang; ?>&wph=21">Ocupación de espacios</a>

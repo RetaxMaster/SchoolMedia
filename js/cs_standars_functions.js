@@ -657,7 +657,8 @@ function makeCalendar(dateToRepresent) {
 
 
         if (i > iniciaEnDia && i <= diasDelMes) {
-            var dia = i - iniciaEnDia;
+            var dia = i - iniciaEnDia + "";
+            dia = dia.padStart(2, "0");
 
             calendar +=
             `<td>
@@ -705,6 +706,9 @@ function fillActivitiesOfTheDay(data) {
                 numeroActividades[dia] = 1;
             }
         });
+
+        console.log(numeroActividades);
+        
 
         //Inserto dichas actividades
         for (const key in numeroActividades)

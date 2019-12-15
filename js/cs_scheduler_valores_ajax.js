@@ -96,7 +96,7 @@ function onPageStart() {
 
         if (cliente > 0) {
             var data = {
-                mode: "getImagesByClient",
+                mode: "getValsByClient",
                 cliente: cliente
             }
 
@@ -155,7 +155,7 @@ function onPageStart() {
 
         makeCalendar(fecha);
         fillActivitiesOfTheDay({
-            mode: "getCalAnuntsActivities",
+            mode: "getCalValsActivities",
             pais: pais,
             tipoCliente: tipoCliente,
             estatus: estatus,
@@ -188,7 +188,7 @@ function onPageStart() {
         console.log(fecha);
 
         var data = {
-            mode: "getCalAnuntsActivitiesByDay",
+            mode: "getCalValsActivitiesByDay",
             fecha: fecha,
             pais: pais,
             tipoCliente: tipoCliente,
@@ -260,11 +260,11 @@ function onPageStart() {
         idToUpdate = this.id.split("-")[1];
 
         $("#uploadDocs").show();
-        $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=calAnun&reg=" + idToUpdate);
+        $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=calVals&reg=" + idToUpdate);
         $("#finicioPub").prop("readonly", false);
         $("#idBtnLimpiar").hide();
 
-        getDataOfThisRecord(idToUpdate, "getCalAnunData", {
+        getDataOfThisRecord(idToUpdate, "getCalValsData", {
             idActivityPub: 0,
             anunciantePub: [2, "drop-cliente"],
             id_cttoPub: [1, "fillContratos"],
@@ -312,11 +312,11 @@ function onPageStart() {
             var successText;
 
             if (isUpdating) {
-                formData.append("mode", "updateCalAnunInfo");
+                formData.append("mode", "updateCalValsInfo");
                 formData.append("idToUpdate", idToUpdate);
                 successText = "¡Registro actualizado con éxito!";
             } else {
-                formData.append("mode", "uploadCalAnunInfo");
+                formData.append("mode", "uploadCalValsInfo");
                 successText = "¡Registro agregado con éxito!";
             }
 

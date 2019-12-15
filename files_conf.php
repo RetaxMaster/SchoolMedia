@@ -72,6 +72,13 @@
 			$Arry = array_filter($Arry);
 			$Arry = proccess_array($Arry, 2);
 			break;
+
+		case 'calVals':
+			include_once(LIBRARY_DIR . "/img_install_vals.php");
+			insvals_recoveryAllByAnyField($n, $Arry, "id_calinst", $reg);
+			$Arry = array_filter($Arry);
+			$Arry = proccess_array($Arry, 2);
+			break;
 		
 		default:
 			header("location: ./main.php?Lang=$Lang&wph=2");

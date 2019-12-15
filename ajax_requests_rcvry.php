@@ -365,10 +365,27 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             pubs_recoveryAllByAnyField($n, $Arry, "tbl_capubs.id_client", $_POST["cliente"], true);
             break;
 
+        case 'getValsByClient':
+            include_once(LIBRARY_DIR . "/list_vals.php");
+            lv_recoveryAllByAnyField($n, $Arry, "tbl_calstvals.id_client", $_POST["cliente"], true);
+            break;
+
         case 'getCalAnunData':
             $id = $_POST["id"];
             include_once(LIBRARY_DIR . "/cal_anun.php");
             calanun_recoveryOneByAnyField($n, $Arry, false, "WHERE id_calanunt = $id");
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+            echo json_encode($response);
+            die();
+            break;
+
+        case 'getCalValsData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/cal_vals.php");
+            calist_recoveryOneByAnyField($n, $Arry, false, "WHERE id_calinst = $id");
             $response["draw"] = 1;
             $response["recordsTotal"] = $n;
             $response["recordsFiltered"] = $n;
@@ -629,6 +646,23 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadCalValsInfo':
+            include_once(LIBRARY_DIR . "/cal_vals.php");
+            $id_ctto = isset($_POST["id_cttoPub"]) ? $_POST["id_cttoPub"] : "";
+            $id_clientanun = isset($_POST["anunciantePub"]) ? $_POST["anunciantePub"] : "";
+            $id_clientesc = isset($_POST["receptorPub"]) ? $_POST["receptorPub"] : "";
+            $id_locat = isset($_POST["locationPub"]) ? $_POST["locationPub"] : "";
+            $cara = isset($_POST["caraPub"]) ? $_POST["caraPub"] : "";
+            $id_lstval = isset($_POST["arte-grafico"]) ? $_POST["arte-grafico"] : "";
+            $finicio = isset($_POST["finicioPub"]) ? $_POST["finicioPub"] : "";
+            $ffin = isset($_POST["ffinPub"]) ? $_POST["ffinPub"] : "";
+            $id_usersup = isset($_POST["supervPub"]) ? $_POST["supervPub"] : "";
+            $id_userinst = isset($_POST["installerPub"]) ? $_POST["installerPub"] : "";
+            $id_uservend = isset($_POST["sellerOub"]) ? $_POST["sellerOub"] : "";
+            $estatus = isset($_POST["statusInstallPub"]) ? $_POST["statusInstallPub"] : "";
+            calist_createRecord($id_ctto, $id_clientanun, $id_clientesc, $id_locat, $cara, $id_lstval, $finicio, $ffin, $id_usersup, $id_userinst, $id_uservend, $estatus);
+            die();
+            break;
 
         //Actualizado de datas
 
@@ -928,6 +962,36 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'updateCalValsInfo':
+            include_once(LIBRARY_DIR . "/cal_vals.php");
+            include_once(LIBRARY_DIR . "/img_install_vals.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            calist_updateRecord([
+                "id_ctto" => isset($_POST["id_cttoPub"]) ? $_POST["id_cttoPub"] : "",
+                "id_clientanun" => isset($_POST["anunciantePub"]) ? $_POST["anunciantePub"] : "",
+                "id_clientesc" => isset($_POST["receptorPub"]) ? $_POST["receptorPub"] : "",
+                "id_locat" => isset($_POST["locationPub"]) ? $_POST["locationPub"] : "",
+                "cara" => isset($_POST["caraPub"]) ? $_POST["caraPub"] : "",
+                "id_lstval" => isset($_POST["arte-grafico"]) ? $_POST["arte-grafico"] : "",
+                "finicio" => isset($_POST["finicioPub"]) ? $_POST["finicioPub"] : "",
+                "ffin" => isset($_POST["ffinPub"]) ? $_POST["ffinPub"] : "",
+                "id_usersup" => isset($_POST["supervPub"]) ? $_POST["supervPub"] : "",
+                "id_userinst" => isset($_POST["installerPub"]) ? $_POST["installerPub"] : "",
+                "id_uservend" => isset($_POST["sellerOub"]) ? $_POST["sellerOub"] : "",
+                "estatus" => isset($_POST["statusInstallPub"]) ? $_POST["statusInstallPub"] : ""
+            ], $idToUpdate);
+
+            //Subo los documentos
+            if (!empty($_FILES)) {
+                foreach ($_FILES as $file) {
+                    $ruta = uploadFile($file, "images/calVals");
+                    insvals_createRecord($idToUpdate, $ruta);
+                }
+            }
+
+            die();
+            break;
+
         // Acciones de los calendarios
         case 'getCalAnuntsActivities':
             include_once(LIBRARY_DIR . "/cal_anun.php");
@@ -962,9 +1026,53 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
             if(hasValue($pais)) $where .= " AND clientanun.id_pais = $pais";
             if(hasValue($tipoCliente)) $where .= " AND clientanun.id_tipo = $tipoCliente";
-            if(hasValue($estatus)) $where .= " AND tbl_opcalanunts.estatus = $estatus";
+            if(hasValue($estatus)) $where .= " AND tbl_opcalinsts.estatus = $estatus";
 
             calanun_recoveryAllByAnyField($n, $Arry, 1, $where);
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+            echo json_encode($response);
+            die();
+            break;
+
+        case 'getCalValsActivities':
+            include_once(LIBRARY_DIR . "/cal_vals.php");
+            $pais = $_POST["pais"];
+            $tipoCliente = $_POST["tipoCliente"];
+            $estatus = $_POST["estatus"];
+            $fecha = $_POST["fecha"];
+
+            //Filtro principal por mes y año (Obtengo las actividades del mes en cuestion)
+            $fecha = explode("-", $fecha);
+            $where = "WHERE MONTH(finicio) = " . $fecha[1] . " AND YEAR(finicio) = " . $fecha[0];
+
+            //Filtro por los filtros opcionales
+            if (hasValue($pais)) $where .= " AND clientanun.id_pais = $pais";
+            if (hasValue($tipoCliente)) $where .= " AND clientanun.id_tipo = $tipoCliente";
+            if (hasValue($estatus)) $where .= " AND tbl_opcalinsts.estatus = $estatus";
+
+            calist_recoveryAllByAnyField($n, $Arry, 1, $where);
+            echo json_encode($Arry);
+            die();
+            break;
+
+        case 'getCalValsActivitiesByDay':
+            include_once(LIBRARY_DIR . "/cal_vals.php");
+            $pais = $_POST["pais"];
+            $tipoCliente = $_POST["tipoCliente"];
+            $estatus = $_POST["estatus"];
+            $fecha = $_POST["fecha"];
+
+            //Filtro principal por la fecha exacta (Día incluido)
+            $where = "WHERE finicio = \"$fecha\"";
+
+            if (hasValue($pais)) $where .= " AND clientanun.id_pais = $pais";
+            if (hasValue($tipoCliente)) $where .= " AND clientanun.id_tipo = $tipoCliente";
+            if (hasValue($estatus)) $where .= " AND tbl_opcalinsts.estatus = $estatus";
+
+            calist_recoveryAllByAnyField($n, $Arry, 1, $where);
             $response["draw"] = 1;
             $response["recordsTotal"] = $n;
             $response["recordsFiltered"] = $n;

@@ -44,23 +44,26 @@ function calist_recoveryAllList(&$nDocs, &$Docs, $join = false)
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_lst_opcalist_all($tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 13); // Pertenece a dbmngmtAdmin.php
+    $Docs = mysqli_fetch_all($ResponsePointer);
+    $nDocs = mysqli_num_rows($ResponsePointer);
 }
 
 //Recupera todos los registros filtrados por algún campo
-function calist_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
+function calist_recoveryAllByAnyField(&$nDocs, &$Docs, $join = false, $where = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_opcalist_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
+    $SQLStrQuery = "CALL sp_p_lst_opcalist_byAnyField($tinyint, '$where')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 13); // Pertenece a dbmngmtAdmin.php
+    $Docs = mysqli_fetch_all($ResponsePointer);
+    $nDocs = mysqli_num_rows($ResponsePointer);
 }
 
 //Recupera un registro filtrados por algún campo
-function calist_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
+function calist_recoveryOneByAnyField(&$nDocs, &$Docs, $join = false, $where = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_get_opcalist_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
+    $SQLStrQuery = "CALL sp_p_get_opcalist_byAnyField($tinyint, '$where')";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 13); // Pertenece a dbmngmtAdmin.php
+    $Docs = mysqli_fetch_all($ResponsePointer);
+    $nDocs = mysqli_num_rows($ResponsePointer);
 }
