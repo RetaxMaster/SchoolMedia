@@ -93,7 +93,7 @@
                   <a href="./mat_cap_conf.php?Lang=<?php echo $Lang; ?>&wph=28">Matriz de capacitador y curso</a>
                 </li>
                 <li>
-                  <a href="./scheduler_capacitaciones_conf.php?Lang=<?php echo $Lang; ?>&wph=29">Calendario de capacitaciones</a>
+                  <a href="./scheduler_capacitaciones_conf.php?Lang=<?php echo $Lang; ?>&wph=20">Calendario de capacitaciones</a>
                 </li>
                 <li>
                   <a href="./.php?Lang=<?php echo $Lang; ?>&wph=30">Envío de la encuesta de calidad tbl_0076</a>

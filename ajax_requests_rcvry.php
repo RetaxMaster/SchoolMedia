@@ -394,6 +394,18 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'getCalCapsData':
+            $id = $_POST["id"];
+            include_once(LIBRARY_DIR . "/cal_caps.php");
+            calcaps_recoveryOneByAnyField($n, $Arry, false, "WHERE id_calcapinst = $id");
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+            echo json_encode($response);
+            die();
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -661,6 +673,23 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $id_uservend = isset($_POST["sellerOub"]) ? $_POST["sellerOub"] : "";
             $estatus = isset($_POST["statusInstallPub"]) ? $_POST["statusInstallPub"] : "";
             calist_createRecord($id_ctto, $id_clientanun, $id_clientesc, $id_locat, $cara, $id_lstval, $finicio, $ffin, $id_usersup, $id_userinst, $id_uservend, $estatus);
+            die();
+            break;
+
+        case 'uploadCalCapsInfo':
+            include_once(LIBRARY_DIR . "/cal_caps.php");
+            $id_client = isset($_POST["cliente"]) ? $_POST["cliente"] : "";
+            $id_ctto = isset($_POST["id_cttoPub"]) ? $_POST["id_cttoPub"] : "";
+            $id_plan = isset($_POST["idplan"]) ? $_POST["idplan"] : "";
+            $id_cap = isset($_POST["id_cap"]) ? $_POST["id_cap"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
+            $finicio = isset($_POST["finicioPub"]) ? $_POST["finicioPub"] : "";
+            $ffin = isset($_POST["ffinPub"]) ? $_POST["ffinPub"] : "";
+            $estatus = isset($_POST["statusInstallPub"]) ? $_POST["statusInstallPub"] : "";
+            $firmcierredoc = uploadImage($_FILES["urldoc"], "images/calCaps");
+            $id_calif = isset($_POST["Calif"]) ? $_POST["Calif"] : "";
+            calcaps_createRecord($id_client, $id_ctto, $id_plan, $id_cap, $id_pais, $id_prov, $finicio, $ffin, $estatus, $firmcierredoc, $id_calif);
             die();
             break;
 
@@ -992,6 +1021,25 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'updateCalCapsInfo':
+            include_once(LIBRARY_DIR . "/cal_caps.php");
+            $idToUpdate = $_POST["idToUpdate"];
+            calcaps_updateRecord([
+                "id_client" => isset($_POST["cliente"]) ? $_POST["cliente"] : "",
+                "id_ctto" => isset($_POST["id_cttoPub"]) ? $_POST["id_cttoPub"] : "",
+                "id_plan" => isset($_POST["idplan"]) ? $_POST["idplan"] : "",
+                "id_cap" => isset($_POST["id_cap"]) ? $_POST["id_cap"] : "",
+                "id_pais" => isset($_POST["pais"]) ? $_POST["pais"] : "",
+                "id_prov" => isset($_POST["provincia"]) ? $_POST["provincia"] : "",
+                "finicio" => isset($_POST["finicioPub"]) ? $_POST["finicioPub"] : "",
+                "ffin" => isset($_POST["ffinPub"]) ? $_POST["ffinPub"] : "",
+                "estatus" => isset($_POST["statusInstallPub"]) ? $_POST["statusInstallPub"] : "",
+                "firmcierredoc" => (isset($_FILES["urldoc"]) && !empty($_FILES["urldoc"]["tmp_name"])) ? uploadImage($_FILES["urldoc"], "images/calCaps") : "",
+                "id_calif" => isset($_POST["Calif"]) ? $_POST["Calif"] : ""
+            ], $idToUpdate);
+            die();
+            break;
+
         // Acciones de los calendarios
         case 'getCalAnuntsActivities':
             include_once(LIBRARY_DIR . "/cal_anun.php");
@@ -1073,6 +1121,50 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             if (hasValue($estatus)) $where .= " AND tbl_opcalinsts.estatus = $estatus";
 
             calist_recoveryAllByAnyField($n, $Arry, 1, $where);
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+            echo json_encode($response);
+            die();
+            break;
+
+        case 'getCalCapsActivities':
+            include_once(LIBRARY_DIR . "/cal_caps.php");
+            $pais = $_POST["pais"];
+            $tipoCliente = $_POST["tipoCliente"];
+            $estatus = $_POST["estatus"];
+            $fecha = $_POST["fecha"];
+
+            //Filtro principal por mes y año (Obtengo las actividades del mes en cuestion)
+            $fecha = explode("-", $fecha);
+            $where = "WHERE MONTH(finicio) = " . $fecha[1] . " AND YEAR(finicio) = " . $fecha[0];
+
+            //Filtro por los filtros opcionales
+            if (hasValue($pais)) $where .= " AND tbl_acadcalcapinsts.id_pais = $pais";
+            if (hasValue($tipoCliente)) $where .= " AND tbl_cagenclients.id_tipo = $tipoCliente";
+            if (hasValue($estatus)) $where .= " AND tbl_acadcalcapinsts.estatus = $estatus";
+
+            calcaps_recoveryAllByAnyField($n, $Arry, 1, $where);
+            echo json_encode($Arry);
+            die();
+            break;
+
+        case 'getCalCapsActivitiesByDay':
+            include_once(LIBRARY_DIR . "/cal_caps.php");
+            $pais = $_POST["pais"];
+            $tipoCliente = $_POST["tipoCliente"];
+            $estatus = $_POST["estatus"];
+            $fecha = $_POST["fecha"];
+
+            //Filtro principal por la fecha exacta (Día incluido)
+            $where = "WHERE finicio = \"$fecha\"";
+
+            if (hasValue($pais)) $where .= " AND tbl_acadcalcapinsts.id_pais = $pais";
+            if (hasValue($tipoCliente)) $where .= " AND tbl_cagenclients.id_tipo = $tipoCliente";
+            if (hasValue($estatus)) $where .= " AND tbl_acadcalcapinsts.estatus = $estatus";
+
+            calcaps_recoveryAllByAnyField($n, $Arry, 1, $where);
             $response["draw"] = 1;
             $response["recordsTotal"] = $n;
             $response["recordsFiltered"] = $n;

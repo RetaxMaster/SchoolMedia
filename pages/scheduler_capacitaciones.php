@@ -168,14 +168,10 @@ echo '<!-- Custom JavaScripts Functions Needs
                   <label for="" class="col-sm-3 col-form-label">Estatus de la instalación<span class="iconObligatorio">*<span></label>
                   <select id="statusInstallVal1" name="statusInstallVal1" class="form-control col-sm-4">
                     <option value="-1" selected disabled>Seleccione</option>
-                    <option value="0">Reservado</option>
-                    <option value="1">Asignado para instalar</option>
-                    <option value="2">Por supervisar instalación</option>
-                    <option value="3">Rechazada la instalación</option>
-                    <option value="4">Aprobado por Supervisor</option>
-                    <option value="5">Informe elaborado y enviado</option>
-                    <option value="6">Cerrado por el Receptor</option>
-                    <option value="10">Espacios disponibles</option>
+                    <option value="0">Por programar</option>
+                    <option value="1">Pendiente</option>
+                    <option value="2">Finalizado</option>
+                    <option value="3">Encuestado</option>
                   </select>
                 </div>
 
@@ -251,7 +247,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                             <input type="text" class="form-control" id="idActivityPub" name="idActivityPub" placeholder="id" disabled>
                           </div>
                           <!-- Dropdown Seleccionar Anunciante -->
-                          <label for="" class="col-sm-2 col-form-label">Anunciante<span class="iconObligatorio">*<span></label>
+                          <label for="" class="col-sm-2 col-form-label">Cliente<span class="iconObligatorio">*<span></label>
                           <div class="dropdown col-sm-4">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Click para buscar
@@ -260,60 +256,62 @@ echo '<!-- Custom JavaScripts Functions Needs
                               <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
                               <div class="results"></div>
                             </div>
-                            <input type="hidden" name="anunciantePub" id="anunciantePub" class="dropdown-value">
+                            <input type="hidden" name="cliente" id="cliente" class="dropdown-value">
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label for="" class="col-sm-2 col-form-label">Contrato Nro.</label>
-                          <select id="id_cttoPub" name="id_cttoPub" class="form-control col-sm-4">
+                          <select id="id_cttoPub" name="id_cttoPub" class="form-control col-sm-10">
                             <option value="-1">Seleccione Cttos activos del anunciante</option>
-                          </select>
-                          <!-- Dropdown Seleccionar Receptor -->
-                          <label for="" class="col-sm-2 col-form-label">Receptor<span class="iconObligatorio">*<span></label>
-                          <div class="dropdown col-sm-4">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Click para buscar
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="ClienteDD2">
-                              <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
-                              <div class="results"></div>
-                            </div>
-                            <input type="hidden" name="receptorPub" id="receptorPub" class="dropdown-value">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <!-- Dropdown Seleccionar Locacion o ubicacion de donde se colocara el anuncio de acuerdo al campo COD de la tbl_0044 -->
-                          <label for="" class="col-sm-2 col-form-label">Ubicación donde se instalará<span class="iconObligatorio">*<span></label>
-                          <select id="locationPub" name="locationPub" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                          <!-- Dropdown Mostrar todas las Caras registradas bajo el mismo campo de COD de la tbl_0044 -->
-                          <label for="" class="col-sm-2 col-form-label">Caras existentes<span class="iconObligatorio">*<span></label>
-                          <select id="caraPub" name="caraPub" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
                           </select>
                         </div>
 
-                        <!-- Fotografía del arte gráfico que está registrada en le repositorio de imagenes -->
                         <div class="form-group row">
-                          <label for="" class="col-sm-2 col-form-label">Arte gráfico</label>
-                          <div class="col-sm-10">
-                            <div class="arte-grafico">
-                              <div class="button-container">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#Modal_select_image" type="button" id="select-arte-grafico">Seleccionar imagen</button>
-                              </div>
-                              <div class="image-container my-3">
-                                <img style="display: none;" alt="Arte gráfico" id="arteGrafico">
-                              </div>
-                              <input type="hidden" name="arte-grafico" id="arte-grafico">
+                          <label for="" class="col-sm-2 col-form-label">Capacitador<span class="iconObligatorio">*<span></label>
+                          <div class="col-sm-4">
+                            <!-- Dropdown Seleccionar Pais -->
+                            <div class="form-group">
+                              <select id="id_cap" name="id_cap" class="form-control required">
+                                <option value="-1">{$id_cap}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <label for="" class="col-sm-2 col-form-label">Plan<span class="iconObligatorio">*<span></label>
+                          <div class="col-sm-4">
+                            <!-- Dropdown Seleccionar Pais -->
+                            <div class="form-group">
+                              <select id="idplan" name="idplan" class="form-control required">
+                                <option value="-1">{$country}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label for="" class="col-sm-2 col-form-label">Pais<span class="iconObligatorio">*<span></label>
+                          <div class="col-sm-4">
+                            <!-- Dropdown Seleccionar Pais -->
+                            <div class="form-group">
+                              <select id="country" name="pais" class="form-control required">
+                                <option value="-1">{$country}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <label for="" class="col-sm-2 col-form-label">Provincia<span class="iconObligatorio">*<span></label>
+                          <div class="col-sm-4">
+                            <!-- Dropdown Seleccionar Provincia -->
+                            <div class="form-group">
+                              <select id="Provincia" name="provincia" class="form-control required">
+                                <option value="-1">{$Provincia}</option>
+                              </select>
                             </div>
                           </div>
                         </div>
 
                         <!-- Fecha de inicio o Instalación -->
                         <div class="form-group row">
-                          <label for="" class="col-sm-2 col-form-label">Fecha de Instalación</label>
+                          <label for="" class="col-sm-2 col-form-label">Fecha de inicio</label>
                           <div class="col-sm-4">
                             <input type="date" class="form-control" id="finicioPub" name="finicioPub" readonly>
                           </div>
@@ -324,59 +322,31 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                         </div>
 
-                        <!-- Usuarios de Schoolmedia: Instalador y Supervisor de id_user -->
-                        <div class="form-group row">
-                          <!-- Dropdown Seleccionar a quien se le asigna la instalacion -->
-                          <label for="" class="col-sm-2 col-form-label">Instalador<span class="iconObligatorio">*<span></label>
-                          <select id="installerPub" name="installerPub" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                          <!-- Dropdown Seleccionar quien supervisara la instalacion -->
-                          <label for="" class="col-sm-2 col-form-label">Supervisor de Instalación<span class="iconObligatorio">*<span></label>
-                          <select id="supervPub" name="supervPub" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                        </div>
-
                         <!-- Usuarios de Schoolmedia  que realizó la venta (id_user) -->
                         <div class="form-group row">
-                          <!-- Dropdown Seleccionar a quien se le asigna la instalacion -->
-                          <label for="" class="col-sm-2 col-form-label">Vendedor<span class="iconObligatorio">*<span></label>
-                          <select id="sellerPub" name="sellerOub" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
+                          <label for="" class="col-sm-2 col-form-label">Calificación del cliente<span class="iconObligatorio">*<span></label>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <select id="calificacionCliente" name="Calif" class="form-control required">
+                                <option value="-1">Selecciona</option>
+                              </select>
+                            </div>
+                          </div>
                           <!-- Dropdown Estatus de la instalacion -->
                           <label for="" class="col-sm-2 col-form-label">Estatus de la instalación<span class="iconObligatorio">*<span></label>
                           <select id="statusInstallPub" name="statusInstallPub" class="form-control col-sm-4">
                             <option value="-1" selected disabled>Seleccione</option>
-                            <option value="0">Reservado</option>
-                            <option value="1">Asignado para instalar</option>
-                            <option value="2">Por supervisar instalación</option>
-                            <option value="3">Rechazada la instalación</option>
-                            <option value="4">Aprobado por Supervisor</option>
-                            <option value="5">Informe elaborado y enviado</option>
-                            <option value="6">Cerrado por el Anunciante</option>
+                            <option value="0">Por programar</option>
+                            <option value="1">Pendiente</option>
+                            <option value="2">Finalizado</option>
+                            <option value="3">Encuestado</option>
                           </select>
                         </div>
-                        <div class="row" id="uploadDocs">
-                          <label class="col-sm-2 col-form-label" for="nombre">Adjunta imágenes:</label>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label" for="nombre">Documento</label>
                           <div class="col-sm-4">
                             <div class="input-group">
-                              <input type="file" class="form-control-file" id="documents" multiple>
-                            </div>
-                          </div>
-                          <div class="col-sm-12 mb-5">
-                            <div class="items-container row" id="all-images">
-                              <!-- <div class="col-sm-4 item-container">
-                                        <div class="card">
-                                          <span>Item</span>
-                                        </div>
-                                      </div> -->
-                            </div>
-                            <div class="all-documents mt-3">
-                              <a href="./files_conf.php?Lang=<?php echo $Lang; ?>&wph=23" target="_blank" id="loadedFiles">
-                                <button type="button" class="btn btn-primary">Ver documentos cargados</button>
-                              </a>
+                              <input type="file" class="form-control-file" id="urldoc" name="urldoc">
                             </div>
                           </div>
                         </div>
@@ -407,185 +377,6 @@ echo '<!-- Custom JavaScripts Functions Needs
       </div>
     </div>
   </div>
-
-  <!-- ********************************************** -->
-  <!-- MODAL Selección arte gráfico -->
-  <!-- ********************************************** -->
-
-  <div class="modal fade bd-example-modal-lg" id="Modal_select_image" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <center>
-            <h2 class="estilo-titulo">Registro de trabajo para Publicidad</h2>
-          </center>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
-        </div>
-
-        <div class="modal-body">
-
-          <div class="row" id="gallery">
-            <!-- <div class="col-sm-3 my-2">
-                <div class="image-container">
-                  <img src="http://placeimg.com/640/480/any" alt="asd">
-                </div>
-              </div> -->
-          </div>
-
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="close-gallery">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ********************************************** -->
-  <!-- MODAL Instalacion de Valores -->
-  <!-- ********************************************** -->
-
-  <div class="modal fade bd-example-modal-lg" id="Modal_tbl_0101" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <center>
-            <h2 class="estilo-titulo">Registro de trabajo para Mensajes de Valores</h2>
-          </center>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
-        </div>
-        <div class="modal-body">
-          <!-- Sección formulario de datos  -->
-          <section id="">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form id="idFormDetalles" action="">
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12">
-
-                        <div class="form-group row">
-                          <label for="" class="col-sm-2 col-form-label">id</label>
-                          <div class="col-sm-4">
-                            <input type="text" class="form-control" id="idActivityVal" name="idActivityVal" placeholder="id" disabled>
-                          </div>
-                          <label for="" class="col-sm-2 col-form-label">Contrato Nro.</label>
-                          <div class="col-sm-4">
-                            <input type="text" class="form-control" id="id_cttoVal" name="id_cttoVal" placeholder="Ctto Num">
-                          </div>
-                        </div>
-
-                        <div class="form-group row">
-                          <!-- Dropdown Seleccionar Anunciante -->
-                          <label for="" class="col-sm-2 col-form-label">Anunciante<span class="iconObligatorio">*<span></label>
-                          <select id="anuncianteVal" name="anuncianteVal" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                          <!-- Dropdown Seleccionar Receptor -->
-                          <label for="" class="col-sm-2 col-form-label">Receptor<span class="iconObligatorio">*<span></label>
-                          <select id="receptorVal" name="receptorVal" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                        </div>
-
-                        <div class="form-group row">
-                          <!-- Dropdown Seleccionar Locacion o ubicacion de donde se colocara el anuncio de acuerdo al campo COD de la tbl_0044 -->
-                          <label for="" class="col-sm-2 col-form-label">Ubicación donde se instalará<span class="iconObligatorio">*<span></label>
-                          <select id="locationVal" name="locationVal" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                          <!-- Dropdown Mostrar todas las Caras registradas bajo el mismo campo de COD de la tbl_0044 -->
-                          <label for="" class="col-sm-2 col-form-label">Caras existentes<span class="iconObligatorio">*<span></label>
-                          <select id="caraVal" name="caraVal" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                        </div>
-
-                        <!-- Mensaje que se instalará -->
-                        <div class="form-group row">
-                          <label for="" class="col-sm-2 col-form-label">Mensaje de Valor</label>
-                          <div class="col-sm-10">
-                            <textarea type="" class="form-control" id="lstval" name="lstval" placeholder="el campo descrip correspondiente al id_lstval"></textarea>
-                          </div>
-                        </div>
-
-                        <!-- Fecha de inicio o Instalación -->
-                        <div class="form-group row">
-                          <label for="" class="col-sm-2 col-form-label">Fecha de Instalación</label>
-                          <div class="col-sm-4">
-                            <input type="date" class="form-control" id="finicioVal" name="finicioVal" value="<?php echo date('Y-m-d'); ?>">
-                          </div>
-                          <!-- Fecha de finalización o desinstalación -->
-                          <label for="" class="col-sm-2 col-form-label">Fecha de finalización</label>
-                          <div class="col-sm-4">
-                            <input type="date" class="form-control" id="ffinval" name="ffinVal" value="<?php echo date('Y-m-d'); ?>">
-                          </div>
-                        </div>
-
-
-                        <!-- Usuarios de Schoolmedia: Instalador y Supervisor de id_user -->
-                        <div class="form-group row">
-                          <!-- Dropdown Seleccionar a quien se le asigna la instalacion -->
-                          <label for="" class="col-sm-2 col-form-label">Instalador<span class="iconObligatorio">*<span></label>
-                          <select id="installerVal" name="installerVal" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                          <!-- Dropdown Seleccionar quien supervisara la instalacion -->
-                          <label for="" class="col-sm-2 col-form-label">Supervisor de Instalación<span class="iconObligatorio">*<span></label>
-                          <select id="supervVal" name="supervVal" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                        </div>
-
-                        <!-- Usuarios de Schoolmedia  que realizó la venta (id_user) -->
-                        <div class="form-group row">
-                          <!-- Dropdown Seleccionar a quien se le asigna la instalacion -->
-                          <label for="" class="col-sm-2 col-form-label">Vendedor<span class="iconObligatorio">*<span></label>
-                          <select id="sellerVal" name="sellerVal" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
-                          <!-- Dropdown Estatus de la instalacion -->
-                          <label for="" class="col-sm-2 col-form-label">Estatus de la instalación<span class="iconObligatorio">*<span></label>
-                          <select id="statusInstallVal" name="statusInstallVal" class="form-control col-sm-4">
-                            <option value="-1" selected disabled>Seleccione</option>
-                            <option value="0">Reservado</option>
-                            <option value="1">Asignado para instalar</option>
-                            <option value="2">Por supervisar instalación</option>
-                            <option value="3">Rechazada la instalación</option>
-                            <option value="4">Aprobado por Receptor</option>
-                            <option value="5">Informe elaborado y enviado</option>
-                            <option value="6">Cerrado por el Receptor</option>
-                          </select>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="contBtnCancel">
-                              <button type="button" id="idBtnLimpiar" class="btn btnCancel">Limpiar</button>
-                            </div>
-                          </div>
-                          <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="contBtnSuccess">
-                              <button type="submit" id="idBtnAceptar" class="btn btnSuccess">Guardar</button>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <!-- ********************************************** -->
   <!-- MODAL PLAN DE ACTIVIDADES DE: PROGRAMACION DE TRABAJO Instalacion de Publicidad -->
@@ -621,13 +412,11 @@ echo '<!-- Custom JavaScripts Functions Needs
                               <th id="text">Arte - Valor a instalar</th>
                               <th id="text">Contrato</th>
                               <th id="text">Fecha Instal.</th>
-                              <th id="text">Fecha Fin</th>
                               <th id="text">Acciones</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
-                              <td></td>
                               <td></td>
                               <td></td>
                               <td></td>
