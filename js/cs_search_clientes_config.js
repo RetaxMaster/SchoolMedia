@@ -47,6 +47,7 @@ $(document).ready(function(){
         var padre = $(this).parent().parent().parent();
 
         $(padre).children(".dropdown-value").val(id);
+        $(padre).children(".dropdown-value").trigger("change");;
         $(padre).children(".btn").text(name);
         $("input.search-clientes").val("");
         $(".results").children().remove();

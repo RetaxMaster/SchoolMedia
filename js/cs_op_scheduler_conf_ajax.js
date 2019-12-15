@@ -67,9 +67,17 @@ function onPageStart() {
     selectPopulate("#locationPub", "getAllLocations", 0, 1);
 
     selectPopulate("#caraPub", "getAllLocations", 2, 2);
+
+    $(document).on("change", "#anunciantePub", function () {
+        var anunciante = this.value;
+        $("#id_cttoPub").children().remove();
+        selectPopulate("#id_cttoPub", "getcttobyanunciante", 0, 1, "tbl_cacttos.id_client", anunciante);
+    });
     
     $(document).on("change", "#receptorPub", function () {
         var receptor = this.value;
+        $("#locationPub").children().remove();
+        $("#caraPub").children().remove();
         selectPopulate("#locationPub", "getlocationsbyreceptor", 0, 1, "tbl_calocats.id_client", receptor);
     });
 
@@ -197,7 +205,9 @@ function onPageStart() {
         var id = (this.id).split("-").pop();
         var fecha = $("#fecha").val();
 
-        console.log(fecha);
+        $("#id_cttoPub").children().remove();
+        $("#locationPub").children().remove();
+        $("#caraPub").children().remove();
         
 
         //Ahora manipulo la fecha para poner la que el usuario eligió
@@ -251,14 +261,15 @@ function onPageStart() {
 
         $("#uploadDocs").show();
         $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=calAnun&reg=" + idToUpdate);
+        $("#finicioPub").prop("readonly", false);
 
         getDataOfThisRecord(idToUpdate, "getCalAnunData", {
             idActivityPub: 0,
             anunciantePub: [2, "drop-cliente"],
-            id_cttoPub: 1,
+            id_cttoPub: [1, "fillContratos"],
             receptorPub: [3, "drop-cliente"],
-            locationPub: 4,
-            caraPub: 5,
+            locationPub: [4, "fillLocations"],
+            caraPub: [5, "fillCaras"],
             "arte-grafico": [6, "arte"],
             finicioPub: 7,
             ffinPub: 8,
@@ -272,6 +283,7 @@ function onPageStart() {
     $(document).on("click", ".add-act", function () {
         isUpdating = false;
         $("#uploadDocs").hide();
+        $("#finicioPub").prop("readonly", true);
         resetDefaultForm();
     });
 

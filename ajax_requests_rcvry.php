@@ -244,6 +244,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             locs_recoveryAllList($n, $Arry, $enabled, true);
             break;
 
+        case 'getcttobyanunciante':
+            include_once(LIBRARY_DIR . "/contratos.php");
+            ctrts_recoveryAllByAnyField($n, $Arry, $_POST["field"], $_POST["val"], $enabled, true);
+            break;
+
         case 'getlocationsbyreceptor':
             include_once(LIBRARY_DIR . "/loc_ats.php");
             locs_recoveryAllByAnyField($n, $Arry, $_POST["field"], $_POST["val"], $enabled, true);

@@ -476,6 +476,7 @@ function getDataOfThisRecord(id, mode, dataJSON) {
 
         if(res[0] == id) {
             for (const key in dataJSON) {
+                
                 var index = dataJSON[key];
                 if (typeof index == "number") {
                     $("#" + key).val(res[index]);
@@ -489,6 +490,7 @@ function getDataOfThisRecord(id, mode, dataJSON) {
 
                         case "drop-cliente":
                             var dataValue = res[index[0]];
+                            $("#" + key).val(dataValue);
 
                             var data = {
                                 mode: "getClientName",
@@ -499,12 +501,11 @@ function getDataOfThisRecord(id, mode, dataJSON) {
                                 res = JSON.parse(res);
                                 var data = res.data;
                                 $("#" + key).parent().children(".btn").text(data[0][1]);
-                                $("#" + key).val(dataValue);
                             });
                             break;
 
                         case 'arte':
-                                //Establecemos en el campo hidden el valor de la iamgen
+                                //Establecemos en el campo hidden el valor de la imagen
                                 var dataValue = res[index[0]];
                                 $("#" + key).val(dataValue);
 
@@ -521,6 +522,48 @@ function getDataOfThisRecord(id, mode, dataJSON) {
                                     $("#arteGrafico").attr("src", data[0][2]);
                                     $("#arteGrafico").show();
                                 });
+                            break;
+
+                        case 'fillContratos':
+
+                            var anunciante = $("#anunciantePub").val();
+                            
+                            selectPopulate("#id_cttoPub", "getcttobyanunciante", 0, 1, "tbl_cacttos.id_client", anunciante);
+
+                            //Ponemos el valor al select
+                            var dataValueContratos = res[index[0]];
+                            
+                            setTimeout(() => {
+                                $("#" + key).val(dataValueContratos);
+                            }, 2000);
+                            break;
+
+                        case 'fillLocations':
+
+                            var receptor = $("#receptorPub").val();
+
+                            selectPopulate("#locationPub", "getlocationsbyreceptor", 0, 1, "tbl_calocats.id_client", receptor);
+
+                            //Ponemos el valor al select
+                            var dataValueLocations = res[index[0]];
+                            
+                            setTimeout(() => {
+                                $("#" + key).val(dataValueLocations);
+                            }, 2000);
+                            break;
+
+                        case 'fillCaras':
+
+                            var location = $('select#locationPub option:selected').text();
+
+                            selectPopulate("#caraPub", "getcarabylocation", 2, 2, "tbl_calocats.cod", location);
+
+                            //Ponemos el valor al select
+                            var dataValueCaras = res[index[0]];
+                            
+                            setTimeout(() => {
+                                $("#" + key).val(dataValueCaras);
+                            }, 2000);
                             break;
                     }
                 }
