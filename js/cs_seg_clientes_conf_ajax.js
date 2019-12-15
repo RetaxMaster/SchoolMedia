@@ -123,6 +123,7 @@ function onPageStart() {
     $(document).on("click", ".updateData", function () {
         isUpdating = true;
         idToUpdate = this.id.split("-")[1];
+        $("#idBtnLimpiar").hide();
 
         getDataOfThisRecord(idToUpdate, "getSegClientsData", {
             id_track: 0,
@@ -142,6 +143,7 @@ function onPageStart() {
         isUpdating = false;
         resetDefaultForm();
         disableAllFields("#idFormDetalles", false);
+        $("#idBtnLimpiar").show();
         $("#action-buttons").show();
     });
 

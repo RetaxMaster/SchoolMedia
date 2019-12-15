@@ -58,6 +58,8 @@ function onPageStart() {
     $(document).on("click", ".updateData", function () {
         isUpdating = true;
         idToUpdate = this.id.split("-")[1];
+        
+        $("#idBtnLimpiar").hide();
 
         getDataOfThisRecord(idToUpdate, "getMatCapData", {
             idCliente: 0,
@@ -71,6 +73,7 @@ function onPageStart() {
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
+        $("#idBtnLimpiar").show();
         resetDefaultForm();
     });
 

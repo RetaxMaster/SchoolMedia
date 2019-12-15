@@ -136,6 +136,8 @@ function onPageStart() {
         isUpdating = true;
         idToUpdate = this.id.split("-")[1];
 
+        $("#idBtnLimpiar").hide();
+
         getDataOfThisRecord(idToUpdate, "getLstValsData", {
             idCliente: 0,
             observCliente: 2
@@ -144,6 +146,7 @@ function onPageStart() {
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
+        $("#idBtnLimpiar").show();
         resetDefaultForm();
     });
 

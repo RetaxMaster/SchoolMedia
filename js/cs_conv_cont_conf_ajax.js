@@ -85,6 +85,7 @@ function onPageStart() {
 
         $("#uploadDocs").show();
         $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=convCont&reg=" + idToUpdate);
+        $("#idBtnLimpiar").hide();
         
 
         getDataOfThisRecord(idToUpdate, "getConvContData", {
@@ -105,6 +106,7 @@ function onPageStart() {
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
         $("#uploadDocs").hide();
+        $("#idBtnLimpiar").show();
         resetDefaultForm();
     });
 

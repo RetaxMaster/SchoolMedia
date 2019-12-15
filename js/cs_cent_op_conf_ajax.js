@@ -87,6 +87,7 @@ function onPageStart() {
 
         $("#uploadDocs").show();
         $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=centOp&reg=" + idToUpdate);
+        $("#idBtnLimpiar").hide();
 
         getDataOfThisRecord(idToUpdate, "getCentOpData", {
             idCliente: 0,
@@ -105,6 +106,7 @@ function onPageStart() {
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
         $("#uploadDocs").hide();
+        $("#idBtnLimpiar").show();
         resetDefaultForm();
     });
 

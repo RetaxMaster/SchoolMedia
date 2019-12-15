@@ -262,6 +262,7 @@ function onPageStart() {
         $("#uploadDocs").show();
         $("#loadedFiles").attr("href", $("#loadedFiles").attr("href") + "&sect=calAnun&reg=" + idToUpdate);
         $("#finicioPub").prop("readonly", false);
+        $("#idBtnLimpiar").hide();
 
         getDataOfThisRecord(idToUpdate, "getCalAnunData", {
             idActivityPub: 0,
@@ -284,6 +285,7 @@ function onPageStart() {
         isUpdating = false;
         $("#uploadDocs").hide();
         $("#finicioPub").prop("readonly", true);
+        $("#idBtnLimpiar").show();
         resetDefaultForm();
     });
 
