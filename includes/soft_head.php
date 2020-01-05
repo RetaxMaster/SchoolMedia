@@ -14,7 +14,7 @@
 					</div>
 					<div class="contAvatar">
 						<img src="<?php
-						echo IMG_USERS_DIR.'/';
+						// echo IMG_USERS_DIR.'/';
 						if (isset($UserProfile[3]) && trim($UserProfile[3])!=''){
 							echo $UserProfile[3];
 						}else{
@@ -29,7 +29,7 @@
 						}?>">
 					</div>
 					<div class="contIconos">
-						<a href=""><i class="fa fa-cogs"></i></a>
+						<a href="<?php echo BASE_INSTALL_DIR.'/config_conf.php?wph=0&Lang='.$Lang;?>"><i class="fa fa-cogs"></i></a>
 						<a href="<?php echo BASE_INSTALL_DIR."/?exitSess=$iUID";?>"><i class="fa fa-plug"></i></a>
 					</div>
 				</div>

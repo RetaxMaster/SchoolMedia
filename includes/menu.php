@@ -127,9 +127,6 @@
                   <a href="./.php?Lang=< ?php echo $Lang; ?>&wph=36">Reporte de facturación</a>
                 </li -->
                 <li>
-                <a href="./ocup_espacios_conf.php?Lang=<?php echo $Lang; ?>&wph=21">Espacios existentes</a>
-                </li>
-                <li>
                   <a href="./prod_serv_conf.php?Lang=<?php echo $Lang; ?>&wph=38">Inventario productos y servicios</a>
                 </li>
                 <li>
@@ -163,55 +160,6 @@
                 </li>
                 <li>
                   <a href="./cent_op_conf.php?Lang=<?php echo $Lang; ?>&wph=42">Centros de operaciones</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="fa fa-cogs"></i>
-              <span>Configuración general</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="./ctry_conf.php?Lang=<?php echo $Lang; ?>&wph=4">Paises</a>
-                </li>
-                <li>
-                  <a href="./prov_conf.php?Lang=<?php echo $Lang; ?>&wph=5">Provincias</a>
-                </li>
-                <li>
-                  <a href="./dpto_conf.php?Lang=<?php echo $Lang; ?>&wph=6">Departamentos Empresariales</a>
-                </li>
-                <li>
-                  <a href="./crgo_conf.php?Lang=<?php echo $Lang; ?>&wph=7">Cargos Laborales existentes</a>
-                </li>
-                <li>
-                  <a href="./format_pub_conf.php?Lang=<?php echo $Lang; ?>&wph=8">Formatos Publicitarios</a>
-                </li>
-                <li>
-                  <a href="./tipos_clients_conf.php?Lang=<?php echo $Lang; ?>&wph=9">Tipos de Clientes</a>
-                </li>
-                <li>
-                  <a href="./clasif_cuentas_conf.php?Lang=<?php echo $Lang; ?>&wph=10">Clasificación de Cuentas</a>
-                </li>
-                <li>
-                  <a href="./calific_conf.php?Lang=<?php echo $Lang; ?>&wph=11">Calificación de Clasificación</a>
-                </li>
-                <li>
-                  <a href="./cods_ints_tlfs_conf.php?Lang=<?php echo $Lang; ?>&wph=12">Códigos Telefónicos por Pais</a>
-                </li>
-                <li>
-                  <a href="./procs_crm_conf.php?Lang=<?php echo $Lang; ?>&wph=13">Arbol de Procesos del CRM</a>
-                </li>
-                <li>
-                  <a href="./sub_procs_crm_conf.php?Lang=<?php echo $Lang; ?>&wph=14">Arbol de Subprocesos del CRM</a>
-                </li>
-                <li>
-                  <a href="./impts_consumo_conf.php?Lang=<?php echo $Lang; ?>&wph=15">Impuestos al Consumo (CA)</a>
-                </li>
-                <li>
-                  <a href="./formas_pag_conf.php?Lang=<?php echo $Lang; ?>&wph=16">Formas de Pago (CA)</a>
                 </li>
               </ul>
             </div>

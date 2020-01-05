@@ -385,6 +385,30 @@ function makeSomeAction(jsonData) {
                 case "3": value = "Todas las modalidades"; break;
             }
             break;
+
+        case 'filterPubStatus':
+            switch (jsonData.valueOfDatabaseField) {
+                case "0": value = "Reservado"; break;
+                case "1": value = "Asignado para instalar"; break;
+                case "2": value = "Por supervisar instalación"; break;
+                case "3": value = "Rechazada la instalación"; break;
+                case "4": value = "Aprobado por Supervisor"; break;
+                case "5": value = "Informe elaborado y enviado"; break;
+                case "6": value = "Cerrado por el Receptor"; break;
+            }
+            break;
+
+        case 'filterStatus':
+            switch (jsonData.valueOfDatabaseField) {
+                case "0": value = "Reservado"; break;
+                case "1": value = "Asignado para instalar"; break;
+                case "2": value = "Por supervisar instalación"; break;
+                case "3": value = "Rechazada la instalación"; break;
+                case "4": value = "Aprobado por Supervisor"; break;
+                case "5": value = "Informe elaborado y enviado"; break;
+                case "6": value = "Cerrado por el Receptor"; break;
+            }
+            break;
     }
     
     return value;

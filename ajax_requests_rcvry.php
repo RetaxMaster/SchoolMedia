@@ -594,7 +594,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $cantcur = "";
             $descrip = isset($_POST["descripcion"]) ? $_POST["descripcion"] : "";
             $enabled = isset($_POST["enabled"]) ? 1 : 0;
-            ctrts_createRecord($rp, $codctto, $id_pais, $id_prov, $id_client, $id_tipo, $fini, $ffin, $ciclopub, $ciclomsgvalor, $cantcur, $descrip, $enabled);
+            ctrts_createRecord($codctto, $id_pais, $id_prov, $id_client, $id_tipo, $fini, $ffin, $ciclopub, $ciclomsgvalor, $cantcur, $descrip, $enabled);
             die();
             break;
 
@@ -687,7 +687,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $finicio = isset($_POST["finicioPub"]) ? $_POST["finicioPub"] : "";
             $ffin = isset($_POST["ffinPub"]) ? $_POST["ffinPub"] : "";
             $estatus = isset($_POST["statusInstallPub"]) ? $_POST["statusInstallPub"] : "";
-            $firmcierredoc = uploadImage($_FILES["urldoc"], "images/calCaps");
+            $firmcierredoc = (isset($_FILES["urldoc"]) && !empty($_FILES["urldoc"]["tmp_name"])) ? uploadImage($_FILES["urldoc"], "images/calCaps") : "";
             $id_calif = isset($_POST["Calif"]) ? $_POST["Calif"] : "";
             calcaps_createRecord($id_client, $id_ctto, $id_plan, $id_cap, $id_pais, $id_prov, $finicio, $ffin, $estatus, $firmcierredoc, $id_calif);
             die();
@@ -1074,7 +1074,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
             if(hasValue($pais)) $where .= " AND clientanun.id_pais = $pais";
             if(hasValue($tipoCliente)) $where .= " AND clientanun.id_tipo = $tipoCliente";
-            if(hasValue($estatus)) $where .= " AND tbl_opcalinsts.estatus = $estatus";
+            if(hasValue($estatus)) $where .= " AND tbl_opcalanunts.estatus = $estatus";
 
             calanun_recoveryAllByAnyField($n, $Arry, 1, $where);
             $response["draw"] = 1;

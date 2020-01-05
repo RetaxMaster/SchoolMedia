@@ -481,11 +481,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                           <select id="anuncianteVal" name="anuncianteVal" class="form-control col-sm-4">
                             <option value="-1">Seleccione</option>
                           </select>
-                          <!-- Dropdown Seleccionar Receptor -->
-                          <label for="" class="col-sm-2 col-form-label">Receptor<span class="iconObligatorio">*<span></label>
-                          <select id="receptorVal" name="receptorVal" class="form-control col-sm-4">
-                            <option value="-1">Seleccione</option>
-                          </select>
                         </div>
 
                         <div class="form-group row">

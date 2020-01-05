@@ -19,7 +19,7 @@ function onPageStart() {
             break;
     }
 
-    var tableIndexs = [6, 8, 1, 12, 10, 2, 4];
+    var tableIndexs = [6, 8, 1, 12, 10, 2, [4, "filterStatus"]];
 
     var juntar = [{
         "fields": [12, 13],
@@ -54,7 +54,7 @@ function onPageStart() {
     // Rellena el select de Anunciante
     selectPopulate("#anunciantePub", "getClients", 0, 1);
 
-    selectPopulate("#receptorPub", "getClients", 0, 1);
+    //selectPopulate("#receptorPub", "getClients", 0, 1);
 
     selectPopulate("#id_cttoPub", "getcttos", 0, 1);
 
@@ -71,15 +71,15 @@ function onPageStart() {
     $(document).on("change", "#anunciantePub", function () {
         var anunciante = this.value;
         $("#id_cttoPub").children().remove();
-        selectPopulate("#id_cttoPub", "getcttobyanunciante", 0, 1, "tbl_cacttos.id_client", anunciante);
-    });
-    
-    $(document).on("change", "#receptorPub", function () {
-        var receptor = this.value;
         $("#locationPub").children().remove();
         $("#caraPub").children().remove();
-        selectPopulate("#locationPub", "getlocationsbyreceptor", 0, 1, "tbl_calocats.id_client", receptor);
+        selectPopulate("#id_cttoPub", "getcttobyanunciante", 0, 1, "tbl_cacttos.id_client", anunciante);
+        selectPopulate("#locationPub", "getlocationsbyreceptor", 0, 1, "tbl_calocats.id_client", anunciante);
     });
+    
+    /* $(document).on("change", "#receptorPub", function () {
+        var receptor = this.value;
+    }); */
 
     $(document).on("change", "#locationPub", function () {
         var location = $('select#locationPub option:selected').text();

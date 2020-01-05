@@ -100,6 +100,10 @@ function onPageStart() {
     //Rellena la cliente
     selectPopulate("#Cliente", "getClients", 0, 1);
 
+    setTimeout(function() {
+        $("#tipoCliente").val(2);
+    }, 1000);
+
 
     //Detecta cuando se abre una galería
     $(document).on("click", ".loadGallery", function () {

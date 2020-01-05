@@ -19,7 +19,7 @@ function onPageStart() {
             break;
     }
 
-    var tableIndexs = [6, 8, 1, 12, 10, 2, 4];
+    var tableIndexs = [6, 8, 1, 12, 10, 2, [4, "filterStatus"]];
 
     var juntar = [{
         "fields": [12, 13],

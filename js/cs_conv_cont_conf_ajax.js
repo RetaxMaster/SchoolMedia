@@ -91,6 +91,7 @@ function onPageStart() {
         getDataOfThisRecord(idToUpdate, "getConvContData", {
             idCliente: 0,
             cliente: [4, "drop-cliente"],
+            codctto: 1,
             tipo: 5,
             fini: 6,
             ffin: 7,

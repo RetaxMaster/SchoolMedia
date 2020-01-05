@@ -248,6 +248,16 @@ footer p{
 .card-title {
     font-size: 11px;
 }
+
+/********************************** Modal_tbl_0100 ******************/
+#Modal_tbl_0100 .modal-header{
+    background-color: #0f2b43;
+    color: #fff;
+}
+#Modal_tbl_0100 .modal-header h2{
+    font-size: 20px;
+}
+
 /********************************** Modal ******************/
 #ModalVerTodos .modal-header{
     background-color: #0f2b43;
