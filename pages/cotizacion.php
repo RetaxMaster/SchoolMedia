@@ -17,31 +17,11 @@ echo '<!-- Custom JavaScripts Functions Needs
         var global_txtObj={
             "components_ids" : 
             [
-                "boxTitle",
-                "boxText",
-                "tblCol1",
-                "tblCol2",
-                "tblCol3",
-                "tblCol4",
-                "tblCol5",
-                "tblCol6",
-                "tblCol7",
-                "tblCol8",
-                "idBtnNuevo"
+                "boxTitle"
             ], 
             "attrsx" :
             [
-                "{$boxTitle}",
-                "{$boxText}",
-                "{$tblCol1}",
-                "{$tblCol2}",
-                "{$tblCol3}",
-                "{$tblCol4}",
-                "{$tblCol5}",
-                "{$tblCol6}",
-                "{$tblCol7}",
-                "{$tblCol8}",
-                "{$idBtnNuevo}"
+                "{$boxTitle}"
             ], 
             "txts" : ' . $wpContentStr_Labels . '
         };
@@ -57,6 +37,24 @@ echo '<!-- Custom JavaScripts Functions Needs
     <script src="' . JS_DIR . '/cs_cotizacion_conf_ajax.js"></script>
     <script src="' . JS_DIR . '/cs_ctry_ajax.js"></script>
 
+    <style>
+    .products {
+        padding: 10px;
+        border-bottom: 1px solid #ccc !important;
+        cursor: pointer;
+        transition: 0.3s all ease;
+    }
+
+    .products:hover {
+        background: #efefef;
+    }
+
+    .all-products {
+      max-height: 231px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    </style>
 
 </head>'; ?>
 <!------------------------------------ BODY ------------------------------------->
@@ -78,6 +76,7 @@ echo '<!-- Custom JavaScripts Functions Needs
           <div class="col-lg-12">
             <div class="cajaTitulo">
               <h6 class="text-center">COTIZACIÓN</h6>
+              <span id="boxTitle" style="display:none;">${boxTitle}</span>
             </div>
           </div>
         </div>
@@ -129,23 +128,22 @@ echo '<!-- Custom JavaScripts Functions Needs
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">Fecha</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="FechaFac" name="FechaFac" placeholder="Fecha Facturación" disabled>
+                        <input type="text" class="form-control" id="FechaFac" name="FechaFac" placeholder="Fecha Facturación" disabled value="<?= date("Y-m-d") ?>">
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="form-row">
-                  <div class="col-lg-4 col-md-4">
-                    <div class="form-group row">
-                      <label for="" class="col-sm-2 col-form-label">Razón Social</label>
-                      <div class="col-sm-7">
-                        <input type="text" class="form-control" id="Razon" name="Razon" placeholder="Razón Social" disabled>
-                      </div>
-                      <div class="col-md-3">
-                        <a class="aRazon" href="#"><i class="far fa-plus-square"></i></a>
-                      </div>
+                  <div class="dropdown col-sm-4">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Click para buscar
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="ClienteDD">
+                      <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
+                      <div class="results"></div>
                     </div>
+                    <input type="hidden" name="cliente" id="Cliente" class="dropdown-value">
                   </div>
                   <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
@@ -159,7 +157,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">Teléfono</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" disabled>
+                        <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente" placeholder="Teléfono" disabled>
                       </div>
                     </div>
                   </div>
@@ -176,23 +174,29 @@ echo '<!-- Custom JavaScripts Functions Needs
                   </div>
                 </div>
 
+                <div class="form-group row">
+                  <label for="" class="col-sm-2 col-form-label">Pais<span class="iconObligatorio">*<span></label>
+                  <div class="col-sm-4">
+                    <!-- Dropdown Seleccionar Pais -->
+                    <div class="form-group">
+                      <select id="country" name="pais" class="form-control required" disabled>
+                        <option value="-1">{$country}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <label for="" class="col-sm-2 col-form-label">Provincia<span class="iconObligatorio">*<span></label>
+                  <div class="col-sm-4">
+                    <!-- Dropdown Seleccionar Provincia -->
+                    <div class="form-group">
+                      <select id="Provincia" name="provincia" class="form-control required" disabled>
+                        <option value="-1">{$Provincia}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="form-row">
-                  <div class="col-lg-4 col-md-4">
-                    <div class="form-group row">
-                      <label for="" class="col-sm-2 col-form-label">País</label>
-                      <div class="col-sm-7">
-                        <input type="text" class="form-control" id="pais" name="pais" placeholder="País" disabled>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-4">
-                    <div class="form-group row">
-                      <label for="" class="col-sm-3 col-form-label">Provincia</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" disabled>
-                      </div>
-                    </div>
-                  </div>
+                  <div class="col-8"></div>
                   <div class="col-lg-4 col-md-4">
                     <div class="contBtnSuccess">
                       <button type="submit" id="idBtnAceptar" class="btn btnSuccess">Facturar</button>
@@ -269,79 +273,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <th>Acciones</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Accion cliente"><i class="fa fa-handshake"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro">
-                            <div class="custom-control custom-switch contcheckboxActivar">
-                              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                              <label class="custom-control-label" for="customSwitch1"></label>
-                            </div>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Accion cliente"><i class="fa fa-handshake"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro">
-                            <div class="custom-control custom-switch contcheckboxActivar">
-                              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                              <label class="custom-control-label" for="customSwitch1"></label>
-                            </div>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Accion cliente"><i class="fa fa-handshake"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro">
-                            <div class="custom-control custom-switch contcheckboxActivar">
-                              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                              <label class="custom-control-label" for="customSwitch1"></label>
-                            </div>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Accion cliente"><i class="fa fa-handshake"></i></a>
-                          <a href="" data-toggle="tooltip" data-placement="top" title="Activar registro">
-                            <div class="custom-control custom-switch contcheckboxActivar">
-                              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                              <label class="custom-control-label" for="customSwitch1"></label>
-                            </div>
-                          </a>
-                        </td>
-                      </tr>
+                    <tbody id="products-selected">
                     </tbody>
                     <!-- tfoot>
                           <tr>
@@ -353,6 +285,17 @@ echo '<!-- Custom JavaScripts Functions Needs
                       </tfoot !-->
                   </table>
                 </div>
+              </div>
+              <div class="form-group row">
+                <label for="SearchArticle" class="col-12 col-form-label">Busca un producto o servicio</label>
+                <div class="col-12">
+                  <input type="text" class="form-control" id="SearchArticle" name="SearchArticle" placeholder="Busca un producto o servicio">
+                </div>
+              </div>
+              <div class="all-products">
+                <!-- <div class="products">
+                  <span>Nombre del producto</span>
+                </div> -->
               </div>
             </div>
           </div>
@@ -413,6 +356,35 @@ echo '<!-- Custom JavaScripts Functions Needs
                   </div>
                 </div>
               </div>
+
+              <div class="contenido-tabla">
+                <div id="ContTablaVerTodos">
+                  <table id="tablaImpuesto" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>Impuesto</th>
+                        <th>Valor (%)</th>
+                        <th>B. impo x impu</th>
+                        <th>Impu. total de línea</th>
+                      </tr>
+                    </thead>
+                    <tbody id="lista-impuestos">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="form-row padd">
+                <div class="col-lg-6 col-md-6">
+                  <div class="form-group row">
+                    <label for="" class="col-sm-3 col-form-label">Observación</label>
+                    <div class="col-sm-9">
+                      <textarea class="form-control" id="observacion" name="observacion" placeholder="Observación" disabled></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-row padd">
                 <div class="col-lg-6 col-md-6">
                   <div class="form-group row">
@@ -427,58 +399,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                     <label for="" class="col-sm-3 col-form-label">Total</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="Total" name="Total" placeholder="Total" disabled>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="contenido-tabla">
-                <div id="ContTablaVerTodos">
-                  <table id="tablaImpuesto" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                      <tr>
-                        <th>Impuesto</th>
-                        <th>Valor (%)</th>
-                        <th>B. impo x impu</th>
-                        <th>Impu. total de línea</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div class="form-row padd">
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group row">
-                    <label for="" class="col-sm-3 col-form-label">Observación</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" id="observacion" name="observacion" placeholder="Observación" disabled></textarea>
                     </div>
                   </div>
                 </div>

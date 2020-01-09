@@ -406,6 +406,22 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        // Querys KeyUp
+
+        case 'searchProducts':
+            $query = $_POST["query"];
+            include_once(LIBRARY_DIR . "/productos.php");
+            prdcts_recoveryAllByAnyField($n, $Arry, "tbl_caprods.descrip", $query);
+            echo json_encode($Arry);
+            die();
+            break;
+
+        case 'getImpuesto':
+            $imp_id = $_POST["imp_id"];
+            include_once(LIBRARY_DIR . "/impuestos_consumo.php");
+            caimps_recoveryAllByAnyField($n, $Arry, "tbl_caimps.id_imp", $imp_id, $enabled, true, "LIMIT 1;");
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
