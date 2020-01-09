@@ -37,11 +37,20 @@ function onPageStart() {
 
     //Se rellenan los slecets de paises y provincias
 
+    //Detecta el cambio de departamento
+    $("#depto").on("change", function () {
+        var depto = this.value;
+        selectPopulate("#cargo", "getcargobydepto", 0, 2, "tbl_gencargos.id_dptoemp", depto);
+    });
+
     //Rellena el companies
     selectPopulate("#company", "getCompanies", 0, 1);
 
     //Rellena el cargo
     selectPopulate("#cargo", "getcargo", 0, 2);
+
+    //Rellena el departamento
+    selectPopulate("#depto", "getdepto", 0, 1);
 
     //Rellena el countrycode
     selectPopulate("#CodPais1", "getctrycode", 0, 2);

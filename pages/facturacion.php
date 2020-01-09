@@ -54,7 +54,7 @@ echo '<!-- Custom JavaScripts Functions Needs
 
     <!-- JavaScripts External Files -->
     <script src="' . JS_DIR . '/cs_standars_functions.js"></script>
-    <script src="' . JS_DIR . '/cs_cotizacion_conf_ajax.js"></script>
+    <script src="' . JS_DIR . '/cs_facturacion_conf_ajax.js"></script>
     <script src="' . JS_DIR . '/cs_ctry_ajax.js"></script>
 
 
@@ -77,7 +77,7 @@ echo '<!-- Custom JavaScripts Functions Needs
         <div class="row">
           <div class="col-lg-12">
             <div class="cajaTitulo">
-              <h6 class="text-center">COTIZACIÓN</h6>
+              <h6 class="text-center">FACTURACIÓN</h6>
             </div>
           </div>
         </div>
@@ -90,24 +90,6 @@ echo '<!-- Custom JavaScripts Functions Needs
             </div>
           </div>
         </div>
-        <!-- Dropdown Seleccionar Tipo Cliente -->
-        <!-- <div class="row">
-            <div class="col-lg-12">
-              <div class="contDropdown">
-              <div class="btn-group">
-                  <button type="button" class="btn btn-primary">Tipo de cliente</button>
-                  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div id="dropTipoClientes" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <input type="search" class="form-control form-control-sm inputBuscarProvi" placeholder="Escriba para buscar..." aria-controls="">
-                    <button class="dropdown-item" type="button">...</button>
-                  </div>
-                </div>
-              </div>              
-            </div>          
-          </div> -->
-
 
         <div class="row">
           <div class="col-lg-12">
@@ -117,7 +99,7 @@ echo '<!-- Custom JavaScripts Functions Needs
               </div>
               <form id="idFormCreacion" action="">
                 <div class="form-row">
-                  <div class="col-lg-6 col-md-6">
+                  <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">ID (FSid)</label>
                       <div class="col-sm-9">
@@ -125,11 +107,19 @@ echo '<!-- Custom JavaScripts Functions Needs
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-6">
+                  <div class="col-lg-4 col-md-4">
+                    <div class="form-group row">
+                      <label for="" class="col-sm-3 col-form-label">Nro. Ctto.</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="Ctto" name="Ctto" placeholder="Nro. Ctto.">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">Fecha</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="FechaFac" name="FechaFac" placeholder="Fecha Facturación" disabled>
+                        <input type="text" class="form-control" id="Fecha" name="Fecha" placeholder="Fecha" disabled>
                       </div>
                     </div>
                   </div>
@@ -166,11 +156,19 @@ echo '<!-- Custom JavaScripts Functions Needs
                 </div>
 
                 <div class="form-row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-6 col-md-6">
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">Dirección</label>
                       <div class="col-sm-9">
                         <textarea class="form-control" id="direccion" name="direccion" placeholder="Dirección" disabled></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group row">
+                      <label for="" class="col-sm-3 col-form-label">Cotización asociada</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="cotiza" name="cotiza" placeholder="Cotización asociada" disabled>
                       </div>
                     </div>
                   </div>
@@ -214,11 +212,11 @@ echo '<!-- Custom JavaScripts Functions Needs
               <form id="idFormCreacion" action="">
 
                 <div class="form-row">
-                  <div class="col-lg-4 col-md-4">
+                  <div class="col-lg-5 col-md-5">
                     <div class="form-group row">
-                      <label for="" class="col-sm-3 col-form-label">Prefactura</label>
+                      <label for="" class="col-sm-3 col-form-label">Factura fiscal asociada</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="Prefactura" name="Prefactura" placeholder="Prefactura">
+                        <input type="text" class="form-control" id="facturafiscal" name="facturafiscal" placeholder="Factura fiscal asociada">
                       </div>
                     </div>
                   </div>
@@ -233,7 +231,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4 col-md-4">
+                  <div class="col-lg-3 col-md-3">
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">Cantidad Días</label>
                       <div class="col-sm-9">
@@ -343,14 +341,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                         </td>
                       </tr>
                     </tbody>
-                    <!-- tfoot>
-                          <tr>
-                              <th>Col 1</th>
-                              <th>Col 2</th>
-                              <th>Col 3</th>
-                              <th>Acciones</th>
-                          </tr>
-                      </tfoot !-->
                   </table>
                 </div>
               </div>
@@ -502,6 +492,7 @@ echo '<!-- Custom JavaScripts Functions Needs
 
 
   <? include_once(INCLUDES_DIR . "/footer.php"); ?>
+
 
   <script>
     $('.contable i').css('color', '#fbb616');

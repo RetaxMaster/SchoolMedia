@@ -232,6 +232,17 @@ echo '<!-- Custom JavaScripts Functions Needs
                                 <div class="col-sm-4">
                                   <input type="email" class="form-control required" id="email" name="email" placeholder="Email">
                                 </div>
+                                <label for="" class="col-sm-2 col-form-label">Departamento<span class="iconObligatorio">*<span></label>
+                                <div class="col-sm-4">
+                                  <!-- Dropdown Seleccionar Provincia -->
+                                  <div class="form-group">
+                                    <select id="depto" name="depto" class="form-control required">
+                                      <option value="-1">{$depto}</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
                                 <label for="" class="col-sm-2 col-form-label">Cargo</label>
                                 <div class="col-sm-4">
                                   <!-- Dropdown Seleccionar -->

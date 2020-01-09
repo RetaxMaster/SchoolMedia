@@ -49,6 +49,8 @@ function onPageStart() {
     //Rellena el idplan
     selectPopulate("#id_cap", "getCaps", 0, 1);
 
+    selectPopulate("#CodPais1", "getctrycode", 0, 2);
+
     //Detecta la inserción de archivos
     var filesToUpload = new FormData();
     $(document).on("change", "#documents", function (e) {
