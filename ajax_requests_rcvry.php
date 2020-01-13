@@ -709,6 +709,31 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'uploadCacotHeaders':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+
+            $id_client = $_POST["idCliente"];
+            $rs = $_POST["rs"];
+            $ruc = $_POST["ruc"];
+            $addrs = $_POST["direccion"];
+            $id_pais = $_POST["pais"];
+            $id_prov = $_POST["provincia"];
+            $id_ctrycodefijo = "";
+            $tel = $_POST["telefonoCliente"];
+            $fecha = $_POST["FechaFac"];
+            $nroprefact = $_POST["Prefactura"];
+            $ppagoCC = $_POST["ppagoCC"];
+            $cantdias = $_POST["dias"];
+            $ver = 0;
+            $facturado = 0;
+
+            executeSQL($n, $Arry, "INSERT INTO tbl_cacothdrs (id_client, rs, ruc, addrs, id_pais, id_prov, id_ctrycodefijo, tel, fecha, nroprefact, ppagoCC, cantdias, ver, facturado) VALUES ($id_client, '$rs', '$ruc', '$addrs', '$id_pais', '$id_prov', '$id_ctrycodefijo', '$tel', '$fecha', '$nroprefact', '$ppagoCC ', '$cantdias', $ver, $facturado);");
+            
+            echo json_encode($Arry);
+            die();
+
+            break;
+
         //Actualizado de datas
 
         case 'updateInfo':

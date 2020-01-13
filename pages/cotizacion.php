@@ -229,7 +229,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                   <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
                       <div class="col-md-11">
-                        <select class="form-control" id="telefono">
+                        <select class="form-control" id="ppagoCC">
                           <option value="0">Plazo de pago</option>
                           <option value="0">Contado</option>
                           <option value="0">Crédito</option>
@@ -252,6 +252,61 @@ echo '<!-- Custom JavaScripts Functions Needs
           </div>
         </div>
 
+        <div class="modal fade bd-example-modal-lg" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <center>
+                  <h2 class="estilo-titulo">Editar registro</h2>
+                </center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <!-- Sección formulario de datos  -->
+                <section id="">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <form id="idFormDetalles" action="">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                              <div class="form-group row">
+                                <label for="editCant">Cantidad de productos</label>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control required" id="editCant" name="editCant" placeholder="Cantidad de productos">
+                                </div>
+                                <label for="editCant">Precio unitario</label>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control required" id="editPrecio" name="editPrecio" placeholder="Precio unitario">
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="contBtnCancel">
+                                    <button type="button" id="idBtnLimpiar" class="btn btnCancel">Limpiar</button>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="contBtnSuccess">
+                                    <button type="button" id="saveEdit" class="btn btnSuccess">Guardar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-lg-12">
             <!-- Tabla -->
@@ -269,6 +324,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <th>Cant</th>
                         <th>Precio</th>
                         <th>Impuesto</th>
+                        <th>Total</th>
                         <th>Total-Imp</th>
                         <th>Acciones</th>
                       </tr>
@@ -411,7 +467,7 @@ echo '<!-- Custom JavaScripts Functions Needs
         <div class="row">
           <div class="col-lg-12">
             <div class="contBtnSuccess">
-              <button id="idBtnNuevo" class="btn btnSuccess"><i class="far fa-plus-square"></i>Cotizar</button>
+              <button id="Cotizar" class="btn btnSuccess" type="button"><i class="far fa-plus-square"></i>Cotizar</button>
             </div>
           </div>
         </div>

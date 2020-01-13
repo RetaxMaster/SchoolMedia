@@ -22,8 +22,7 @@ function onPageStart() {
 
     var listaProductos = [];
     var listaImpuestos = {};
-    var subtotal = 0;
-    var total = 0;
+    var editing = null;
 
     // Relleno los datos del cliente
     $("#Cliente").on("change", function (e) {
@@ -91,7 +90,7 @@ function onPageStart() {
         var codigo = this.dataset.codigo;
         var descripcion = this.dataset.descrip;
         var cantidad = this.dataset.cant;
-        var precio = this.dataset.precio;
+        var precioUnit = this.dataset.precio;
 
         var data = {
             mode: "getImpuesto",
@@ -111,49 +110,109 @@ function onPageStart() {
                 listaImpuestos[key] = res;
             }
 
-            updateImpuestos();
-
             //Hacemos los cálculos y los insertamos
 
             var valorImpuesto = res[2];
-            precio = precio * cantidad;
+            var precio = precioUnit * cantidad;
 
             var precioConImpuestos = (parseFloat(precio) + ((precio * valorImpuesto) / 100)).toFixed(2);
-
-            subtotal += precio;
-            total += parseFloat(precioConImpuestos);
 
             //Es la posicion dentro del arreglo de la lista de productos, como aun no se ha insetado, con obtner el largo del arreglo podemos determinar la posicion que ocupará
             var positionInArray = listaProductos.length;
 
-            var row = [codigo, descripcion, cantidad, precio, valorImpuesto, precioConImpuestos, '<a href="#" id="e-' + positionInArray + '" data-toggle="modal" data-target="#ModalVerTodos" data-placement="top" title="Ver detalles" class="loadGallery"><i class="far fa-newspaper"></i></a>'];
+            var row = [codigo, descripcion, cantidad, precioUnit, valorImpuesto, precio, precioConImpuestos, '<a href="#" id="e-' + positionInArray + '" data-toggle="modal" data-target="#ModalEdit" data-placement="top" title="Ver detalles" class="editData"><i class="far fa-newspaper"></i></a> <a id="d-' + positionInArray + '" data-placement="top" title="Ver detalles" class="deleteArt" style="color: #ec3d3d; cursor: pointer"><i class="fas fa-times"></i></a>'];
+
+            console.log(row);
+            
 
             listaProductos.push(row);
             
-            //Creo la datatable
-            $("#tablaVerTodos").DataTable().destroy();
-            $("#tablaVerTodos").dataTable({
-                "data": listaProductos,
-                "order": [[ 0, "asc" ]], // Se predefinie ordenar la tabla en base a la columna 0, id 
-                "language": { // se cargan todos los labels en funcion al idioma seleccionado
-                    "url": LangLabels,
-                    "oPaginate": { //  se hace override de los botones de adelante y atras
-                        "sPrevious": "<i class='fas fa-arrow-alt-circle-left'></i>",
-                        "sNext":     "<i class='fas fa-arrow-alt-circle-right'></i>",
-                    }
-                }
-            });
-            
             updatePrecio();
+            updateImpuestos();
         })
         
     
     });
 
+    //Edita un producto
+    $(document).on("click", ".editData", function(e){
+    
+        var id = (this.id).split("-").pop();
+        editing = id;
+        
+        var info = listaProductos[id];
+        var cantidad = info[2];
+        var precioUnit = info[3];
+
+        $("#editCant").val(cantidad);
+        $("#editPrecio").val(precioUnit);
+    
+    });
+
+    $(document).on("click", "#saveEdit", function(e){
+    
+        var cantidad = $("#editCant").val();
+        var precioUnit = $("#editPrecio").val();
+        var info = listaProductos[editing];
+
+
+        //Hacemos los cálculos y los insertamos
+
+        var valorImpuesto = info[4];
+        var precio = precioUnit * cantidad;
+
+        var precioConImpuestos = (parseFloat(precio) + ((precio * valorImpuesto) / 100)).toFixed(2);
+
+        listaProductos[editing][2] = cantidad;
+        listaProductos[editing][3] = precioUnit;
+        listaProductos[editing][5] = precio;
+        listaProductos[editing][6] = precioConImpuestos;
+        
+        console.log(listaProductos);
+        
+
+        updatePrecio();
+        updateImpuestos();
+    
+    });
+
+    $(document).on("click", ".deleteArt", function(e){
+    
+        var id = (this.id).split("-").pop();
+
+        listaProductos.splice(id, 1);
+
+        updatePrecio();
+        updateImpuestos();
+    
+    });
+
     //Establece el precio en los respectivos campos
     function updatePrecio() {
-        console.log(total);
-        console.log(subtotal);
+
+        //Creo la datatable
+        $("#tablaVerTodos").DataTable().destroy();
+        $("#tablaVerTodos").dataTable({
+            "data": listaProductos,
+            "order": [[0, "asc"]], // Se predefinie ordenar la tabla en base a la columna 0, id 
+            "language": { // se cargan todos los labels en funcion al idioma seleccionado
+                "url": LangLabels,
+                "oPaginate": { //  se hace override de los botones de adelante y atras
+                    "sPrevious": "<i class='fas fa-arrow-alt-circle-left'></i>",
+                    "sNext": "<i class='fas fa-arrow-alt-circle-right'></i>",
+                }
+            }
+        });
+
+        //Calculo el total y subtotal
+
+        var subtotal = 0;
+        var total = 0;
+
+        $(listaProductos).each(function() {
+            subtotal += parseFloat(this[2] * this[3]);
+            total += parseFloat(this[6]);
+        });
         
         $("#Total").val(total);
         $("#Subtotal").val(subtotal);
@@ -164,13 +223,31 @@ function onPageStart() {
         $("#lista-impuestos").children().remove();
 
         $.each(listaImpuestos, function (index, item) {
+
+            var valorImp = item[2];
+
+            //Busco los productos con este impuesto
+
+            //[codigo, descripcion, cantidad, precioUnit, valorImpuesto, precio, precioConImpuestos]
+            
+            var productosConEsteImpuesto = listaProductos.filter(function(producto) {
+                return producto[4] == valorImp;
+            });
+
+            var bimpo = 0;
+            var impuLinea = 0;
+
+            $(productosConEsteImpuesto).each(function() {
+                bimpo += parseFloat(this[5]);
+                impuLinea += parseFloat(this[6]);
+            });
         
             var td = $(`
             <tr>
                 <td>${item[3]}</td>
                 <td>${item[2]}</td>
-                <td></td>
-                <td></td>
+                <td>${bimpo}</td>
+                <td>${impuLinea}</td>
             </tr>
             `);
 
@@ -198,53 +275,51 @@ function onPageStart() {
     });
 
     //Envía el formulario
-    $("#idFormDetalles").on("submit", function (e) {
-        e.preventDefault();
+    $(document).on("click", "#Cotizar", function (e) {
 
-        var inputs = $("#idFormDetalles .required");
+        var form = $("#idFormCreacion").get(0);
 
-        if (validateInputs(inputs)) {
+        //Recojo los valores de headers
+        
+        $("#idFormCreacion input[disabled], #idFormCreacion select[disabled], #idFormCreacion textarea[disabled]").prop("disabled", false);
 
-            var formData = new FormData(this);
-            formData.append("mode", "uploadCentOpInfo");
+        var formHeaders = new FormData(form);
+        var rs = $("#ClienteDD").text();
+        var Prefactura = $("#Prefactura").val();
+        var ppagoCC = $("#ppagoCC").val();
+        var dias = $("#dias").val();
 
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
+        formHeaders.append("mode", "uploadCacotHeaders");
+        formHeaders.append("rs", rs);
+        formHeaders.append("Prefactura", Prefactura);
+        formHeaders.append("ppagoCC", ppagoCC);
+        formHeaders.append("dias", dias);
+
+        $("#idFormCreacion input[disabled], #idFormCreacion select[disabled], #idFormCreacion textarea[disabled]").prop("disabled", true);
+        
+        //Inserto los datos mediante Ajax
+        $.ajax({
+            url: './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '',
+            type: "post",
+            data: formHeaders,
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                console.log("Enviando...");
+            },
+            success: function (res) {
+                console.log(res);
+                var res = JSON.parse(res);
+                console.log(res);
+                
+                
+            },
+            error: function (e) {
+                console.log(e);
             }
-
-            //Inserto los datos mediante Ajax
-            $.ajax({
-                url: './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '',
-                type: "post",
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                beforeSend: function () {
-                    console.log("Enviando...");
-                },
-                success: function (res) {
-                    console.log(res);
-
-                    //Limpio el formulario
-                    resetDefaultForm();
-                    //Actualizo la DataTable
-                    $("#tablaVerTodos").DataTable().destroy();
-                    setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_cotizacion_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-                        return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
-                    });
-
-                    //Informo de éxito
-                    alert("Agregado!!");
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-        } else {
-            alert("¡Rellena todos los campos requeridos!");
-        }
-
+        });
+    
     });
 
 }
