@@ -231,8 +231,8 @@ echo '<!-- Custom JavaScripts Functions Needs
                       <div class="col-md-11">
                         <select class="form-control" id="ppagoCC">
                           <option value="0">Plazo de pago</option>
-                          <option value="0">Contado</option>
-                          <option value="0">Crédito</option>
+                          <option value="1">Contado</option>
+                          <option value="2">Crédito</option>
                         </select>
                       </div>
                     </div>

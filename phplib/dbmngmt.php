@@ -35,6 +35,27 @@ include_once("./phplib/sosemV20config.php"); // Incluye vaiables de configuracio
 		mysqli_close($ConLink);
 	}
 
+	function SQLQueryAlt($QueryStr){
+ 		$ConLink=mysqli_connect("localhost",DATABASE_USER,DATABASE_PASSWD,DATABASE_PREFIX.DATABASE_NAME);// mysql_connect("localhost",$DataBaseUser,$DataBasePasswd);
+		 mysqli_set_charset($ConLink,'utf8'); // define uso utf8 de los dtaos recuperados de la DB
+		 /* comprueba la conexion */
+		if (mysqli_connect_errno()) {
+			printf("Error de conexion a la base de datos: %s\n", mysqli_connect_error());
+			exit();
+		}
+		$ResponsePointer = mysqli_query($ConLink,$QueryStr) or  die("Query error: ".mysqli_error($ConLink));
+
+		$response =  [
+			"ResponsePointer" => $ResponsePointer,
+			"numRows" => mysqli_num_rows($ResponsePointer),
+			"lastInsertId" => mysqli_insert_id($ConLink)
+		];
+		
+		mysqli_close($ConLink);
+
+		return $response;
+	}
+
 	// Convierte un Pointer de una consulta en una estructura de arreglos de cualquier dimension o un escalar en su defecto
 
 	function ConvertPointerToArray($ResponsePointer,&$ArraySchema,$nArray,$nCol) {

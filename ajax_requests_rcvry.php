@@ -713,23 +713,25 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/sqlExecuter.php");
 
             $id_client = $_POST["idCliente"];
-            $rs = $_POST["rs"];
-            $ruc = $_POST["ruc"];
-            $addrs = $_POST["direccion"];
-            $id_pais = $_POST["pais"];
-            $id_prov = $_POST["provincia"];
-            $id_ctrycodefijo = "";
-            $tel = $_POST["telefonoCliente"];
-            $fecha = $_POST["FechaFac"];
-            $nroprefact = $_POST["Prefactura"];
-            $ppagoCC = $_POST["ppagoCC"];
-            $cantdias = $_POST["dias"];
+            $rs = isset($_POST["rs"]) ? $_POST["rs"] : "";
+            $ruc = isset($_POST["ruc"]) ? $_POST["ruc"] : "";
+            $addrs = isset($_POST["direccion"]) ? $_POST["direccion"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
+            $id_ctrycodefijo = 1;
+            $tel = isset($_POST["telefonoCliente"]) ? $_POST["telefonoCliente"] : "";
+            $fecha = isset($_POST["FechaFac"]) ? $_POST["FechaFac"] : "";
+            $nroprefact = isset($_POST["Prefactura"]) ? $_POST["Prefactura"] : "";
+            $ppagoCC = isset($_POST["ppagoCC"]) ? $_POST["ppagoCC"] : 0;
+            $cantdias = (isset($_POST["dias"]) & !empty($_POST["dias"])) ? $_POST["dias"] : 0;
             $ver = 0;
             $facturado = 0;
 
-            executeSQL($n, $Arry, "INSERT INTO tbl_cacothdrs (id_client, rs, ruc, addrs, id_pais, id_prov, id_ctrycodefijo, tel, fecha, nroprefact, ppagoCC, cantdias, ver, facturado) VALUES ($id_client, '$rs', '$ruc', '$addrs', '$id_pais', '$id_prov', '$id_ctrycodefijo', '$tel', '$fecha', '$nroprefact', '$ppagoCC ', '$cantdias', $ver, $facturado);");
-            
-            echo json_encode($Arry);
+            $sql = "INSERT INTO tbl_cacothdrs (id_client, rs, ruc, addrs, id_pais, id_prov, id_ctrycodefijo, tel, fecha, nroprefact, ppagoCC, cantdias, ver, facturado) VALUES ($id_client, '$rs', '$ruc', '$addrs', '$id_pais', '$id_prov', '$id_ctrycodefijo', '$tel', '$fecha', '$nroprefact', '$ppagoCC', '$cantdias', $ver, $facturado);";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            echo json_encode($lastInsertId);
             die();
 
             break;
