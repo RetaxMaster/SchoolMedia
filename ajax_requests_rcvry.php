@@ -726,8 +726,33 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $cantdias = (isset($_POST["dias"]) & !empty($_POST["dias"])) ? $_POST["dias"] : 0;
             $ver = 0;
             $facturado = 0;
+            $allProducts = json_decode($_POST["allProducts"]);
+            $sumaImpuestoDeLinea = $_POST["sumaImpuestoDeLinea"];
+            $total = $_POST["total"];
+            $subtotal = $_POST["subtotal"];
+            $obs = $_POST["obs"];
 
             $sql = "INSERT INTO tbl_cacothdrs (id_client, rs, ruc, addrs, id_pais, id_prov, id_ctrycodefijo, tel, fecha, nroprefact, ppagoCC, cantdias, ver, facturado) VALUES ($id_client, '$rs', '$ruc', '$addrs', '$id_pais', '$id_prov', '$id_ctrycodefijo', '$tel', '$fecha', '$nroprefact', '$ppagoCC', '$cantdias', $ver, $facturado);";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            $id_cot = $lastInsertId;
+
+            //Ahora insertamos la lista de productos
+
+            $values = "";
+
+            foreach ($allProducts as $product)
+                $values .= "($id_cot, '" . implode("', '", $product) . "'),";
+            
+            $values = substr($values, 0, -1);
+
+            $sql = "INSERT INTO tbl_cacotdetails (id_cot, id_prod, cod, descrip, cant, tiposp, puvp, id_imp, valorPorc, totaldlinea) VALUES $values;";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            //Ahora insertamos el footer
+            $sql = "INSERT INTO tbl_cacotfoots (id_cot, subtot, biximp, impttot, desctot, total, observ) VALUES ('id_cot', '$subtotal', '0', '$sumaImpuestoDeLinea', '', '$total', '$obs');";
 
             executeSQL($n, $Arry, $lastInsertId, $sql);
 

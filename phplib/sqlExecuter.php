@@ -1,9 +1,8 @@
 <?php
 
 function executeSQL(&$nDocs,&$Docs, &$lastInsertId, $SQL) {
-    $SQLStrQuery = "CALL sp_p_executeSQL(\"$SQL\")";
-    
-    $response = SQLQueryAlt($SQLStrQuery); // Realiza la consulta
+
+    $response = SQLQueryAlt($SQL); // Realiza la consulta
     $ResponsePointer = $response["ResponsePointer"];
 
     $lastInsertId = $response["lastInsertId"];

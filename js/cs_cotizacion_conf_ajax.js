@@ -21,8 +21,11 @@ function onPageStart() {
 
 
     var listaProductos = [];
+    var listaProductosAllInfo = [];
     var listaImpuestos = {};
     var editing = null;
+    var sumaImpuestoDeLinea = 0;
+    var saved = false;
 
     // Relleno los datos del cliente
     $("#Cliente").on("change", function (e) {
@@ -65,9 +68,10 @@ function onPageStart() {
             $(res).each(function() {
 
                 if (this[0] != null) {
+                    
                     var producto = $(
                     `
-                    <div class="products" data-codigo="${this[1]}" data-descrip="${this[2]}" data-cant="${this[3]}" data-precio="${this[7]}" data-impuesto="${this[6]}">
+                    <div class="products" data-prodid="${this[0]}" data-tipo="${this[4]}" data-codigo="${this[1]}" data-descrip="${this[2]}" data-cant="${this[3]}" data-precio="${this[7]}" data-impuesto="${this[6]}">
                         <span>${this[2]}</span>
                     </div>`);
     
@@ -86,10 +90,12 @@ function onPageStart() {
         //Primero obtengo el impuesto
         var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
 
+        var prodId = this.dataset.prodid;
         var imp_id = this.dataset.impuesto;
         var codigo = this.dataset.codigo;
         var descripcion = this.dataset.descrip;
         var cantidad = this.dataset.cant;
+        var tipo = this.dataset.tipo;
         var precioUnit = this.dataset.precio;
 
         var data = {
@@ -122,10 +128,10 @@ function onPageStart() {
 
             var row = [codigo, descripcion, cantidad, precioUnit, valorImpuesto, precio, precioConImpuestos, '<a href="#" id="e-' + positionInArray + '" data-toggle="modal" data-target="#ModalEdit" data-placement="top" title="Ver detalles" class="editData"><i class="far fa-newspaper"></i></a> <a id="d-' + positionInArray + '" data-placement="top" title="Ver detalles" class="deleteArt" style="color: #ec3d3d; cursor: pointer"><i class="fas fa-times"></i></a>'];
 
-            console.log(row);
-            
+            var rowAllInfo = [prodId, codigo, descripcion, cantidad, tipo, precioUnit, imp_id, valorImpuesto, precio];
 
             listaProductos.push(row);
+            listaProductosAllInfo.push(rowAllInfo);
             
             updatePrecio();
             updateImpuestos();
@@ -167,9 +173,12 @@ function onPageStart() {
         listaProductos[editing][3] = precioUnit;
         listaProductos[editing][5] = precio;
         listaProductos[editing][6] = precioConImpuestos;
-        
-        console.log(listaProductos);
-        
+
+        // Igual se ponen en e arreglo que tiene la información para la DB
+        // [prodId, codigo, descripcion, cantidad, tipo, precioUnit, imp_id, valorImpuesto, precio];
+        listaProductosAllInfo[editing][4] = cantidad;
+        listaProductosAllInfo[editing][6] = precioUnit;
+        listaProductosAllInfo[editing][9] = precio;
 
         updatePrecio();
         updateImpuestos();
@@ -181,6 +190,7 @@ function onPageStart() {
         var id = (this.id).split("-").pop();
 
         listaProductos.splice(id, 1);
+        listaProductosAllInfo.splice(id, 1);
 
         updatePrecio();
         updateImpuestos();
@@ -221,6 +231,7 @@ function onPageStart() {
     //Establece la lista de los impuestos
     function updateImpuestos() {
         $("#lista-impuestos").children().remove();
+        sumaImpuestoDeLinea = 0;
 
         $.each(listaImpuestos, function (index, item) {
 
@@ -239,9 +250,11 @@ function onPageStart() {
 
             $(productosConEsteImpuesto).each(function() {
                 bimpo += parseFloat(this[5]);
-                impuLinea += parseFloat(this[6]);
+                impuLinea += (this[5] * this[4]) / 100;
             });
-        
+
+            sumaImpuestoDeLinea += impuLinea;
+            
             var td = $(`
             <tr>
                 <td>${item[3]}</td>
@@ -254,6 +267,7 @@ function onPageStart() {
             $("#lista-impuestos").append(td);
 
         });
+        
     }
 
     //Se rellenan los slecets de paises y provincias
@@ -274,6 +288,22 @@ function onPageStart() {
         resetDefaultForm();
     });
 
+    //Hace la factura
+    $(document).on("click", "#Facturar", function(e){
+    
+        if (saved) {
+            
+        }
+        else {
+            Swal.fire(
+                'Un momento',
+                "No has guardado esta cotización, si no la guardas no podemos continuar a la facturación",
+                'warning'
+            )
+        }
+    
+    });
+
     //Envía el formulario
     $(document).on("click", "#Cotizar", function (e) {
 
@@ -288,12 +318,21 @@ function onPageStart() {
         var Prefactura = $("#Prefactura").val();
         var ppagoCC = $("#ppagoCC").val();
         var dias = $("#dias").val();
+        var total = $("#Total").val();
+        var subtotal = $("#Subtotal").val();
+        var obs = $("#observacion").val();
 
         formHeaders.append("mode", "uploadCacotHeaders");
         formHeaders.append("rs", rs);
         formHeaders.append("Prefactura", Prefactura);
         formHeaders.append("ppagoCC", ppagoCC);
         formHeaders.append("dias", dias);
+        formHeaders.append("allProducts", JSON.stringify(listaProductosAllInfo));
+        formHeaders.append("sumaImpuestoDeLinea", sumaImpuestoDeLinea);
+        formHeaders.append("total", total);
+        formHeaders.append("subtotal", subtotal);
+        formHeaders.append("obs", obs);
+        
 
         $("#idFormCreacion input[disabled], #idFormCreacion select[disabled], #idFormCreacion textarea[disabled]").prop("disabled", true);
         
@@ -309,11 +348,9 @@ function onPageStart() {
                 console.log("Enviando...");
             },
             success: function (res) {
-                console.log(res);
-                var res = JSON.parse(res);
-                console.log(res);
                 
-                
+                saved = true;
+
             },
             error: function (e) {
                 console.log(e);

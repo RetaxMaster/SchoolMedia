@@ -199,7 +199,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                   <div class="col-8"></div>
                   <div class="col-lg-4 col-md-4">
                     <div class="contBtnSuccess">
-                      <button type="submit" id="idBtnAceptar" class="btn btnSuccess">Facturar</button>
+                      <button type="submit" id="Facturar" class="btn btnSuccess">Facturar</button>
                     </div>
                   </div>
                 </div>
@@ -435,7 +435,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                   <div class="form-group row">
                     <label for="" class="col-sm-3 col-form-label">Observación</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" id="observacion" name="observacion" placeholder="Observación" disabled></textarea>
+                      <textarea class="form-control" id="observacion" name="observacion" placeholder="Observación"></textarea>
                     </div>
                   </div>
                 </div>

@@ -43,14 +43,14 @@ include_once("./phplib/sosemV20config.php"); // Incluye vaiables de configuracio
 			printf("Error de conexion a la base de datos: %s\n", mysqli_connect_error());
 			exit();
 		}
+		
 		$ResponsePointer = mysqli_query($ConLink,$QueryStr) or  die("Query error: ".mysqli_error($ConLink));
 
 		$response =  [
 			"ResponsePointer" => $ResponsePointer,
-			"numRows" => mysqli_num_rows($ResponsePointer),
 			"lastInsertId" => mysqli_insert_id($ConLink)
 		];
-		
+
 		mysqli_close($ConLink);
 
 		return $response;
