@@ -199,7 +199,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                   <div class="col-8"></div>
                   <div class="col-lg-4 col-md-4">
                     <div class="contBtnSuccess">
-                      <button type="submit" id="Facturar" class="btn btnSuccess">Facturar</button>
+                      <button type="button" id="Facturar" class="btn btnSuccess">Facturar</button>
                     </div>
                   </div>
                 </div>
@@ -357,6 +357,71 @@ echo '<!-- Custom JavaScripts Functions Needs
           </div>
         </div>
 
+        <div class="modal fade bd-example-modal-lg" id="ModalUsuarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <center>
+                  <h2 class="estilo-titulo">Agregar usuario</h2>
+                </center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <!-- Sección formulario de datos  -->
+                <section id="">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <form id="idFormDetalles" action="">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                              <div class="form-group row">
+
+                                <label for="" class="col-sm-2 col-form-label">Usuario<span class="iconObligatorio">*<span></label>
+                                <div class="col-sm-4">
+                                  <!-- Dropdown Seleccionar Pais -->
+                                  <div class="form-group">
+                                    <select id="iduser" name="iduser" class="form-control required">
+                                      <option value="-1">{$iduser}</option>
+                                      <option value="1">Valor estático temporal</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <label for="" class="col-sm-2 col-form-label">Impuesto aplicable<span class="iconObligatorio">*<span></label>
+                                <div class="col-sm-4">
+                                  <!-- Dropdown Seleccionar Pais -->
+                                  <div class="form-group">
+                                    <select id="imp" name="imp" class="form-control required">
+                                      <option value="-1">{$fp}</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="contBtnSuccess">
+                                    <button type="button" id="saveCom" class="btn btnSuccess" data-dismiss="modal">Guardar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <div class="row">
           <div class="col-lg-12">
@@ -376,39 +441,14 @@ echo '<!-- Custom JavaScripts Functions Needs
                         <th>Comis. Total de línea</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
+                    <tbody id="allComisiones"></tbody>
                   </table>
                 </div>
               </div>
               <div class="row padd">
                 <div class="col-lg-12">
                   <div class="contBtnSuccess">
-                    <button id="idBtnNuevo" class="btn btnSuccess"><i class="far fa-plus-square"></i>Comisión</button>
+                    <button id="addComision" class="btn btnSuccess" data-toggle="modal" data-target="#ModalUsuarios" data-placement="top"><i class="far fa-plus-square"></i>Comisión</button>
                   </div>
                 </div>
               </div>

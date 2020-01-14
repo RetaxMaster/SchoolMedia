@@ -19,10 +19,17 @@ function onPageStart() {
             break;
     }
 
+    //Rellena usuarios
+    selectPopulate("#iduser", "getUsers", 0, 1);
+
+    //Rellena el impuestos
+    selectPopulate("#imp", "getImp", 0, 3);
 
     var listaProductos = [];
     var listaProductosAllInfo = [];
     var listaImpuestos = {};
+    var listaComisiones = [];
+    var listaComisionesAllInfo = [];
     var editing = null;
     var sumaImpuestoDeLinea = 0;
     var saved = false;
@@ -197,6 +204,41 @@ function onPageStart() {
     
     });
 
+    $(document).on("click", "#saveCom", function(e){
+    
+        var usuario = $("#iduser").val();
+        var imp = $("#imp").val();
+
+        var data = {
+            mode: "getUserImpData",
+            usuario: usuario,
+            imp: imp
+        }
+
+        var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+        $.post(url, data, function(res) {
+
+            res = JSON.parse(res);
+
+            var subtotal = $("#Subtotal").val();
+
+            var monto = (subtotal * res.valorporc) / 100;
+             
+            var row = [res.usuario, res.nombreimp, res.valorporc, monto];
+            var rowAllInfo = [usuario, imp, res.valorporc, monto];
+
+            listaComisiones.push(row);
+            listaComisionesAllInfo.push(rowAllInfo);
+
+            console.log(listaComisiones);
+            
+
+            updateComisiones();
+        })
+    
+    });
+
     //Establece el precio en los respectivos campos
     function updatePrecio() {
 
@@ -223,6 +265,18 @@ function onPageStart() {
             subtotal += parseFloat(this[2] * this[3]);
             total += parseFloat(this[6]);
         });
+
+        $(listaComisiones).each(function () {
+            var monto = (subtotal * this[2]) / 100;
+            this[3] = monto;
+        });
+
+        $(listaComisionesAllInfo).each(function () {
+            var monto = (subtotal * this[2]) / 100;
+            this[3] = monto;
+        });
+
+        updateComisiones();
         
         $("#Total").val(total);
         $("#Subtotal").val(subtotal);
@@ -268,6 +322,25 @@ function onPageStart() {
 
         });
         
+    }
+
+    function updateComisiones() {
+
+        $("#allComisiones").children().remove();
+
+        $(listaComisiones).each(function () {
+            
+            var td = $(`
+            <tr>
+                <td>${this[0]}</td>
+                <td>${this[1]}</td>
+                <td>${this[2]}</td>
+                <td>${this[3]}</td>
+            </tr>
+            `);
+    
+            $("#allComisiones").append(td);
+        });
     }
 
     //Se rellenan los slecets de paises y provincias
@@ -328,13 +401,14 @@ function onPageStart() {
         formHeaders.append("ppagoCC", ppagoCC);
         formHeaders.append("dias", dias);
         formHeaders.append("allProducts", JSON.stringify(listaProductosAllInfo));
+        formHeaders.append("allComisiones", JSON.stringify(listaComisionesAllInfo));
         formHeaders.append("sumaImpuestoDeLinea", sumaImpuestoDeLinea);
         formHeaders.append("total", total);
         formHeaders.append("subtotal", subtotal);
         formHeaders.append("obs", obs);
         
 
-        $("#idFormCreacion input[disabled], #idFormCreacion select[disabled], #idFormCreacion textarea[disabled]").prop("disabled", true);
+        $("#idFormCreacion input, #idFormCreacion select, #idFormCreacion textarea").prop("disabled", true);
         
         //Inserto los datos mediante Ajax
         $.ajax({
@@ -350,6 +424,12 @@ function onPageStart() {
             success: function (res) {
                 
                 saved = true;
+
+                Swal.fire(
+                    '¡Listo!',
+                    "Cotización guardada",
+                    'success'
+                )
 
             },
             error: function (e) {

@@ -422,6 +422,26 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             caimps_recoveryAllByAnyField($n, $Arry, "tbl_caimps.id_imp", $imp_id, $enabled, true, "LIMIT 1;");
             break;
 
+        case 'getUserImpData':
+            $usuario = $_POST["usuario"];
+            $imp = $_POST["imp"];
+
+            include_once(LIBRARY_DIR . "/impuestos_consumo.php");
+            include_once(LIBRARY_DIR . "/adminUser.php");
+
+            caimps_recoveryAllByAnyField($n, $Arry, "tbl_caimps.id_imp", $imp, $enabled, true, "LIMIT 1;");
+            RecoveryUserProfileSesion_id($usuario, $UserProfile, $n);
+
+            $response = [];
+            $response["usuario"] = $UserProfile[2];
+            $response["nombreimp"] = $Arry[3];
+            $response["valorporc"] = $Arry[2];
+            
+            echo json_encode($response);
+            die();
+
+            break;
+
         // Insertado de datas
 
         case 'uploadInfo':
@@ -727,6 +747,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $ver = 0;
             $facturado = 0;
             $allProducts = json_decode($_POST["allProducts"]);
+            $allComisiones = json_decode($_POST["allComisiones"]);
             $sumaImpuestoDeLinea = $_POST["sumaImpuestoDeLinea"];
             $total = $_POST["total"];
             $subtotal = $_POST["subtotal"];
@@ -748,6 +769,19 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $values = substr($values, 0, -1);
 
             $sql = "INSERT INTO tbl_cacotdetails (id_cot, id_prod, cod, descrip, cant, tiposp, puvp, id_imp, valorPorc, totaldlinea) VALUES $values;";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            //Ahora insertamos la lista de comisiones
+
+            $values = "";
+
+            foreach ($allComisiones as $comision)
+                $values .= "($id_cot, '" . implode("', '", $comision) . "', ''),";
+
+            $values = substr($values, 0, -1);
+
+            $sql = "INSERT INTO tbl_cacotcomis (id_cot, id_user, id_imp, valorPorc, monto, descrip) VALUES $values;";
 
             executeSQL($n, $Arry, $lastInsertId, $sql);
 
