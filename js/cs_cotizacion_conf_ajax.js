@@ -33,6 +33,7 @@ function onPageStart() {
     var editing = null;
     var sumaImpuestoDeLinea = 0;
     var saved = false;
+    var idFactura;
 
     // Relleno los datos del cliente
     $("#Cliente").on("change", function (e) {
@@ -365,6 +366,58 @@ function onPageStart() {
     $(document).on("click", "#Facturar", function(e){
     
         if (saved) {
+            var data = {
+                datosCliente: {
+                    idCliente: $("#idCliente").val(),
+                    FechaFac: $("#FechaFac").val(),
+                    ClienteDD: $("#ClienteDD").text(),
+                    Cliente: $("#Cliente").val(),
+                    ruc: $("#ruc").val(),
+                    telefonoCliente: $("#telefonoCliente").val(),
+                    direccion: $("#direccion").val(),
+                    country: $("#country").val(), 
+                    Provincia: $("#Provincia").val()
+                },
+                condicionesPago: {
+                    Prefactura: $("#Prefactura").val(),
+                    ppagoCC: $("#ppagoCC").val(),
+                    dias: $("#dias").val()
+                },
+                detallesFacturacion: {
+                    listaProductos: listaProductos,
+                    listaProductosAllInfo: listaProductosAllInfo
+                },
+                resumenComisiones: {
+                    listaComisiones: listaComisiones,
+                    listaComisionesAllInfo: listaComisionesAllInfo
+                },
+                resumenImpuestos: {
+                    listaImpuestos: listaImpuestos
+                },
+                resumenInputs: {
+                    observacion: $("#observacion").val(),
+                    Subtotal: $("#Subtotal").val(),
+                    Total: $("#Total").val()
+                }
+            }
+            
+            var stringify = JSON.stringify(data);
+            $("#data").val(stringify);
+
+            //Actualizamos el campo de la base de datos
+
+            var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+            var data2 = {
+                mode: "updateFacturaStatus",
+                id: idFactura
+            }
+
+            $.post(url, data2, function(res) { 
+                console.log(res);
+                
+                $("#goToFact").submit();
+            });
             
         }
         else {
@@ -424,6 +477,7 @@ function onPageStart() {
             success: function (res) {
                 
                 saved = true;
+                idFactura = res;
 
                 Swal.fire(
                     '¡Listo!',

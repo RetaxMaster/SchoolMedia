@@ -514,6 +514,10 @@ echo '<!-- Custom JavaScripts Functions Needs
       </div>
     </section>
 
+    <form action="./facturacion_conf.php?Lang=<?php echo $Lang; ?>&wph=32" style="display: none;" id="goToFact" method="POST">
+      <textarea id="data" name="data"></textarea>
+    </form>
+
   </main>
 
 

@@ -786,11 +786,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             executeSQL($n, $Arry, $lastInsertId, $sql);
 
             //Ahora insertamos el footer
-            $sql = "INSERT INTO tbl_cacotfoots (id_cot, subtot, biximp, impttot, desctot, total, observ) VALUES ('id_cot', '$subtotal', '0', '$sumaImpuestoDeLinea', '', '$total', '$obs');";
+            $sql = "INSERT INTO tbl_cacotfoots (id_cot, subtot, biximp, impttot, desctot, total, observ) VALUES ('$id_cot', '$subtotal', '0', '$sumaImpuestoDeLinea', '', '$total', '$obs');";
 
             executeSQL($n, $Arry, $lastInsertId, $sql);
 
-            echo json_encode($lastInsertId);
+            echo $id_cot;
             die();
 
             break;
@@ -1140,6 +1140,16 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "id_calif" => isset($_POST["Calif"]) ? $_POST["Calif"] : ""
             ], $idToUpdate);
             die();
+            break;
+
+        case 'updateFacturaStatus':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+            $id = $_POST["id"];
+
+            $sql = "UPDATE tbl_cacothdrs SET facturado = 1 WHERE id_cot = $id;";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
             break;
 
         // Acciones de los calendarios
