@@ -110,11 +110,14 @@ echo '<!-- Custom JavaScripts Functions Needs
                 </div>
 
                 <div class="form-row">
-                  <div class="col-lg-4 col-md-4">
-                    <div class="form-group row">
-                      <label for="" class="col-sm-3 col-form-label">Nro. Ctto.</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="Ctto" name="Ctto" placeholder="Nro. Ctto.">
+                  <div class="col-sm-4">
+                    <!-- Dropdown Seleccionar Pais -->
+                    <div class="row">
+                      <label for="" class="col-sm-3 col-form-label">Contrato</label>
+                      <div class="form-group col-sm-9">
+                        <select id="contrato" name="contrato" class="form-control required">
+                          <option value="-1">{$country}</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -123,8 +126,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                       <div class="col-md-11">
                         <select class="form-control" id="facturas">
                           <option value="0">Facturas pendientes</option>
-                          <option value="0">35</option>
-                          <option value="0">42</option>
                         </select>
                       </div>
                     </div>
@@ -153,8 +154,8 @@ echo '<!-- Custom JavaScripts Functions Needs
                       <div class="col-md-11">
                         <select class="form-control" id="pagoAprobado">
                           <option value="0">Pago Aprobado</option>
-                          <option value="0">SI</option>
-                          <option value="0">NO</option>
+                          <option value="1">SI</option>
+                          <option value="2">NO</option>
                         </select>
                       </div>
                     </div>
@@ -188,14 +189,85 @@ echo '<!-- Custom JavaScripts Functions Needs
                       <div class="col-md-10">
                         <select class="form-control" id="pagadaTotalmente">
                           <option value="0">Factura pagada totalmente</option>
-                          <option value="0">SI</option>
-                          <option value="0">NO</option>
+                          <option value="1">SI</option>
+                          <option value="2">NO</option>
                         </select>
                       </div>
                     </div>
                   </div>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade bd-example-modal-lg" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <center>
+                  <h2 class="estilo-titulo">Editar registro</h2>
+                </center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="closeModal" aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <!-- Sección formulario de datos  -->
+                <section id="">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <form id="idFormDetalles" action="">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12">
+
+                              <div class="col-sm-6">
+                                <div class="form-group row">
+                                  <label for="" class="col-sm-12 col-form-label">Forma de pago</label>
+                                  <div class="col-sm-12">
+                                    <select id="fpEdit" name="fp" class="form-control required">
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-6">
+                                <div class="form-group row">
+                                  <label for="" class="col-sm-12 col-form-label">Observacion</label>
+                                  <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="ObservacionPagoEdit" name="ObservacionPago" placeholder="Observacion">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-6">
+                                <div class="form-group row">
+                                  <label for="" class="col-sm-12 col-form-label">Monto</label>
+                                  <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="MontoEdit" name="Monto" placeholder="Monto">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="contBtnSuccess">
+                                    <button type="button" id="saveEdit" class="btn btnSuccess" data-dismiss="modal" aria-label="Close">Guardar</button>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
             </div>
           </div>
         </div>
@@ -219,38 +291,6 @@ echo '<!-- Custom JavaScripts Functions Needs
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <a href="#" data-placement="top" title="Ver detalles"><i class="far fa-newspaper"></i></a>
-                        </td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -319,6 +359,13 @@ echo '<!-- Custom JavaScripts Functions Needs
                     <label for="" class="col-sm-4 col-form-label">Saldo pendiente</label>
                     <div class="col-sm-8">
                       <input type="text" class="form-control" id="pendiente" name="pendiente" placeholder="Subtotal" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <div class="contBtnSuccess">
+                        <button id="saveRecibo" class="btn btnSuccess"><i class="far fa-plus-square"></i>Guardar recibo</button>
+                      </div>
                     </div>
                   </div>
                 </div>

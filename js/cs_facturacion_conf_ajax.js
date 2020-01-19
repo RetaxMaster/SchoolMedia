@@ -33,6 +33,7 @@ function onPageStart() {
     var editing = null;
     var sumaImpuestoDeLinea = 0;
     var saved = false;
+    var idFactura;
 
     // Pongo todos los datos en su lugar
 
@@ -390,7 +391,7 @@ function onPageStart() {
 
             var data2 = {
                 mode: "updateFacturaStatus2",
-                id: allData.idFactura
+                id: idFactura
             }
 
             $.post(url, data2, function (res) {
@@ -462,6 +463,7 @@ function onPageStart() {
                 console.log(res);
                 
                 saved = true;
+                idFactura = res;
 
                 $("#Cotizar").hide();
                 $("#addComision").hide();

@@ -234,6 +234,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             fps_recoveryAllList($n, $Arry, $enabled, true);
             break;
 
+        case 'getFormasPagoByCtry':
+            include_once(LIBRARY_DIR . "/formas_pago.php");
+            $id = $_POST["val"];
+            fps_recoveryAllByAnyField($n, $Arry, "tbl_cafps.id_pais", $id, $enabled, true);
+            break;
+
         case 'getcttos':
             include_once(LIBRARY_DIR . "/contratos.php");
             ctrts_recoveryAllList($n, $Arry, $enabled, true);
@@ -407,7 +413,6 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             break;
 
         case 'getFactura':
-            include_once(LIBRARY_DIR . "/sqlExecuter.php");
             include_once(LIBRARY_DIR . "/clients.php");
             $id = $_POST["id"];
             clients_recoveryOneByAnyField($n, $Arry, "id_client", $id, $enabled);
@@ -419,25 +424,52 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $response["pais"] = $Arry[4];
             $response["provincia"] = $Arry[5];
 
-            //Buscamos las facturas de este cliente
-
-            $sql = "SELECT id_cot FROM tbl_cacothdrs WHERE id_client = $id AND facturado = 0;";
-            executeSQL($n, $Arry, $lastInsertId, $sql);
-
-            $response["facturas"] = $Arry;
-
             echo json_encode($response);
             die();
 
+            break;
+
+        case 'getFacturasAll':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+            $client = $_POST["client"];
+            $contrato = $_POST["contrato"];
+
+            //Buscamos las facturas de este cliente
+
+            $sql = "SELECT id_fact FROM tbl_cafacthdrs WHERE id_client = $client AND id_ctto = $contrato AND pagado = 0;";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            echo json_encode($Arry);
+            die();
             break;
 
         case 'getFacturaInfo':
             include_once(LIBRARY_DIR . "/sqlExecuter.php");
             $id = $_POST["id"];
 
-            $sql = "SELECT id_cot FROM tbl_cacothdrs WHERE id_client = $id AND facturado = 0;";
+            //Traemos el total de la factura
+            $sql = "SELECT total FROM tbl_cafactfoots WHERE id_fact = $id LIMIT 1;";
             executeSQL($n, $Arry, $lastInsertId, $sql);
 
+            $response = [];
+            $response["totalFacturado"] = (float) $Arry[0]["total"];
+
+            //Traemos el total abonado
+            $sql = "SELECT SUM(monto) AS totalAbonado FROM tbl_cacajarecibos WHERE id_fact = $id AND aprobado = 1;";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            $totalAbonado = $Arry[0]["totalAbonado"];
+
+            $response["totalAbonado"] = $totalAbonado == null ? 0 : (float) $totalAbonado;
+
+            //Traemos el id de la cotización
+            $sql = "SELECT id_cot FROM tbl_cafacthdrs WHERE id_fact = $id LIMIT 1;";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            $response["idCot"] = (int) $Arry[0]["id_cot"];
+
+            echo json_encode($response);
+            die();
             
             break;
 
@@ -902,6 +934,28 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
             break;
 
+        case 'uploadRecibo':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+
+            //Ya viene como array
+            $resumenPago = $_POST["resumenPago"];
+
+            //Recorro para establecer la fecha y armar el SQL
+            $values = "";
+
+            foreach ($resumenPago as $pago) {
+                $pago[4] = date("Y-m-d");
+                $values .= "('" . implode("', '", $pago) . "'),";
+            }
+
+            $values = substr($values, 0, -1);
+
+            $sql = "INSERT INTO tbl_cacajarecibos (id_fact, id_cot, id_fp, descrip, fecha, txdescrip, monto, aprobado) VALUES $values;";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+            die();
+            break;
+
         //Actualizado de datas
 
         case 'updateInfo':
@@ -1263,7 +1317,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/sqlExecuter.php");
             $id = $_POST["id"];
 
-            $sql = "UPDATE tbl_cacothdrs SET facturado = 2 WHERE id_cot = $id;";
+            $sql = "UPDATE tbl_cafacthdrs SET pagado = 0 WHERE id_fact = $id;";
 
             executeSQL($n, $Arry, $lastInsertId, $sql);
 

@@ -708,6 +708,11 @@ function makeCalendar(dateToRepresent) {
     
 }
 
+//Convierte un número a formato moneda
+function parseMoney(money) {
+    return `$${money.toFixed(2)}`;
+}
+
 //Rellena el número de actividades por día (El número de al lado del día)
 function fillActivitiesOfTheDay(data) {
 
