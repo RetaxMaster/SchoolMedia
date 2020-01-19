@@ -406,6 +406,41 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'getFactura':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+            include_once(LIBRARY_DIR . "/clients.php");
+            $id = $_POST["id"];
+            clients_recoveryOneByAnyField($n, $Arry, "id_client", $id, $enabled);
+
+            $response = [];
+            $response["ruc"] = $Arry[2];
+            $response["telefono"] = $Arry[7] . " " . $Arry[8];
+            $response["direccion"] = $Arry[3];
+            $response["pais"] = $Arry[4];
+            $response["provincia"] = $Arry[5];
+
+            //Buscamos las facturas de este cliente
+
+            $sql = "SELECT id_cot FROM tbl_cacothdrs WHERE id_client = $id AND facturado = 0;";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            $response["facturas"] = $Arry;
+
+            echo json_encode($response);
+            die();
+
+            break;
+
+        case 'getFacturaInfo':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+            $id = $_POST["id"];
+
+            $sql = "SELECT id_cot FROM tbl_cacothdrs WHERE id_client = $id AND facturado = 0;";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            
+            break;
+
         // Querys KeyUp
 
         case 'searchProducts':
@@ -774,16 +809,18 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
             //Ahora insertamos la lista de comisiones
 
-            $values = "";
-
-            foreach ($allComisiones as $comision)
-                $values .= "($id_cot, '" . implode("', '", $comision) . "', ''),";
-
-            $values = substr($values, 0, -1);
-
-            $sql = "INSERT INTO tbl_cacotcomis (id_cot, id_user, id_imp, valorPorc, monto, descrip) VALUES $values;";
-
-            executeSQL($n, $Arry, $lastInsertId, $sql);
+            if (count($allComisiones) > 0) {
+                $values = "";
+    
+                foreach ($allComisiones as $comision)
+                    $values .= "($id_cot, '" . implode("', '", $comision) . "', ''),";
+    
+                $values = substr($values, 0, -1);
+    
+                $sql = "INSERT INTO tbl_cacotcomis (id_cot, id_user, id_imp, valorPorc, monto, descrip) VALUES $values;";
+    
+                executeSQL($n, $Arry, $lastInsertId, $sql);
+            }
 
             //Ahora insertamos el footer
             $sql = "INSERT INTO tbl_cacotfoots (id_cot, subtot, biximp, impttot, desctot, total, observ) VALUES ('$id_cot', '$subtotal', '0', '$sumaImpuestoDeLinea', '', '$total', '$obs');";
@@ -791,6 +828,76 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             executeSQL($n, $Arry, $lastInsertId, $sql);
 
             echo $id_cot;
+            die();
+
+            break;
+
+        case 'uploadCafactHeaders':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+
+            $id_client = $_POST["idCliente"];
+            $rs = isset($_POST["rs"]) ? $_POST["rs"] : "";
+            $ruc = isset($_POST["ruc"]) ? $_POST["ruc"] : "";
+            $addrs = isset($_POST["direccion"]) ? $_POST["direccion"] : "";
+            $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
+            $id_prov = isset($_POST["provincia"]) ? $_POST["provincia"] : "";
+            $id_ctrycodefijo = 1;
+            $tel = isset($_POST["telefonoCliente"]) ? $_POST["telefonoCliente"] : "";
+            $fecha = isset($_POST["FechaFac"]) ? $_POST["FechaFac"] : "";
+            $nroprefact = isset($_POST["Prefactura"]) ? $_POST["Prefactura"] : "";
+            $ppagoCC = isset($_POST["ppagoCC"]) ? $_POST["ppagoCC"] : 0;
+            $cantdias = (isset($_POST["dias"]) & !empty($_POST["dias"])) ? $_POST["dias"] : 0;
+            $id_ctto = isset($_POST["ctto"]) ? $_POST["ctto"] : 0;
+            $id_cot = $_POST["id_cot"];
+            $pagado = 2;
+            $allProducts = json_decode($_POST["allProducts"]);
+            $allComisiones = json_decode($_POST["allComisiones"]);
+            $sumaImpuestoDeLinea = $_POST["sumaImpuestoDeLinea"];
+            $total = $_POST["total"];
+            $subtotal = $_POST["subtotal"];
+            $obs = $_POST["obs"];
+
+            $sql = "INSERT INTO tbl_cafacthdrs (id_client, rs, ruc, addrs, id_pais, id_prov, id_ctrycodefijo, tel, fecha, ffasoc, ppagoCC, cantdias, id_ctto, id_cot, pagado) VALUES ($id_client, '$rs', '$ruc', '$addrs', '$id_pais', '$id_prov', '$id_ctrycodefijo', '$tel', '$fecha', '$nroprefact', '$ppagoCC', '$cantdias', $id_ctto, $id_cot, $pagado);";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            $id_fact = $lastInsertId;
+
+            //Ahora insertamos la lista de productos
+
+            $values = "";
+
+            foreach ($allProducts as $product)
+                $values .= "($id_fact, '" . implode("', '", $product) . "'),";
+
+            $values = substr($values, 0, -1);
+
+            $sql = "INSERT INTO tbl_cafactdetails (id_fact, id_prod, cod, descrip, cant, tiposp, puvp, id_imp, valorPorc, totaldlinea) VALUES $values;";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            //Ahora insertamos la lista de comisiones
+
+            if (count($allComisiones) > 0) {
+                $values = "";
+    
+                foreach ($allComisiones as $comision)
+                    $values .= "($id_cot, '" . implode("', '", $comision) . "', '', 0),";
+    
+                $values = substr($values, 0, -1);
+    
+                $sql = "INSERT INTO tbl_cafactcomis (id_fact, id_user, id_imp, valorPorc, monto, descrip, pagado) VALUES $values;";
+    
+                executeSQL($n, $Arry, $lastInsertId, $sql);
+            }
+
+
+            //Ahora insertamos el footer
+            $sql = "INSERT INTO tbl_cafactfoots (id_fact, subtot, biximp, impttot, desctot, total, observ) VALUES ('$id_cot', '$subtotal', '0', '$sumaImpuestoDeLinea', '', '$total', '$obs');";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            echo $id_fact;
             die();
 
             break;
@@ -1147,6 +1254,16 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $id = $_POST["id"];
 
             $sql = "UPDATE tbl_cacothdrs SET facturado = 1 WHERE id_cot = $id;";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            break;
+
+        case 'updateFacturaStatus2':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+            $id = $_POST["id"];
+
+            $sql = "UPDATE tbl_cacothdrs SET facturado = 2 WHERE id_cot = $id;";
 
             executeSQL($n, $Arry, $lastInsertId, $sql);
 

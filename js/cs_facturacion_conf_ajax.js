@@ -372,6 +372,7 @@ function onPageStart() {
 
     //Rellena el idplan
     selectPopulate("#id_cap", "getCaps", 0, 1);
+    selectPopulate("#contrato", "getcttos", 0, 1);
 
     //Limpia el formulario
     $(document).on("click", "#idBtnLimpiar", function (e) {
@@ -382,51 +383,25 @@ function onPageStart() {
     $(document).on("click", "#Facturar", function(e){
     
         if (saved) {
-            var data = {
-                datosCliente: {
-                    idCliente: $("#idCliente").val(),
-                    FechaFac: $("#FechaFac").val(),
-                    ClienteDD: $("#ClienteDD").val(),
-                    Cliente: $("#Cliente").val(),
-                    ruc: $("#ruc").val(),
-                    telefonoCliente: $("#telefonoCliente").val(),
-                    direccion: $("#direccion").val(),
-                    country: $("#country").val(), 
-                    Provincia: $("#Provincia").val()
-                },
-                condicionesPago: {
-                    Prefactura: $("#Prefactura").val(),
-                    ppagoCC: $("#ppagoCC").val(),
-                    dias: $("#dias").val()
-                },
-                detallesFacturacion: {
-                    listaProductos: listaProductos,
-                    listaProductosAllInfo: listaProductosAllInfo
-                },
-                resumenComisiones: {
-                    listaComisiones: listaComisiones,
-                    listaComisionesAllInfo: listaComisionesAllInfo
-                },
-                resumenImpuestos: {
-                    listaImpuestos: listaImpuestos
-                },
-                resumenInputs: {
-                    observacion: $("#observacion").val(),
-                    Subtotal: $("#Subtotal").val(),
-                    Total: $("#Total").val()
-                }
-            }
             
-            var stringify = JSON.stringify(data);
-            $("#data").val(stringify);
+            //Actualizamos el campo de la base de datos
 
-            $("#goToFact").submit();
+            var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+            var data2 = {
+                mode: "updateFacturaStatus2",
+                id: allData.idFactura
+            }
+
+            $.post(url, data2, function (res) {
+                console.log(res);
+            });
             
         }
         else {
             Swal.fire(
                 'Un momento',
-                "No has guardado esta cotización, si no la guardas no podemos continuar a la facturación",
+                "No has guardado esta factura, si no la guardas no podemos continuar",
                 'warning'
             )
         }
@@ -435,6 +410,9 @@ function onPageStart() {
 
     //Envía el formulario
     $(document).on("click", "#Cotizar", function (e) {
+
+        console.log();
+        
 
         var form = $("#idFormCreacion").get(0);
 
@@ -450,8 +428,9 @@ function onPageStart() {
         var total = $("#Total").val();
         var subtotal = $("#Subtotal").val();
         var obs = $("#observacion").val();
+        var ctto = $("#contrato").val();
 
-        formHeaders.append("mode", "uploadCacotHeaders");
+        formHeaders.append("mode", "uploadCafactHeaders");
         formHeaders.append("rs", rs);
         formHeaders.append("Prefactura", Prefactura);
         formHeaders.append("ppagoCC", ppagoCC);
@@ -462,8 +441,9 @@ function onPageStart() {
         formHeaders.append("total", total);
         formHeaders.append("subtotal", subtotal);
         formHeaders.append("obs", obs);
+        formHeaders.append("ctto", ctto);
+        formHeaders.append("id_cot", allData.idFactura);
         
-
         $("#idFormCreacion input, #idFormCreacion select, #idFormCreacion textarea").prop("disabled", true);
         
         //Inserto los datos mediante Ajax
@@ -479,7 +459,14 @@ function onPageStart() {
             },
             success: function (res) {
                 
+                console.log(res);
+                
                 saved = true;
+
+                $("#Cotizar").hide();
+                $("#addComision").hide();
+                $(".editData").hide();
+                $(".deleteArt").hide();
 
                 Swal.fire(
                     '¡Listo!',

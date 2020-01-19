@@ -398,7 +398,8 @@ function onPageStart() {
                     observacion: $("#observacion").val(),
                     Subtotal: $("#Subtotal").val(),
                     Total: $("#Total").val()
-                }
+                },
+                idFactura: idFactura
             }
             
             var stringify = JSON.stringify(data);
@@ -475,9 +476,17 @@ function onPageStart() {
                 console.log("Enviando...");
             },
             success: function (res) {
+
+                console.log(res);
+                
                 
                 saved = true;
                 idFactura = res;
+
+                $("#Cotizar").hide();
+                $("#addComision").hide();
+                $(".editData").hide();
+                $(".deleteArt").hide();
 
                 Swal.fire(
                     '¡Listo!',

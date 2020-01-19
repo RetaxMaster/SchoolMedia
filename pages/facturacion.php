@@ -75,7 +75,7 @@ echo '<!-- Custom JavaScripts Functions Needs
         <div class="row">
           <div class="col-lg-12">
             <div class="cajaTitulo">
-              <h6 class="text-center">COTIZACIÓN</h6>
+              <h6 class="text-center">FACTURACIÓN</h6>
               <span id="boxTitle" style="display:none;">${boxTitle}</span>
             </div>
           </div>
@@ -116,7 +116,7 @@ echo '<!-- Custom JavaScripts Functions Needs
               </div>
               <form id="idFormCreacion" action="">
                 <div class="form-row">
-                  <div class="col-lg-6 col-md-6">
+                  <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">ID (FSid)</label>
                       <div class="col-sm-9">
@@ -124,7 +124,18 @@ echo '<!-- Custom JavaScripts Functions Needs
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-6">
+                  <div class="col-sm-4">
+                    <!-- Dropdown Seleccionar Pais -->
+                    <div class="row">
+                      <label for="" class="col-sm-3 col-form-label">Contrato</label>
+                      <div class="form-group col-sm-9">
+                        <select id="contrato" name="contrato" class="form-control required">
+                          <option value="-1">{$country}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">Fecha</label>
                       <div class="col-sm-9">
@@ -507,7 +518,7 @@ echo '<!-- Custom JavaScripts Functions Needs
         <div class="row">
           <div class="col-lg-12">
             <div class="contBtnSuccess">
-              <button id="Cotizar" class="btn btnSuccess" type="button"><i class="far fa-plus-square"></i>Cotizar</button>
+              <button id="Cotizar" class="btn btnSuccess" type="button"><i class="far fa-plus-square"></i>Guardar</button>
             </div>
           </div>
         </div>

@@ -17,31 +17,11 @@ echo '<!-- Custom JavaScripts Functions Needs
         var global_txtObj={
             "components_ids" : 
             [
-                "boxTitle",
-                "boxText",
-                "tblCol1",
-                "tblCol2",
-                "tblCol3",
-                "tblCol4",
-                "tblCol5",
-                "tblCol6",
-                "tblCol7",
-                "tblCol8",
-                "idBtnNuevo"
+                "boxTitle"
             ], 
             "attrsx" :
             [
-                "{$boxTitle}",
-                "{$boxText}",
-                "{$tblCol1}",
-                "{$tblCol2}",
-                "{$tblCol3}",
-                "{$tblCol4}",
-                "{$tblCol5}",
-                "{$tblCol6}",
-                "{$tblCol7}",
-                "{$tblCol8}",
-                "{$idBtnNuevo}"
+                "{$boxTitle}"
             ], 
             "txts" : ' . $wpContentStr_Labels . '
         };
@@ -73,6 +53,8 @@ echo '<!-- Custom JavaScripts Functions Needs
     <section id="idSecInterior">
       <div class="container">
 
+        <span id="boxTitle" style="display: none;">${boxTitle}</span>
+
         <!-- Titulo -->
         <div class="row">
           <div class="col-lg-12">
@@ -99,13 +81,15 @@ echo '<!-- Custom JavaScripts Functions Needs
               </div>
               <form id="idFormCreacion" action="">
                 <div class="form-row">
-                  <div class="col-lg-4 col-md-4">
-                    <div class="form-group row">
-                      <label for="" class="col-sm-3 col-form-label">Razón Social</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="razonSocia" name="razonSocia" placeholder="Razón Social" disabled>
-                      </div>
+                  <div class="dropdown col-sm-4">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="ClienteDD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Click para buscar
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="ClienteDD">
+                      <input type="search" class="form-control form-control-sm inputBuscarProvi search-clientes" placeholder="Escriba para buscar..." aria-controls="">
+                      <div class="results"></div>
                     </div>
+                    <input type="hidden" name="cliente" id="Cliente" class="dropdown-value">
                   </div>
                   <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
@@ -137,7 +121,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                   <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
                       <div class="col-md-11">
-                        <select class="form-control" id="factura">
+                        <select class="form-control" id="facturas">
                           <option value="0">Facturas pendientes</option>
                           <option value="0">35</option>
                           <option value="0">42</option>
@@ -167,7 +151,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                   <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
                       <div class="col-md-11">
-                        <select class="form-control" id="factura">
+                        <select class="form-control" id="pagoAprobado">
                           <option value="0">Pago Aprobado</option>
                           <option value="0">SI</option>
                           <option value="0">NO</option>
@@ -177,27 +161,32 @@ echo '<!-- Custom JavaScripts Functions Needs
                   </div>
                 </div>
 
+                <div class="form-group row">
+                  <label for="" class="col-sm-2 col-form-label">Pais<span class="iconObligatorio">*<span></label>
+                  <div class="col-sm-4">
+                    <!-- Dropdown Seleccionar Pais -->
+                    <div class="form-group">
+                      <select id="country" name="pais" class="form-control required" disabled>
+                        <option value="-1">{$country}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <label for="" class="col-sm-2 col-form-label">Provincia<span class="iconObligatorio">*<span></label>
+                  <div class="col-sm-4">
+                    <!-- Dropdown Seleccionar Provincia -->
+                    <div class="form-group">
+                      <select id="Provincia" name="provincia" class="form-control required" disabled>
+                        <option value="-1">{$Provincia}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="form-row">
                   <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
-                      <label for="" class="col-sm-3 col-form-label">País</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="pais" name="pais" placeholder="País" disabled>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-4">
-                    <div class="form-group row">
-                      <label for="" class="col-sm-3 col-form-label">Provincia</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" disabled>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-4">
-                    <div class="form-group row">
                       <div class="col-md-10">
-                        <select class="form-control" id="factura">
+                        <select class="form-control" id="pagadaTotalmente">
                           <option value="0">Factura pagada totalmente</option>
                           <option value="0">SI</option>
                           <option value="0">NO</option>
@@ -267,9 +256,42 @@ echo '<!-- Custom JavaScripts Functions Needs
                 </div>
               </div>
               <div class="row padd">
+                <div class="form-group row">
+
+                  <div class="col-sm-4">
+                    <div class="form-group row">
+                      <label for="" class="col-sm-12 col-form-label">Forma de pago</label>
+                      <div class="col-sm-12">
+                        <select id="fp" name="fp" class="form-control required">
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="form-group row">
+                      <label for="" class="col-sm-12 col-form-label">Observacion</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control" id="ObservacionPago" name="ObservacionPago" placeholder="Observacion">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="form-group row">
+                      <label for="" class="col-sm-12 col-form-label">Monto</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control" id="Monto" name="Monto" placeholder="Monto">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-lg-12">
                   <div class="contBtnSuccess">
-                    <button id="idBtnNuevo" class="btn btnSuccess"><i class="far fa-plus-square"></i>Agregar pago</button>
+                    <button id="addPayment" class="btn btnSuccess"><i class="far fa-plus-square"></i>Añadir</button>
                   </div>
                 </div>
               </div>
