@@ -34,6 +34,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
     <!-- Estilos CSS -->
+    <link rel="stylesheet" href="<?php echo CSS_DIR; ?>/modal.css">
     <link rel="stylesheet" href="<?php echo CSS_DIR; ?>/estilos.css">
     <link rel="stylesheet" href="<?php echo CSS_DIR; ?>/@medias.css">
     <link rel="stylesheet" href="<?php echo CSS_DIR; ?>/estilos_menu.css">

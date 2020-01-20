@@ -14,6 +14,7 @@
 <script src="<?php echo JS_DIR; ?>/dataTables.bootstrap4.1.10.19.min.js"></script>
 <script src="<?php echo JS_DIR; ?>/chart.js@2.8.0.js"></script>
 <script src="<?php echo JS_DIR; ?>/sweetalert2.all.min.js"></script>
+<script src="<?php echo JS_DIR; ?>/cs_modal_loading_conf.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 <script src="<?php echo JS_DIR; ?>/scripts.js"></script>
 <script src="<?php echo JS_DIR; ?>/cs_search_clientes_config.js"></script>
