@@ -38,6 +38,7 @@ function onPageStart() {
         idToUpdate = this.id.split("-")[1];
         
         $("#idBtnLimpiar").hide();
+        $("#downloadDocument").show();
 
         getDataOfThisRecord(idToUpdate, "getPlansAcadData", {
             idCliente: 0,
@@ -48,13 +49,15 @@ function onPageStart() {
             Prerrequisitos: 4,
             perfil: 5,
             objetivos: 6,
-            customCheck1: [9, "checkbox"]
+            downloadDocument: [9, "downloadButton"],
+            customCheck1: [10, "checkbox"]
         });
     });
 
     $(document).on("click", "#idBtnNuevo", function () {
         isUpdating = false;
         $("#idBtnLimpiar").show();
+        $("#downloadDocument").hide();
         resetDefaultForm();
     });
 

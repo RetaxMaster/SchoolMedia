@@ -236,6 +236,9 @@ echo '<!-- Custom JavaScripts Functions Needs
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
+                                                    <a href="#" class="download-button" id="downloadDocument"><i class="fas fa-cloud-download-alt"></i> Descargar documento adjunto</a>
+                                                </div>
+                                                <div class="form-group row">
                                                     <div class="col-sm-3">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" id="customCheck1" name="enabled" value="1">

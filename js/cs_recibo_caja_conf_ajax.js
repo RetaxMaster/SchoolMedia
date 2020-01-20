@@ -109,10 +109,10 @@ function onPageStart() {
         
         var saldoPendiente;
 
-        if ($("#pagoAprobado").val() == 1)
+        //if ($("#pagoAprobado").val() == 1)
             saldoPendiente = totalFacturado - (totalAbonado + totalEsteAbono);
-        else
-            saldoPendiente = totalFacturado - totalAbonado;
+        /* else
+            saldoPendiente = totalFacturado - totalAbonado; */
 
         $("#Abono").val(parseMoney(totalEsteAbono));
         $("#pendiente").val(parseMoney(saldoPendiente));
@@ -120,7 +120,7 @@ function onPageStart() {
         return 0;
     }
 
-    $("#pagoAprobado").on("change", updateTotals);
+    //$("#pagoAprobado").on("change", updateTotals);
 
     $(document).on("click", ".editData", function () {
         var id = (this.id).split("-").pop();

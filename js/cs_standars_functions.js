@@ -506,6 +506,8 @@ function getDataOfThisRecord(id, mode, dataJSON) {
                     $("#" + key).val(res[index]);
                 }
                 else {
+                    //index[1] es el tipo de acción
+                    //index[0] es el índice dentro del arreglo del valor del campo a setear
                     switch (index[1]) {
                         case "checkbox":
                             var checked = res[index[0]] == 1;
@@ -588,6 +590,16 @@ function getDataOfThisRecord(id, mode, dataJSON) {
                             setTimeout(() => {
                                 $("#" + key).val(dataValueCaras);
                             }, 2000);
+                            break;
+
+                        case 'downloadButton':
+                            
+                            var downloadUrl = res[index[0]];
+
+                            if (downloadUrl == "")
+                                $("#" + key).hide();
+                            else
+                                $("#" + key).attr("href", "./download.php?Lang=es&wph=23&path=" + downloadUrl);
                             break;
                     }
                 }

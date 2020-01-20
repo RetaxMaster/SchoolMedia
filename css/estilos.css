@@ -37,6 +37,24 @@ a, a:hover {
     color: #7b7b7b;
 }
 
+.download-button {
+    background: #06a50b;
+    padding: 12px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 15px;
+    transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
+    -moz-transition: 0.3s all ease;
+    -ms-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
+}
+
+.download-button:hover {
+    background: #05b60b;
+    color: #fff;
+}
+
 .image-container, .image-container img {
     display: flex;
     width: 100%;
