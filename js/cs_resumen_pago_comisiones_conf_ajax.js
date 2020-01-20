@@ -20,4 +20,9 @@ function onPageStart() {
     }
 
     var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+    selectCtryPopulate('#country', 0, 'Seleccione Pais');
+    selectPopulate("#iduser", "getUsers", 0, 1);
+
+
 }
