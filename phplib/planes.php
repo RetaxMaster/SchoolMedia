@@ -8,7 +8,7 @@
     prerrequisitos
     perfil
     objetivos
-    título
+    titulo
     fcreac
     urldoc
     lstenabled

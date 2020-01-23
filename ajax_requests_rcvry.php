@@ -212,6 +212,12 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
         case 'getUsers':
             include_once(LIBRARY_DIR . "/adminUser.php");
             RecoveryAllUsers($Arry, $n, $enabled, true);
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+            echo json_encode($response);
+            die();
             break;
 
         case 'getctrycode':
@@ -961,11 +967,6 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
         case 'updateInfo':
             include_once(LIBRARY_DIR . "/clients.php");
             $idToUpdate = $_POST["idToUpdate"];
-            echo "<pre>";
-            var_dump($_POST);
-            var_dump(isset($_POST["observCliente"]));
-            echo "</pre>";
-            die();
             clients_updateRecord([
                 "rs" => isset($_POST["razSocCliente"]) ? $_POST["razSocCliente"] : "",
                 "ruc" => isset($_POST["rucCliente"]) ? $_POST["rucCliente"] : "",
@@ -1048,7 +1049,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
                 "prerrequisitos" => isset($_POST["Prerrequisitos"]) ? $_POST["Prerrequisitos"] : "",
                 "perfil" => isset($_POST["perfil"]) ? $_POST["perfil"] : "",
                 "objetivos" => isset($_POST["objetivos"]) ? $_POST["objetivos"] : "",
-                "título" => isset($_POST["titulo"]) ? $_POST["titulo"] : "",
+                "titulo" => isset($_POST["titulo"]) ? $_POST["titulo"] : "",
                 "urldoc" => (isset($_FILES["urldoc"]) && !empty($_FILES["urldoc"]["tmp_name"])) ? uploadFile($_FILES["urldoc"], "images/plans_acad_docs") : "",
                 "lstenabled" => isset($_POST["enabled"]) ? 1 : 0
             ], $idToUpdate);

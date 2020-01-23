@@ -212,7 +212,11 @@ function onPageStart() {
             });
         }
         else {
-            alert("¡Rellena todos los campos requeridos!");
+            Swal.fire(
+                '¡Espera!',
+                "¡Rellena todos los campos requeridos!",
+                'warning'
+            )
         }
 
     });

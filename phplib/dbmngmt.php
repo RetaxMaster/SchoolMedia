@@ -91,11 +91,26 @@ include_once("./phplib/sosemV20config.php"); // Incluye vaiables de configuracio
 	}
 
 	if (!function_exists('mysqli_fetch_all')) {
-		function mysqli_fetch_all(mysqli_result $result)
+		function mysqli_fetch_all(mysqli_result $result, $resulttype = MYSQLI_BOTH)
 		{
 			$data = [];
-			while ($row = $result->fetch_array())
-				$data[] = $row;
+			switch ($resulttype) {
+
+				case MYSQLI_ASSOC:
+					while ($row = $result->fetch_assoc())
+						$data[] = $row;
+					break;
+
+				case MYSQLI_NUM:
+					while ($row = $result->fetch_row())
+						$data[] = $row;
+					break;
+				
+				default:
+					while ($row = $result->fetch_array())
+						$data[] = $row;
+					break;
+			}
 			return $data;
 		}
 	}

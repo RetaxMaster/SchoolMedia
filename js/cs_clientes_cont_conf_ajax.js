@@ -58,6 +58,37 @@ function onPageStart() {
         
     });
 
+    //Detecta el cambio de cliente para rellenar su país y provincia
+    $(document).on("change", "#Cliente", function(){
+
+        var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+
+        loading(true, "Un momento por favor...");
+    
+        var data = {
+            mode: "getClientData",
+            id: this.value
+        }
+
+        $.post(url, data, function(res) {
+            
+            res = JSON.parse(res);
+            res = res.data[0];
+
+            var pais = res[4];
+            var provincia = res[5];
+            
+            $("#country").val(pais);
+            $("#Provincia").val(provincia);
+
+            loading(false);
+
+            
+        });
+        
+    
+    });
+
     //Detecta el cambio de país
     $("#selectCtry").on("change", function() {
         var pais = this.value;
@@ -227,7 +258,11 @@ function onPageStart() {
             });
         }
         else {
-            alert("¡Rellena todos los campos requeridos!");
+            Swal.fire(
+                '¡Espera!',
+                "¡Rellena todos los campos requeridos!",
+                'warning'
+            )
         }
 
     });

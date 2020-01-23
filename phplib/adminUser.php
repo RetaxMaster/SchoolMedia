@@ -156,7 +156,8 @@
 		$tinyint = (int) $shouldJoin;
 		$SQLStrQuery="CALL sp_p_get_usrprofs_RecoveryAllUsers($enabled, $tinyint)"; // "SELECT * FROM userprofile WHERE (UID='".$iUID."') LIMIT 1"; // En caso de haber mas de una entrada el sistema se limitara al primero que encuentre.
 		SQLQuery($ResponsePointer,$n,$SQLStrQuery,true); // Realiza la consulta en la base de datos globales
-		ConvertPointerToArray($ResponsePointer,$UserProfile,$n,10); // Convertir la consulta en un arreglo de datos
+		$UserProfile = mysqli_fetch_all($ResponsePointer, MYSQLI_NUM);
+		$n = mysqli_num_rows($ResponsePointer);
 	}
 
 // xxxxxx Actualizar los datos de sesión o acceso de un usuario tbl_userdacs, solo nombre de usuario y rol. 
