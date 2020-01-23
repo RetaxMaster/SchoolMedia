@@ -18,7 +18,7 @@ function procs_updateRecord($fields, $id_proc)
 {
 	if (!empty($fields)) {
 		foreach ($fields as $key => $value) {
-			if ($value !== "") {
+			if (true) { // <- If de validación update
 				$SQLStrQuery = "CALL sp_p_set_crmprocs_Update('$key', '$value', '$id_proc')";
 				SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 			}

@@ -20,7 +20,7 @@ function disp_updateRecord($fields, $id_dispa)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            if ($value !== "") {
+            if (true) { // <- If de validación update
             $SQLStrQuery = "CALL sp_p_set_acaddisp_Update('$key', '$value', $id_dispa)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }

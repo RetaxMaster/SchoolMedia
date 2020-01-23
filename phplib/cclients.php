@@ -33,7 +33,7 @@ function cclients_updateRecord($fields, $id_cclient)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            if ($value !== "") {
+            if (true) { // <- If de validación update
                 $SQLStrQuery = "CALL sp_p_set_cagenccli_Update('$key', '$value', $id_cclient)";
                 SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
             }

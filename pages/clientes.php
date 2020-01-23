@@ -243,11 +243,11 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="" class="col-sm-2 col-form-label">Código internacional</label>
+                          <label for="" class="col-sm-2 col-form-label">Código internacional<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar -->
                             <div class="form-group">
-                              <select id="CodPais1" name="CodPaisTel" class="form-control">
+                              <select id="CodPais1" name="CodPaisTel" class="form-control required">
                                 <option value="-1">Selecciona</option>
                               </select>
                             </div>
@@ -267,11 +267,11 @@ echo '<!-- Custom JavaScripts Functions Needs
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="" class="col-sm-2 col-form-label">Código internacional</label>
+                          <label for="" class="col-sm-2 col-form-label">Código internacional<span class="iconObligatorio">*<span></label>
                           <div class="col-sm-4">
                             <!-- Dropdown Seleccionar -->
                             <div class="form-group">
-                              <select id="CodPais2" name="CodPaisCel" class="form-control">
+                              <select id="CodPais2" name="CodPaisCel" class="form-control required">
                                 <option value="-1">Selecciona</option>
                               </select>
                             </div>

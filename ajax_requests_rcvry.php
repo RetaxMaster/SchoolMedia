@@ -961,6 +961,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
         case 'updateInfo':
             include_once(LIBRARY_DIR . "/clients.php");
             $idToUpdate = $_POST["idToUpdate"];
+            echo "<pre>";
+            var_dump($_POST);
+            var_dump(isset($_POST["observCliente"]));
+            echo "</pre>";
+            die();
             clients_updateRecord([
                 "rs" => isset($_POST["razSocCliente"]) ? $_POST["razSocCliente"] : "",
                 "ruc" => isset($_POST["rucCliente"]) ? $_POST["rucCliente"] : "",
@@ -1452,6 +1457,49 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $response["recordsTotal"] = $n;
             $response["recordsFiltered"] = $n;
             $response["data"] = $Arry;
+            echo json_encode($response);
+            die();
+            break;
+
+        //Tablas de búsqueda
+        case 'getCotizacionList':
+            include_once(LIBRARY_DIR . "/cot_hdrs.php");
+            $pais = $_POST["pais"];
+            $cliente = $_POST["cliente"];
+            $facturado = $_POST["facturado"];
+            $fechaInicio = $_POST["fechaInicio"];
+            $fechaFin = $_POST["fechaFin"];
+
+            //Construyo el where
+            $where = "WHERE ";
+
+            if (!empty($pais)) 
+                $where .= "tbl_cacothdrs.id_pais = $pais AND ";
+
+            if (!empty($cliente)) 
+                $where .= "tbl_cacothdrs.id_client = $cliente AND ";
+
+            if ($facturado != "" && $facturado != 2)
+                $where .= "tbl_cacothdrs.facturado = $facturado AND ";
+
+            if (!empty($fechaInicio) && !empty($fechaFin))
+                $where .= "(tbl_cacothdrs.fecha BETWEEN DATE('$fechaInicio') AND DATE('$fechaFin')) AND ";
+            else if(!empty($fechaInicio))
+                $where .= "tbl_cacothdrs.fecha >= DATE('$fechaInicio') AND ";
+            else if (!empty($fechaFin))
+                $where .= "tbl_cacothdrs.fecha <= DATE('$fechaFin') AND ";
+
+            //Remuevo el AND final ya que si o si queda un AND al final
+            $where = substr($where, 0, -5);
+            $where = (strlen($where) > 6) ? $where : "";
+
+            cothdrs_recoveryAllByAnyField($n, $Arry, true, $where);
+
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+
             echo json_encode($response);
             die();
             break;

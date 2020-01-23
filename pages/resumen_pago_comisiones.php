@@ -150,6 +150,14 @@ echo '<!-- Custom JavaScripts Functions Needs
 
                                 </div>
 
+                                <div class="row padd">
+                                    <div class="col-lg-12">
+                                        <div class="contBtnSuccess">
+                                            <button id="addComision" class="btn btnSuccess" data-toggle="modal" data-target="#ModalUsuarios" data-placement="top"><i class="far fa-plus-square"></i>Nuevo</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -160,7 +168,7 @@ echo '<!-- Custom JavaScripts Functions Needs
 
                         <div class="contTabla">
                             <div class="tituloTabla">
-                                <h6>Formas de pago</h6>
+                                <h6>Resultados</h6>
                             </div>
                             <div class="contenido-tabla">
                                 <div id="FormaPago">

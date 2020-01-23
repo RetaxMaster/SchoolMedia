@@ -294,11 +294,12 @@ Funcionamiento de la función formatDataTable:
 3.- Pregunta si en dado índice de tableIndex se debe concatenar usando la función shouldConcat
 4.- En caso de que si se deba concatenar, se recupera el objeto JSON ue contiene la información de concatenación (Este objeto JSON esta dentro del arreglo "juntar" y el indice este objeto JSON lo devuelve la función shouldConcat), se recorre cada indice que se debe concatenar y se va concatenando
 5.- Al final se retorna una sola columna (row[i]) con los valores ya concatenados
-6.- AL final de cada iteración de la respuesta Ajax, se guarda la fila en un nuevo arreglo (newData)
-7.- Al final de todo se retorna newData que contiene todas las filas ya filtradas
+6.- Luego pregunta si hay alguna acción a realizar por cada fila, esta acción se realiza medainte el callback filterRow al cual se le pasa la fila en cuestión
+7.- AL final de cada iteración de la respuesta Ajax, se guarda la fila en un nuevo arreglo (newData)
+8.- Al final de todo se retorna newData que contiene todas las filas ya filtradas
 
 */
-function formatDataTable(res, tableIndexs, juntar = [], pushToTheEnd = []) {
+function formatDataTable(res, tableIndexs, juntar = [], pushToTheEnd = [], filterRow = "") {
 
     //Declaro la funcion local que se encargara de revisar si en dada iteración hay que concatenar
     function shouldConcat(index) {
@@ -365,6 +366,10 @@ function formatDataTable(res, tableIndexs, juntar = [], pushToTheEnd = []) {
         //Recorro todo lo que se mete al final
         for (let i = 0; i < pushToTheEnd.length; i++)
             row.push(pushToTheEnd[i].replace(/{id}/igm, data[key][0]))
+
+        //Si se definió algún filtro por cada fila, lo aplico llamando a dicha función
+        if (typeof filterRow == "function")
+            row = filterRow(row, data[key]);
 
         //Dentro del arreglo newData voy formando el res.data que será retornado
         newData[key] = row;
@@ -473,7 +478,7 @@ function validateInputs(inputs) {
         
         console.log("This.val: ", $(this).val());
         
-        if ($(this).val() == "" || $(this).val() == null) {
+        if ($(this).val() == "" || $(this).val() == null || $(this).val() < 1) {
             flag = false;
             $(this).addClass("input-error");
         } else {

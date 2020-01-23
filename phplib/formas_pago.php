@@ -19,7 +19,7 @@ function fps_updateRecord($fields, $id_fp)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            if ($value !== "") {
+            if (true) { // <- If de validación update
             $SQLStrQuery = "CALL sp_p_set_cafps_Update('$key', '$value', $id_fp)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
             }

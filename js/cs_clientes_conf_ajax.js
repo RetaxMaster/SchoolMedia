@@ -66,6 +66,8 @@ function onPageStart() {
         }
 
         updateTableLabels('#tablaVerTodos', LangLabelsURL, './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', data, function(res) {
+            console.log(res);
+            
             return formatDataTable(res, tableIndexs, [], pushToTheEnd);
         });
         
@@ -182,9 +184,11 @@ function onPageStart() {
                 processData: false,
                 beforeSend: function () {
                     console.log("Enviando...");
+                    loading(true, "Cargando...");
                 },
                 success: function (res) {
                     console.log(res);
+                    loading(false);
                     
                     //Limpio el formulario
                     if(!isUpdating)

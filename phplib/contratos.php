@@ -28,7 +28,7 @@ function ctrts_updateRecord($fields, $id_ctto)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            if ($value !== "") {
+            if (true) { // <- If de validación update
             $SQLStrQuery = "CALL sp_p_set_cactrts_Update('$key', '$value', $id_ctto)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }

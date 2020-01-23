@@ -30,7 +30,7 @@ function cothdrs_updateRecord($fields, $id_cot)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            if ($value !== "") {
+            if (true) { // <- If de validación update
                 $SQLStrQuery = "CALL sp_p_set_cacothdrs_Update('$key', '$value', '$id_cot')";
                 SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
             }
@@ -50,12 +50,13 @@ function cothdrs_recoveryAllList(&$nDocs, &$Docs, $join = false)
 }
 
 //Recupera todos los registros filtrados por algún campo
-function cothdrs_recoveryAllByAnyField(&$nDocs, &$Docs, $field, $value, $join = false, $extraWhere = "")
+function cothdrs_recoveryAllByAnyField(&$nDocs, &$Docs, $join = false, $where = "")
 { // true or false
     $tinyint = (int) $join;
-    $SQLStrQuery = "CALL sp_p_lst_cacothdrs_byAnyField('$field', '$value', $tinyint, '$extraWhere')";
+    $SQLStrQuery = "CALL sp_p_lst_cacothdrs_byAnyField($tinyint, \"$where\")";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 15); // Pertenece a dbmngmtAdmin.php
+    $Docs = mysqli_fetch_all($ResponsePointer);
+    $nDocs = mysqli_num_rows($ResponsePointer);
 }
 
 //Recupera un registro filtrados por algún campo

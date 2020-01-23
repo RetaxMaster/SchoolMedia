@@ -99,7 +99,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                                         <label class="col-12 col-form-label" for="totalCotizado">Total cotizado</label>
                                         <div class="col-12">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="totalCotizado" name="totalCotizado" placeholder="Total cotizado">
+                                                <input type="text" class="form-control" id="totalCotizado" name="totalCotizado" placeholder="Total cotizado" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -129,8 +129,8 @@ echo '<!-- Custom JavaScripts Functions Needs
                                             <div class="form-group">
                                                 <select id="facturado" name="facturado" class="form-control required">
                                                     <option value="1">Si</option>
-                                                    <option value="2">No</option>
-                                                    <option value="3">Todos</option>
+                                                    <option value="0">No</option>
+                                                    <option value="2">Todos</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -156,6 +156,14 @@ echo '<!-- Custom JavaScripts Functions Needs
 
                                 </div>
 
+                                <div class="row padd mt-4">
+                                    <div class="col-lg-12">
+                                        <div class="contBtnSuccess">
+                                            <button id="Search" class="btn btnSuccess" type="button"><i class="fas fa-search"></i> Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -166,7 +174,7 @@ echo '<!-- Custom JavaScripts Functions Needs
 
                         <div class="contTabla">
                             <div class="tituloTabla">
-                                <h6>Formas de pago</h6>
+                                <h6>Resultados</h6>
                             </div>
                             <div class="contenido-tabla">
                                 <div id="FormaPago">
@@ -180,30 +188,19 @@ echo '<!-- Custom JavaScripts Functions Needs
                                                 <th>Monto</th>
                                                 <th>Estatus</th>
                                                 <th>Detalle</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="lista-impuestos">
-                                            <?php for ($x = 0; $x < 5; $x++) : ?>
-
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-
-                                            <?php endfor; ?>
-                                        </tbody>
+                                        <tbody id="lista-impuestos"></tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="row padd">
                                 <div class="col-lg-12">
                                     <div class="contBtnSuccess">
-                                        <button id="addComision" class="btn btnSuccess" data-toggle="modal" data-target="#ModalUsuarios" data-placement="top"><i class="far fa-plus-square"></i>Nuevo</button>
+                                        <a href="./cotizacion_conf.php?Lang=<?php echo $Lang; ?>&wph=31">
+                                            <button id="addCotizacion" class="btn btnSuccess" data-toggle="modal" data-target="#ModalUsuarios" data-placement="top"><i class="far fa-plus-square"></i>Nuevo</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

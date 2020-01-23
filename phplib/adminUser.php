@@ -191,7 +191,7 @@ function UpdateUserProfileSesion_id($iUID,$id_rol,$UserName) {
 		{
 			if ($fields != "") {
 				foreach ($fields as $key => $value) {
-					if ($value !== "") {
+					if (true) { // <- If de validación update
 						$SQLStrQuery = "CALL sp_p_set_usrprofs_Update('$key', '$value', $id_client)";
 						SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 					}

@@ -19,7 +19,7 @@ function lv_updateRecord($fields, $id_lstval)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            if ($value !== "") {
+            if (true) { // <- If de validación update
             $SQLStrQuery = "CALL sp_p_set_caLstVals_Update('$key', '$value', $id_lstval)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
             }

@@ -18,7 +18,7 @@ function insvals_updateRecord($fields, $id_imgsinstall)
 {
 	if (!empty($fields)) {
 		foreach ($fields as $key => $value) {
-			if ($value !== "") {
+			if (true) { // <- If de validación update
 				$SQLStrQuery = "CALL sp_p_set_opinsvals_Update('$key', '$value', '$id_imgsinstall')";
 				SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
 			}

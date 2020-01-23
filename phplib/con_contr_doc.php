@@ -21,7 +21,7 @@ function concontrdoc_updateRecord($fields, $id_cttodoc)
 {
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {
-            if ($value !== "") {
+            if (true) { // <- If de validación update
             $SQLStrQuery = "CALL sp_p_set_caconcontrdoc_Update('$key', '$value', $id_cttodoc)";
             SQLQuery($ResponsePointer, $n, $SQLStrQuery, false); // Realiza la consulta
         }
