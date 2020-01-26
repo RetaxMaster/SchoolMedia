@@ -1505,6 +1505,48 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'getFacturacionList':
+            include_once(LIBRARY_DIR . "/fact_hdrs.php");
+            $pais = $_POST["pais"];
+            $cliente = $_POST["cliente"];
+            $pagado = $_POST["pagado"];
+            $fechaInicio = $_POST["fechaInicio"];
+            $fechaFin = $_POST["fechaFin"];
+
+            //Construyo el where
+            $where = "WHERE ";
+
+            if (!empty($pais)) 
+                $where .= "tbl_cafacthdrs.id_pais = $pais AND ";
+
+            if (!empty($cliente)) 
+                $where .= "tbl_cafacthdrs.id_client = $cliente AND ";
+
+            if ($pagado != "" && $pagado != 2)
+                $where .= "tbl_cafacthdrs.pagado = $pagado AND ";
+
+            if (!empty($fechaInicio) && !empty($fechaFin))
+                $where .= "(tbl_cafacthdrs.fecha BETWEEN DATE('$fechaInicio') AND DATE('$fechaFin')) AND ";
+            else if(!empty($fechaInicio))
+                $where .= "tbl_cafacthdrs.fecha >= DATE('$fechaInicio') AND ";
+            else if (!empty($fechaFin))
+                $where .= "tbl_cafacthdrs.fecha <= DATE('$fechaFin') AND ";
+
+            //Remuevo el AND final ya que si o si queda un AND al final
+            $where = substr($where, 0, -5);
+            $where = (strlen($where) > 6) ? $where : "";
+
+            facthdrs_recoveryAllByAnyField($n, $Arry, true, $where);
+
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+
+            echo json_encode($response);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

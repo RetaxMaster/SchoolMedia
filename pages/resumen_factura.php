@@ -99,7 +99,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                                         <label class="col-12 col-form-label" for="totalFacturado">Total facturado</label>
                                         <div class="col-12">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="totalFacturado" name="totalFacturado" placeholder="Total facturado">
+                                                <input type="text" class="form-control" id="totalFacturado" name="totalFacturado" placeholder="Total facturado" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -123,14 +123,14 @@ echo '<!-- Custom JavaScripts Functions Needs
                                     </div>
 
                                     <div class="col-12 col-sm-6">
-                                        <label for="" class="col-12 col-form-label">Cancelado</label>
+                                        <label for="pagado" class="col-12 col-form-label">Pagado</label>
                                         <div class="col-12">
                                             <!-- Dropdown Seleccionar Pais -->
                                             <div class="form-group">
-                                                <select id="cancelado" name="cancelado" class="form-control required">
+                                                <select id="pagado" name="pagado" class="form-control required">
                                                     <option value="1">Si</option>
-                                                    <option value="2">No</option>
-                                                    <option value="3">Todos</option>
+                                                    <option value="0">No</option>
+                                                    <option value="2">Todos</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -154,6 +154,14 @@ echo '<!-- Custom JavaScripts Functions Needs
                                         </div>
                                     </div>
 
+                                </div>
+
+                                <div class="row padd mt-4">
+                                    <div class="col-lg-12">
+                                        <div class="contBtnSuccess">
+                                            <button id="Search" class="btn btnSuccess" type="button"><i class="fas fa-search"></i> Buscar</button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </form>
@@ -180,23 +188,10 @@ echo '<!-- Custom JavaScripts Functions Needs
                                                 <th>Monto</th>
                                                 <th>Estatus</th>
                                                 <th>Detalle</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="lista-impuestos">
-                                            <?php for ($x = 0; $x < 5; $x++) : ?>
-
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-
-                                            <?php endfor; ?>
-                                        </tbody>
+                                        <tbody id="lista-impuestos"></tbody>
                                     </table>
                                 </div>
                             </div>

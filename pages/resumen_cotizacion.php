@@ -123,7 +123,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                                     </div>
 
                                     <div class="col-12 col-sm-6">
-                                        <label for="" class="col-12 col-form-label">Facturado</label>
+                                        <label for="facturado" class="col-12 col-form-label">Facturado</label>
                                         <div class="col-12">
                                             <!-- Dropdown Seleccionar Pais -->
                                             <div class="form-group">
