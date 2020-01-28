@@ -1547,6 +1547,143 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             die();
             break;
 
+        case 'getReciboList':
+            include_once(LIBRARY_DIR . "/fact_hdrs.php");
+            $pais = $_POST["pais"];
+            $cliente = $_POST["cliente"];
+            $cancelado = $_POST["cancelado"];
+            $fechaInicio = $_POST["fechaInicio"];
+            $fechaFin = $_POST["fechaFin"];
+
+            //Construyo el where
+            $where = "WHERE ";
+
+            if (!empty($pais)) 
+                $where .= "tbl_cafacthdrs.id_pais = $pais AND ";
+
+            if (!empty($cliente)) 
+                $where .= "tbl_cafacthdrs.id_client = $cliente AND ";
+
+            if ($cancelado != "" && $cancelado != 2)
+                $where .= "tbl_cafacthdrs.pagado = $cancelado AND ";
+
+            if (!empty($fechaInicio) && !empty($fechaFin))
+                $where .= "(tbl_cafacthdrs.fecha BETWEEN DATE('$fechaInicio') AND DATE('$fechaFin')) AND ";
+            else if(!empty($fechaInicio))
+                $where .= "tbl_cafacthdrs.fecha >= DATE('$fechaInicio') AND ";
+            else if (!empty($fechaFin))
+                $where .= "tbl_cafacthdrs.fecha <= DATE('$fechaFin') AND ";
+
+            //Remuevo el AND final ya que si o si queda un AND al final
+            $where = substr($where, 0, -5);
+            $where = (strlen($where) > 6) ? $where : "";
+
+            facthdrs_recoveryAllByAnyField($n, $Arry, true, $where);
+
+            $response["draw"] = 1;
+            $response["recordsTotal"] = $n;
+            $response["recordsFiltered"] = $n;
+            $response["data"] = $Arry;
+
+            echo json_encode($response);
+            die();
+            break;
+
+        //Otras requests
+        case 'getCotizacionById':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+            $id = $_POST["id"];
+            $response = [];
+
+            //Selecciono los headers
+            $sql = "SELECT id_client, rs, fecha, ruc, tel, addrs, id_pais, id_prov, nroprefact, ppagoCC, cantdias FROM tbl_cacothdrs WHERE id_cot = $id";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            $hdrs = $Arry[0];
+
+            //Selecciono los detalles
+            $sql = "SELECT * FROM tbl_cacotdetails WHERE id_cot = $id";
+            executeSQL($n, $Arry, $lastInsertId, $sql, MYSQLI_NUM);
+
+            $listaProductos = array();
+            $listaProductosAllInfo = array();
+
+            foreach ($Arry as $product) {
+                $id_cotdetail = $product["0"];
+                unset($product["0"]);
+                unset($product["1"]);
+
+                $precio = $product[7] * $product[5];
+                $precioConImpuestos = $precio + ($precio * $product[9]) / 100;
+
+                $row = [$product[3], $product[4], $product[5], $product[7], $product[9], $precio, $precioConImpuestos, '<a href="#" id="e-' . $id_cotdetail . '" data-toggle="modal" data-target="#ModalEdit" data-placement="top" title="Ver detalles" class="editData"><i class="far fa-newspaper"></i></a> <a id="d-' . $id_cotdetail . '" data-placement="top" title="Ver detalles" class="deleteArt" style="color: #ec3d3d; cursor: pointer"><i class="fas fa-times"></i></a>'];
+
+                array_push($listaProductos, $row);
+                array_push($listaProductosAllInfo, array_values($product));
+                
+            }
+
+            //Selecciono las comisiones
+            $sql = "SELECT
+            tbl_cacotcomis.id_user AS idUsuario,
+            tbl_usrdacs.username AS username,
+            tbl_cacotcomis.id_imp AS idImp,
+            tbl_caimps.descrip AS nombreImp,
+            tbl_cacotcomis.valorPorc,
+            tbl_cacotcomis.monto
+            FROM tbl_cacotcomis 
+            INNER JOIN tbl_usrdacs
+            ON tbl_cacotcomis.id_user = tbl_usrdacs.id_user
+            INNER JOIN tbl_caimps
+            ON tbl_cacotcomis.id_imp = tbl_caimps.id_imp
+            WHERE id_cot = $id";
+
+            executeSQL($n, $Arry, $lastInsertId, $sql, MYSQLI_ASSOC);
+
+            $listaComisiones = array();
+            $listaComisionesAllInfo = array();
+
+            foreach ($Arry as $com) {
+                $row = [$com["username"], $com["nombreImp"], $com["valorPorc"], $com["monto"]];
+                $rowAll = [$com["idUsuario"], $com["idImp"], $com["valorPorc"], $com["monto"]];
+
+                array_push($listaComisiones, $row);
+                array_push($listaComisionesAllInfo, $rowAll);
+            }
+
+            //Selecciono los footers
+            $sql = "SELECT observ, total, subtot FROM tbl_cacotfoots WHERE id_cot = $id";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            $foot = $Arry[0];
+            
+            //Armo el arreglo
+
+            $response["datosCliente"]["idCliente"] = $hdrs["id_client"];
+            $response["datosCliente"]["FechaFac"] = $hdrs["fecha"];
+            $response["datosCliente"]["ClienteDD"] = $hdrs["rs"];
+            $response["datosCliente"]["Cliente"] = $hdrs["id_client"];
+            $response["datosCliente"]["ruc"] = $hdrs["ruc"];
+            $response["datosCliente"]["telefonoCliente"] = $hdrs["tel"];
+            $response["datosCliente"]["direccion"] = $hdrs["addrs"];
+            $response["datosCliente"]["country"] = $hdrs["id_pais"];
+            $response["datosCliente"]["Provincia"] = $hdrs["id_prov"];
+            $response["condicionesPago"]["Prefactura"] = $hdrs["nroprefact"];
+            $response["condicionesPago"]["ppagoCC"] = $hdrs["ppagoCC"];
+            $response["condicionesPago"]["dias"] = $hdrs["cantdias"];
+            $response["detallesFacturacion"]["listaProductos"] = $listaProductos;
+            $response["detallesFacturacion"]["listaProductosAllInfo"] = $listaProductosAllInfo;
+            $response["resumenComisiones"]["listaComisiones"] = $listaComisiones;
+            $response["resumenComisiones"]["listaComisionesAllInfo"] = $listaComisionesAllInfo;
+            $response["resumenImpuestos"]["listaImpuestos"] = [];
+            $response["resumenInputs"]["observacion"] = $foot["observ"];
+            $response["resumenInputs"]["Subtotal"] = $foot["total"];
+            $response["resumenInputs"]["Total"] = $foot["subtot"];
+
+            echo json_encode($response);
+            die();
+            break;
+
         default:
             die("No existe ese modo de consulta.");
             break;

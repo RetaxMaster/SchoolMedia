@@ -35,38 +35,63 @@ function onPageStart() {
     var saved = false;
     var idFactura;
 
-    // Pongo todos los datos en su lugar
+    // Pone todos los datos en su lugar
+    function putAllData(allData) {
+        allData = JSON.parse(allData);
+    
+        //Los datos del cliente, condiciones de pago y los inputs de resumen de costos los podemos poner automaticamente con base en sus indices (Con excepción del botón)
+        var datosCliente = allData.datosCliente;
+        var condicionesPago = allData.condicionesPago;
+        var resumenInputs = allData.resumenInputs;
+    
+        for (const key in datosCliente)
+            $("#" + key).val(datosCliente[key]);
+    
+        for (const key in condicionesPago)
+            $("#" + key).val(condicionesPago[key]);
+    
+        for (const key in resumenInputs)
+            $("#" + key).val(resumenInputs[key]);
+    
+        $("#ClienteDD").text(datosCliente.ClienteDD);
+    
+        //Para las demás simplemente asigno valores y llamo a las funciones que actualizan las tablas
+        listaProductos = allData.detallesFacturacion.listaProductos;
+        listaProductosAllInfo = allData.detallesFacturacion.listaProductosAllInfo;
+        listaImpuestos = allData.resumenImpuestos.listaImpuestos;
+        listaComisiones = allData.resumenComisiones.listaComisiones;
+        listaComisionesAllInfo = allData.resumenComisiones.listaComisionesAllInfo;
+    
+        updatePrecio();
+        updateImpuestos();
+        updateComisiones();
+    }
+
+    //Obtiene los datos por medio del id_cot
+    function getDataByIdCot(id) {
+
+        var url = './ajax_requests_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '';
+        
+        var data = {
+            mode: "getCotizacionById",
+            id: id
+        }
+
+        $.post(url, data, function(res) {
+            console.log(res);
+            
+            putAllData(res);
+        })
+
+    }
 
     var allData = $("#data").val();
+    var id_cot_input = $("#id_cot").val();
 
-    allData = JSON.parse(allData);
-
-    //Los datos del cliente, condiciones de pago y los inputs de resumen de costos los podemos poner automaticamente con base en sus indices (Con excepción del botón)
-    var datosCliente = allData.datosCliente;
-    var condicionesPago = allData.condicionesPago;
-    var resumenInputs = allData.resumenInputs;
-
-    for (const key in datosCliente)
-        $("#" + key).val(datosCliente[key]);
-
-    for (const key in condicionesPago)
-        $("#" + key).val(condicionesPago[key]);
-
-    for (const key in resumenInputs)
-        $("#" + key).val(resumenInputs[key]);
-
-    $("#ClienteDD").text(datosCliente.ClienteDD);
-
-    //Para las demás simplemente asigno valores y llamo a las funciones que actualizan las tablas
-    listaProductos = allData.detallesFacturacion.listaProductos;
-    listaProductosAllInfo = allData.detallesFacturacion.listaProductosAllInfo;
-    listaImpuestos = allData.resumenImpuestos.listaImpuestos;
-    listaComisiones = allData.resumenComisiones.listaComisiones;
-    listaComisionesAllInfo = allData.resumenComisiones.listaComisionesAllInfo;
-
-    updatePrecio();
-    updateImpuestos();
-    updateComisiones();
+    if(allData == "" && id_cot_input != "")
+        allData = getDataByIdCot(id_cot_input);
+    else
+        putAllData(allData);
 
     //Busca articulos
     $(document).on("keyup", "#SearchArticle", function () {

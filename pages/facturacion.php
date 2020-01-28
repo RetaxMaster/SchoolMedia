@@ -526,7 +526,8 @@ echo '<!-- Custom JavaScripts Functions Needs
     </section>
 
     <form action="./facturacion_conf.php?Lang=<?php echo $Lang; ?>&wph=32" style="display: none;">
-      <textarea id="data" name="data"><?= $_POST["data"] ?></textarea>
+      <textarea id="data" name="data"><?php echo (isset($_POST["data"]) && !empty($_POST["data"])) ? $_POST["data"] : ""; ?></textarea>
+      <input type="text" id="id_cot" value="<?php echo (isset($_GET["id_cot"]) && !empty($_GET["id_cot"])) ? $_GET["id_cot"] : ""; ?>">
     </form>
 
   </main>
