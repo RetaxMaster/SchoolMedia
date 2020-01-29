@@ -183,7 +183,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                                             <tr>
                                                 <th>País</th>
                                                 <th>Razón Social</th>
-                                                <th>FCID</th>
+                                                <th>FSID</th>
                                                 <th>Fecha</th>
                                                 <th>Monto</th>
                                                 <th>Estatus</th>
@@ -195,13 +195,15 @@ echo '<!-- Custom JavaScripts Functions Needs
                                     </table>
                                 </div>
                             </div>
-                            <div class="row padd">
+                            <!-- <div class="row padd">
                                 <div class="col-lg-12">
                                     <div class="contBtnSuccess">
-                                        <button id="addComision" class="btn btnSuccess" data-toggle="modal" data-target="#ModalUsuarios" data-placement="top"><i class="far fa-plus-square"></i>Nuevo</button>
+                                        <a href="./facturacion_conf.php?Lang=<?php echo $Lang; ?>&wph=31">
+                                            <button id="addComision" class="btn btnSuccess" data-toggle="modal" data-target="#ModalUsuarios" data-placement="top"><i class="far fa-plus-square"></i>Nuevo</button>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
 

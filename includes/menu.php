@@ -109,19 +109,19 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="./cotizacion_conf.php?Lang=<?php echo $Lang; ?>&wph=31">Cotización de la tabla tbl_0051 a la tabla tbl_0054</a>
+                  <a href="./resumen_cotizacion_conf.php?Lang=<?php echo $Lang; ?>&wph=31">Cotizaciones</a>
                 </li>
                 <li>
-                  <a href="./facturacion_conf.php?Lang=<?php echo $Lang; ?>&wph=32">Facturar</a>
+                  <a href="./resumen_factura_conf.php?Lang=<?php echo $Lang; ?>&wph=32">Facturación</a>
                 </li>
                 <li>
-                  <a href="./recibo_caja_conf.php?Lang=<?php echo $Lang; ?>&wph=33">Recibo de caja</a>
+                  <a href="./reporte_recibo_caja_conf.php?Lang=<?php echo $Lang; ?>&wph=33">Recibo de caja</a>
                 </li>
                 <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=34">Estado de cuenta view_0001, view_0003</a>
+                  <a href="./resumen_pagos_comisiones_conf.php?Lang=<?php echo $Lang; ?>&wph=34">Pagos y comprobantes</a>
                 </li>
                 <li>
-                  <a href="./.php?Lang=<?php echo $Lang; ?>&wph=35">Cuentas por cobrar view_0002</a>
+                  <a href="http://www.esdca.net/schoolMedia/school_media/pag_contable_admin/estado_cuenta.php?Lang=<?php echo $Lang; ?>&wph=35">Estado de cuenta</a>
                 </li>
                 <!-- li>
                   <a href="./.php?Lang=< ?php echo $Lang; ?>&wph=36">Reporte de facturación</a>

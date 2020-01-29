@@ -23,6 +23,34 @@ function onPageStart() {
 
     selectCtryPopulate('#country', 0, 'Seleccione Pais');
 
+    $(document).on("click", ".fact-this", function (e) {
+    
+        var id = (this.id).split("-").pop();
+
+        var data = {
+            mode: "facturar",
+            id: id
+        }
+
+        loading(true, "Facturando...");
+
+        $.post(url, data, function(res) {
+            loading(false);
+
+            Swal.fire(
+                '¡Listo!',
+                "Factura hecha",
+                'success'
+            )
+
+            $("#Search").click();
+
+            console.log(res);
+            
+        })
+    
+    });
+
     $(document).on("click", "#Search", function () {
 
         loading(true, "Buscando...");
@@ -56,9 +84,9 @@ function onPageStart() {
 
                 //Por defecto siempre va a tener el botón para ver el detalle de la cotización
                 var actions = '<a href="#" id="vd-' + id_fact + '" data-toggle="modal" title="Ver detalles"><i class="far fa-sticky-note"></i></a>';
-
+                
                 //Si no está facturada se le agregará el botón para facturar
-                var facturar = (allData.pagado == "0") ? '<a href="#" title="Facturar" class="ml-1"><i class="fas fa-file-alt"></i></a>' : "";
+                var facturar = (allData.pagado == "2") ? '<a id="f-' + id_fact + '" title="Facturar" class="ml-1 fact-this"><i class="fas fa-file-alt"></i></a>' : "";
 
                 actions += facturar;
 

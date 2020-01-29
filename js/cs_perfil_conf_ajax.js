@@ -20,10 +20,10 @@ function onPageStart() {
     }
 
     //TableIndexs contiene los indices de las columnas de res.data que me interesa conservar, res es la respuesta del servidor al hacer la consulta, dentro trae data que son todas las filas y columnas
-    var tableIndexs = [0, 4, 13, 2];
+    var tableIndexs = [5, 7, 9, 1];
 
     var juntar = [{
-        "fields": [0, 1],
+        "fields": [5, 6],
         "firstIndex": 0
     }];
 
@@ -131,26 +131,38 @@ function onPageStart() {
                 contentType: false,
                 processData: false,
                 beforeSend: function () {
-                    console.log("Enviando...");
+                    loading(true, "Registrando...");
                 },
                 success: function (res) {
                     console.log(res);
+                    
+                    loading(false);
 
-                    //Limpio el formulario
-                    if(!isUpdating)
-                        resetDefaultForm();
-                    //Actualizo la DataTable
-                    $("#tablaVerTodos").DataTable().destroy();
-                    setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_perfil_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
-                        return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
-                    });
+                    if (res == "true") {
+                        //Limpio el formulario
+                        if(!isUpdating)
+                            resetDefaultForm();
+                        //Actualizo la DataTable
+                        $("#tablaVerTodos").DataTable().destroy();
+                        setTableLabels('#tablaVerTodos', LangLabelsURL, true, './ajax_perfil_rcvry.php?Lang=' + globalLang + '&enbd=2&UID=' + getCookie("UID") + '&USS=' + getCookie("USS") + '', function (res) {
+                            return formatDataTable(res, tableIndexs, juntar, pushToTheEnd);
+                        });
+    
+                        //Informo de éxito
+                        Swal.fire(
+                            '¡Listo!',
+                            successText,
+                            'success'
+                        )
+                    }
+                    else {
+                        Swal.fire(
+                            "Error",
+                            res,
+                            'error'
+                        )
+                    }
 
-                    //Informo de éxito
-                    Swal.fire(
-                        '¡Listo!',
-                        successText,
-                        'success'
-                    )
                 },
                 error: function (e) {
                     console.log(e);

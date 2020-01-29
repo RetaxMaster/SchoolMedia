@@ -118,10 +118,9 @@ function onPageStart() {
             $(res).each(function() {
 
                 if (this[0] != null) {
-                    
                     var producto = $(
                     `
-                    <div class="products" data-prodid="${this[0]}" data-tipo="${this[4]}" data-codigo="${this[1]}" data-descrip="${this[2]}" data-cant="${this[3]}" data-precio="${this[7]}" data-impuesto="${this[6]}">
+                    <div class="products" data-prodid="${this[0]}" data-tipo="${this[4]}" data-codigo="${this[1]}" data-descrip="${this[2]}" data-cant="${this[3]}" data-precio="${this[5]}" data-impuesto="${this[6]}">
                         <span>${this[2]}</span>
                     </div>`);
     

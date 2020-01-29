@@ -150,7 +150,7 @@ echo '<!-- Custom JavaScripts Functions Needs
                               <div class="form-group row">
                                 <label for="" class="col-sm-2 col-form-label">id</label>
                                 <div class="col-sm-4">
-                                  <input type="text" class="form-control" id="idCliente" name="idCliente" placeholder="id" disabled>
+                                  <input type="text" class="form-control" id="idCliente" name="idCliente" placeholder="id" readonly>
                                 </div>
                                 <label for="" class="col-sm-2 col-form-label">Foto<span class="iconObligatorio">*<span></label>
                                 <div class="col-sm-4">

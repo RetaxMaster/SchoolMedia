@@ -175,11 +175,19 @@ echo '<!-- Custom JavaScripts Functions Needs
                 </div>
 
                 <div class="form-row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-6 col-md-6">
                     <div class="form-group row">
                       <label for="" class="col-sm-3 col-form-label">Dirección</label>
                       <div class="col-sm-9">
-                        <textarea class="form-control" id="direccion" name="direccion" placeholder="Dirección" disabled></textarea>
+                        <textarea class="form-control" id="direccion" name="direccion" placeholder="Dirección" disabled=""></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group row">
+                      <label for="" class="col-sm-3 col-form-label">Cotización asociada</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="cotiza" name="cotiza" placeholder="Cotización asociada" disabled="">
                       </div>
                     </div>
                   </div>
@@ -231,9 +239,9 @@ echo '<!-- Custom JavaScripts Functions Needs
                 <div class="form-row">
                   <div class="col-lg-4 col-md-4">
                     <div class="form-group row">
-                      <label for="" class="col-sm-3 col-form-label">Prefactura</label>
+                      <label for="" class="col-sm-3 col-form-label">Factura fiscal asociada</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="Prefactura" name="Prefactura" placeholder="Prefactura">
+                        <input type="text" class="form-control" id="FFAsociada" name="FFAsociada" placeholder="FFAsociada">
                       </div>
                     </div>
                   </div>

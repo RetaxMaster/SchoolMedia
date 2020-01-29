@@ -58,11 +58,11 @@ function onPageStart() {
 
     selectPopulate("#id_cttoPub", "getcttos", 0, 1);
 
-    selectPopulate("#installerPub", "getUsers", 0, 6);
+    selectPopulate("#installerPub", "getUsers", 0, 1);
     
-    selectPopulate("#supervPub", "getUsers", 0, 6);
+    selectPopulate("#supervPub", "getUsers", 0, 1);
 
-    selectPopulate("#sellerPub", "getUsers", 0, 6);
+    selectPopulate("#sellerPub", "getUsers", 0, 1);
 
     selectPopulate("#locationPub", "getAllLocations", 0, 1);
 

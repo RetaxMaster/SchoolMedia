@@ -115,6 +115,20 @@ function onPageStart() {
     //Rellena el usuario
     selectPopulate("#usuario", "getUsers", 0, 1);
 
+    $(document).on("change", "#etapa", function(){
+    
+        var etapa = this.value;
+        var client = $("#client").val();
+        var dataToSend = etapa + "--" + client;
+
+        console.log(dataToSend);
+        
+
+        selectPopulate("#accion", "getSubproceso", 0, 1, "", dataToSend);
+
+    
+    });
+
     // Código para actualizar la data
 
     var isUpdating = false; //Variable que indica si el formulario va a ser para actualizar o insertar

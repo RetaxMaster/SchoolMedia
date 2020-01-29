@@ -41,7 +41,6 @@ function onPageStart() {
         var cliente = this.value;
 
         getDataOfThisRecord(cliente, "getClientData", {
-            idCliente: 0,
             ruc: 2,
             telefonoCliente: 8,
             direccion: 3,
@@ -76,10 +75,9 @@ function onPageStart() {
             $(res).each(function() {
 
                 if (this[0] != null) {
-                    
                     var producto = $(
                     `
-                    <div class="products" data-prodid="${this[0]}" data-tipo="${this[4]}" data-codigo="${this[1]}" data-descrip="${this[2]}" data-cant="${this[3]}" data-precio="${this[7]}" data-impuesto="${this[6]}">
+                    <div class="products" data-prodid="${this[0]}" data-tipo="${this[4]}" data-codigo="${this[1]}" data-descrip="${this[2]}" data-cant="${this[3]}" data-precio="${this[5]}" data-impuesto="${this[6]}">
                         <span>${this[2]}</span>
                     </div>`);
     
@@ -368,7 +366,6 @@ function onPageStart() {
         if (saved) {
             var data = {
                 datosCliente: {
-                    idCliente: $("#idCliente").val(),
                     FechaFac: $("#FechaFac").val(),
                     ClienteDD: $("#ClienteDD").text(),
                     Cliente: $("#Cliente").val(),
@@ -376,7 +373,8 @@ function onPageStart() {
                     telefonoCliente: $("#telefonoCliente").val(),
                     direccion: $("#direccion").val(),
                     country: $("#country").val(), 
-                    Provincia: $("#Provincia").val()
+                    Provincia: $("#Provincia").val(),
+                    cotiza: idFactura
                 },
                 condicionesPago: {
                     Prefactura: $("#Prefactura").val(),

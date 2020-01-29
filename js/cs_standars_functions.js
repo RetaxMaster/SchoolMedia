@@ -216,6 +216,8 @@ function setTableLabels(tableName,LangLabels,autoPopulate,ajaxRequest, callback 
                     "url": ajaxRequest,
                     "dataFilter": function (res) {
                         //Filtro la data que responde el servidor si se pasa un callback, dicho callback debe retornar la estructura de la nueva data
+                        console.log(res);
+                        
                         res = JSON.parse(res);
                         if (typeof callback == "function") res.data = callback(res);
                         return JSON.stringify(res);

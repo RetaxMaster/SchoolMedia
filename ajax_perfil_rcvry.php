@@ -6,7 +6,12 @@
     $enabled=(isset($_GET["enbd"])) ? $_GET["enbd"] : -1; // se recuperan los parametros de la consulta
     RecoveryAllUsers($Arry, $n, $enabled, true); // Se recuperan todos los registros de todos los paises, activos o no
     JSonformatedData($n,$Arry,$JSonDataObj); // Se hace el formato de Cadena embebido JSon para ser enviado. Pertenece a Shared
-    echo $JSonDataObj; // Se devueve el objeto JSon
+    $response["draw"] = (count($n) > 0) ? 1 : 0;
+    $response["recordsTotal"] = $n;
+    $response["recordsFiltered"] = $n;
+    $response["data"] = $Arry;
+    echo json_encode($response);
+    //echo $JSonDataObj; // Se devueve el objeto JSon
     /*echo '{
         "draw": 1,
         "recordsTotal": 1,

@@ -171,7 +171,21 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'getSubproceso':
             include_once(LIBRARY_DIR . "/subprocs_crm.php");
-            subprocs_recoveryAllList($n, $Arry, true);
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
+            if (isset($_POST["val"]) && !empty($_POST["val"])) {
+                $data = explode("--", $_POST["val"]);
+                $proceso = $data[0];
+                $client = $data[1];
+
+                $sql = "SELECT id_tipo FROM tbl_cagenclients WHERE id_client = $client";
+                executeSQL($n, $Arry2, $lastInsertId, $sql);
+                $id_tipo = $Arry2[0]["id_tipo"];
+
+                subprocs_recoveryAllByAnyField($n, $Arry, "tbl_crmsubprocs.id_proc", $proceso, true, "AND tbl_crmsubprocs.id_tipo = $id_tipo");
+            }
+            else {
+                subprocs_recoveryAllList($n, $Arry, true);
+            }
             break;
 
         case 'gettpub':
@@ -646,7 +660,6 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             include_once(LIBRARY_DIR . "/cappapa.php");
             $validate = validateMatCap($_POST);
             if ($validate["status"]) {
-                die();
                 $id_cap = isset($_POST["id_cap"]) ? $_POST["id_cap"] : "";
                 $idplan = isset($_POST["idplan"]) ? $_POST["idplan"] : "";
                 $id_pais = isset($_POST["pais"]) ? $_POST["pais"] : "";
@@ -708,7 +721,9 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             break;
 
         case 'uploadPerfilInfo':
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
             include_once(LIBRARY_DIR . "/adminUser.php");
+
             $id_companyA = isset($_POST["company"]) ? $_POST["company"] : "";
             $id_cargoA = isset($_POST["cargo"]) ? $_POST["cargo"] : "";
             $urlfotoA = uploadImage($_FILES["foto"], "images/users");
@@ -722,7 +737,20 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $celA = isset($_POST["celCliente"]) ? $_POST["celCliente"] : "";
             $observA = isset($_POST["observCliente"]) ? $_POST["observCliente"] : "";
             $sexo = isset($_POST["sexo"]) ? $_POST["sexo"] : "";
-            CreateUserProfile($id_companyA, $id_cargoA, $urlfotoA, $nomA, $apeA, $emailA, $id_ctrycodefijoA, $telA, $extA, $id_ctrycodecelA, $celA, $observA, $sexo);
+
+            //Reviso que el usuario no exista
+            $sql = "SELECT * FROM tbl_usrdacs WHERE username='$emailA';";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            if ($n > 0) {
+                echo "El usuario ya existe";
+            }
+            else {
+                $sql = "INSERT INTO tbl_cacothdrs (id_client, rs, ruc, addrs, id_pais, id_prov, id_ctrycodefijo, tel, fecha, nroprefact, ppagoCC, cantdias, ver, facturado) VALUES ($id_client, '$rs', '$ruc', '$addrs', '$id_pais', '$id_prov', '$id_ctrycodefijo', '$tel', '$fecha', '$nroprefact', '$ppagoCC', '$cantdias', $ver, $facturado);";
+                CreateUserProfile($id_companyA, $id_cargoA, $urlfotoA, $nomA, $apeA, $emailA, $id_ctrycodefijoA, $telA, $extA, $id_ctrycodecelA, $celA, $observA, $sexo);
+                echo "true";
+            }
+
             die();
             break;
 
@@ -1095,22 +1123,37 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
 
         case 'updatePerfilInfo':
             include_once(LIBRARY_DIR . "/adminUser.php");
+            include_once(LIBRARY_DIR . "/sqlExecuter.php");
             $idToUpdate = $_POST["idToUpdate"];
-            perfil_updateRecord([
-                "id_company" => isset($_POST["company"]) ? $_POST["company"] : "",
-                "id_cargo" => isset($_POST["cargo"]) ? $_POST["cargo"] : "",
-                "urlfoto" => (isset($_FILES["foto"]) && !empty($_FILES["foto"]["tmp_name"])) ? uploadImage($_FILES["foto"], "images/users") : "",
-                "nom" => isset($_POST["nom"]) ? $_POST["nom"] : "",
-                "ape" => isset($_POST["ape"]) ? $_POST["ape"] : "",
-                "email" => isset($_POST["email"]) ? $_POST["email"] : "",
-                "id_ctrycodefijo" => isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "",
-                "tel" => isset($_POST["telCliente"]) ? $_POST["telCliente"] : "",
-                "ext" => isset($_POST["extCliente"]) ? $_POST["extCliente"] : "",
-                "id_ctrycodecel" => isset($_POST["CodPaisCel"]) ? $_POST["CodPaisCel"] : "",
-                "cel" => isset($_POST["celCliente"]) ? $_POST["celCliente"] : "",
-                "observ" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
-                "sexo" => isset($_POST["sexo"]) ? $_POST["sexo"] : ""
-            ], $idToUpdate);
+            $emailA = $_POST["email"];
+            $id = $_POST["idCliente"];
+
+            $sql = "SELECT * FROM tbl_usrdacs WHERE username='$emailA' AND id_dac <> $id;";
+            executeSQL($n, $Arry, $lastInsertId, $sql);
+
+            if ($n > 0) {
+                echo "El usuario ya existe";
+            }
+            else {
+                perfil_updateRecord([
+                    "id_company" => isset($_POST["company"]) ? $_POST["company"] : "",
+                    "id_cargo" => isset($_POST["cargo"]) ? $_POST["cargo"] : "",
+                    "urlfoto" => (isset($_FILES["foto"]) && !empty($_FILES["foto"]["tmp_name"])) ? uploadImage($_FILES["foto"], "images/users") : "",
+                    "nom" => isset($_POST["nom"]) ? $_POST["nom"] : "",
+                    "ape" => isset($_POST["ape"]) ? $_POST["ape"] : "",
+                    "email" => isset($_POST["email"]) ? $_POST["email"] : "",
+                    "id_ctrycodefijo" => isset($_POST["CodPaisTel"]) ? $_POST["CodPaisTel"] : "",
+                    "tel" => isset($_POST["telCliente"]) ? $_POST["telCliente"] : "",
+                    "ext" => isset($_POST["extCliente"]) ? $_POST["extCliente"] : "",
+                    "id_ctrycodecel" => isset($_POST["CodPaisCel"]) ? $_POST["CodPaisCel"] : "",
+                    "cel" => isset($_POST["celCliente"]) ? $_POST["celCliente"] : "",
+                    "observ" => isset($_POST["observCliente"]) ? $_POST["observCliente"] : "",
+                    "sexo" => isset($_POST["sexo"]) ? $_POST["sexo"] : ""
+                ], $idToUpdate);
+                
+                echo "true";
+            }
+
             die();
             break;
 
@@ -1522,8 +1565,11 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             if (!empty($cliente)) 
                 $where .= "tbl_cafacthdrs.id_client = $cliente AND ";
 
-            if ($pagado != "" && $pagado != 2)
+            if ($pagado != "" && $pagado != 2) {
+                if ($pagado == 0) $pagado = 2;
+                if ($pagado == 1) $pagado = 0;
                 $where .= "tbl_cafacthdrs.pagado = $pagado AND ";
+            }
 
             if (!empty($fechaInicio) && !empty($fechaFin))
                 $where .= "(tbl_cafacthdrs.fecha BETWEEN DATE('$fechaInicio') AND DATE('$fechaFin')) AND ";
@@ -1548,10 +1594,10 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             break;
 
         case 'getReciboList':
-            include_once(LIBRARY_DIR . "/fact_hdrs.php");
+            include_once(LIBRARY_DIR . "/rec_hdrs.php");
             $pais = $_POST["pais"];
             $cliente = $_POST["cliente"];
-            $cancelado = $_POST["cancelado"];
+            $pagado = $_POST["pagado"];
             $fechaInicio = $_POST["fechaInicio"];
             $fechaFin = $_POST["fechaFin"];
 
@@ -1564,8 +1610,8 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             if (!empty($cliente)) 
                 $where .= "tbl_cafacthdrs.id_client = $cliente AND ";
 
-            if ($cancelado != "" && $cancelado != 2)
-                $where .= "tbl_cafacthdrs.pagado = $cancelado AND ";
+            if ($pagado != "" && $pagado != 2)
+                $where .= "tbl_cafacthdrs.pagado = $pagado AND ";
 
             if (!empty($fechaInicio) && !empty($fechaFin))
                 $where .= "(tbl_cafacthdrs.fecha BETWEEN DATE('$fechaInicio') AND DATE('$fechaFin')) AND ";
@@ -1596,7 +1642,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $response = [];
 
             //Selecciono los headers
-            $sql = "SELECT id_client, rs, fecha, ruc, tel, addrs, id_pais, id_prov, nroprefact, ppagoCC, cantdias FROM tbl_cacothdrs WHERE id_cot = $id";
+            $sql = "SELECT id_client, rs, fecha, ruc, tel, addrs, id_pais, id_prov, nroprefact, ppagoCC, cantdias, id_cot FROM tbl_cacothdrs WHERE id_cot = $id";
             executeSQL($n, $Arry, $lastInsertId, $sql);
 
             $hdrs = $Arry[0];
@@ -1659,7 +1705,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             
             //Armo el arreglo
 
-            $response["datosCliente"]["idCliente"] = $hdrs["id_client"];
+            //$response["datosCliente"]["idCliente"] = $hdrs["id_client"];
             $response["datosCliente"]["FechaFac"] = $hdrs["fecha"];
             $response["datosCliente"]["ClienteDD"] = $hdrs["rs"];
             $response["datosCliente"]["Cliente"] = $hdrs["id_client"];
@@ -1668,6 +1714,7 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             $response["datosCliente"]["direccion"] = $hdrs["addrs"];
             $response["datosCliente"]["country"] = $hdrs["id_pais"];
             $response["datosCliente"]["Provincia"] = $hdrs["id_prov"];
+            $response["datosCliente"]["cotiza"] = $hdrs["id_cot"];
             $response["condicionesPago"]["Prefactura"] = $hdrs["nroprefact"];
             $response["condicionesPago"]["ppagoCC"] = $hdrs["ppagoCC"];
             $response["condicionesPago"]["dias"] = $hdrs["cantdias"];
@@ -1683,6 +1730,16 @@ if (isset($_POST["mode"]) && !empty($_POST["mode"])) {
             echo json_encode($response);
             die();
             break;
+
+            case 'facturar':
+                include_once(LIBRARY_DIR . "/sqlExecuter.php");
+                $id = $_POST["id"];
+
+                $sql = "UPDATE tbl_cafacthdrs SET pagado = 0 WHERE id_fact = $id";
+                executeSQL($n, $Arry, $lastInsertId, $sql);
+                echo "true";
+                die();
+                break;
 
         default:
             die("No existe ese modo de consulta.");

@@ -109,6 +109,17 @@ function onPageStart() {
         $("#uploadDocs").hide();
         $("#idBtnLimpiar").show();
         resetDefaultForm();
+
+        //Generamos el contrato
+        var contrato = "";
+        var date = new Date();
+        contrato += date.getFullYear();
+        contrato += ((date.getMonth() + 1) + "").padStart(2, "0");
+        contrato += (date.getDate() + "").padStart(2, "0");
+        contrato += (date.getHours() + "").padStart(2, "0");
+        contrato += (date.getMinutes() + "").padStart(2, "0");
+        contrato += (date.getSeconds() + "").padStart(2, "0");
+        $("#codctto").val(contrato);
     });
 
     // Termina código para actualizar la data

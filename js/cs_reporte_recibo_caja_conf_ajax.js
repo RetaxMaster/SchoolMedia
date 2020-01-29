@@ -1,5 +1,12 @@
 // JavaScript Document
 
+/*
+
+Cuando busque va a traer la suma de todas las formas de pago para ese recibo
+Cuandop actualize a aprobado actualziara todos los que pertenezcan a ese recibo
+
+*/
+
 // Se ejecuta cuando la pagina carga o se reestablece
 function onPageStart() {
     setInnerHTML(global_txtObj["txts"], global_txtObj["attrsx"], global_txtObj["components_ids"]); // se fijan textos
@@ -29,7 +36,7 @@ function onPageStart() {
 
         var pais = $("#country").val();
         var cliente = $("#Cliente").val();
-        var cancelado = $("#cancelado").val();
+        var cancelado = $("#pagado").val();
         var fechaInicio = $("#fechaInicio").val();
         var fechaFin = $("#fechaFin").val();
         var totalGeneralRecaudado = 0;
