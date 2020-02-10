@@ -100,6 +100,7 @@ function onPageStart() {
             ciclopub: 8,
             ciclovalor: 9,
             descripcion: 11,
+            cantcur: 10,
             customCheck1: [12, "checkbox"]
         });
     });

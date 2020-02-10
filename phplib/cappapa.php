@@ -55,5 +55,5 @@ function cappapa_recoveryOneByAnyField(&$nDocs, &$Docs, $field, $value, $enabled
     $tinyint = (int) $join;
     $SQLStrQuery = "CALL sp_p_get_acadcappapa_byAnyField('$field', '$value', $enabled, $tinyint)";
     SQLQuery($ResponsePointer, $nDocs, $SQLStrQuery, true); // Realiza la consulta
-    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 8); // Pertenece a dbmngmtAdmin.php
+    ConvertPointerToArray($ResponsePointer, $Docs, $nDocs, 6); // Pertenece a dbmngmtAdmin.php
 }
